@@ -1,30 +1,24 @@
-import { Image, TextInput, View } from "react-native";
+import { StyleSheet, TextInput, View } from "react-native";
 import { COLORS, SIZES } from "../../styles";
 
 export default function InputField({
   placeholder,
   keyboardType = "text",
   isPassword = false,
-  icon
+  rightIcon,
+  leftIcon,
 }) {
   return (
     <View
       style={{
-        width: 350,
         backgroundColor: COLORS.secondary,
-        paddingVertical: SIZES.padding,
-        paddingHorizontal: 24,
         borderRadius: SIZES.bigRadius,
         marginTop: 24,
         flexDirection: "row",
         alignItems: "center",
       }}
     >
-      <Image
-        source={icon}
-        style={{ width: 20, height: 14, marginRight: 20, marginVertical: 0 }}
-        resizeMode="contain"
-      />
+      {leftIcon && <View style={LOCAL_STYLE.inputIcon}>{leftIcon}</View>}
       <TextInput
         keyboardType={keyboardType}
         secureTextEntry={isPassword}
@@ -34,9 +28,22 @@ export default function InputField({
           flex: 1,
           color: COLORS.primary,
           fontSize: SIZES.mediumText,
+          paddingVertical: SIZES.padding,
+          paddingRight: !rightIcon && SIZES.padding,
           fontFamily: "semiBold",
         }}
       />
+      {rightIcon && <View style={LOCAL_STYLE.inputIcon}>{rightIcon}</View>}
     </View>
   );
 }
+
+const LOCAL_STYLE = StyleSheet.create({
+  inputIcon: {
+    width: 50,
+    height: SIZES.full,
+    flexDirection: "row",
+    justifyContent: "center",
+    alignItems: "center",
+  },
+});

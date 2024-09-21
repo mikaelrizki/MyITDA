@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import { Image, ImageBackground } from "react-native";
 import IMAGES from "../../assets/images";
 import Text from "../../components/Text";
-import { SIZES } from "../../styles";
+import { SIZES, STYLES } from "../../styles";
 
 export default function SplashScreen({ navigation }) {
   useEffect(() => {
@@ -14,11 +14,7 @@ export default function SplashScreen({ navigation }) {
   return (
     <ImageBackground
       source={IMAGES.bgSplash}
-      style={{
-        flex: 1,
-        justifyContent: "center",
-        alignItems: "center",
-      }}
+      style={STYLES.container}
     >
       <Image
         source={IMAGES.logoITDA}
