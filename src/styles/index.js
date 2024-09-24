@@ -12,6 +12,10 @@ export const COLORS = {
   transparent: "transparent",
   warning: "#BB3030",
   lightWarning: "#FFEBEB",
+  danger: "#FF6B6B",
+  success: "#88C097",
+  darkGray: "#8C8C8C",
+  lightGray: "#D5D5D5",
 };
 
 export const SIZES = {

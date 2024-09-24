@@ -16,6 +16,7 @@ export default function Text({
   opacity = 1,
   underline = false,
   style,
+  right,
   ...props
 }) {
   return (
@@ -35,6 +36,7 @@ export default function Text({
         medium && { fontFamily: "medium" },
         regular && { fontFamily: "regular" },
         light && { fontFamily: "light" },
+        right && { textAlign: "right" },
         underline && { textDecorationLine: "underline" },
         style,
       ]}

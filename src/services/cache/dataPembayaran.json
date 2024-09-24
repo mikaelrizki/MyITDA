@@ -1,0 +1,67 @@
+{
+    "data": [
+        {
+            "nim": "21030030",
+            "nama": "MUHAMMAD RIZKY MAHENDRA",
+            "kd_ta": "2021",
+            "kd_smt": "1",
+            "total_harga": "0",
+            "total_denda": "0",
+            "status_bayar": "L"
+        },
+        {
+            "nim": "21030030",
+            "nama": "MUHAMMAD RIZKY MAHENDRA",
+            "kd_ta": "2021",
+            "kd_smt": "2",
+            "total_harga": "2500000",
+            "total_denda": "250000.0",
+            "status_bayar": "L"
+        },
+        {
+            "nim": "21030030",
+            "nama": "MUHAMMAD RIZKY MAHENDRA",
+            "kd_ta": "2022",
+            "kd_smt": "1",
+            "total_harga": "2500000",
+            "total_denda": "250000.0",
+            "status_bayar": "L"
+        },
+        {
+            "nim": "21030030",
+            "nama": "MUHAMMAD RIZKY MAHENDRA",
+            "kd_ta": "2022",
+            "kd_smt": "2",
+            "total_harga": "2500000",
+            "total_denda": "0",
+            "status_bayar": "L"
+        },
+        {
+            "nim": "21030030",
+            "nama": "MUHAMMAD RIZKY MAHENDRA",
+            "kd_ta": "2023",
+            "kd_smt": "1",
+            "total_harga": "2500000",
+            "total_denda": "0",
+            "status_bayar": "L"
+        },
+        {
+            "nim": "21030030",
+            "nama": "MUHAMMAD RIZKY MAHENDRA",
+            "kd_ta": "2023",
+            "kd_smt": "2",
+            "total_harga": "2500000",
+            "total_denda": "0",
+            "status_bayar": "L"
+        },
+        {
+            "nim": "21030030",
+            "nama": "MUHAMMAD RIZKY MAHENDRA",
+            "kd_ta": "2024",
+            "kd_smt": "1",
+            "total_harga": "2500000",
+            "total_denda": "0",
+            "status_bayar": "L"
+        }
+    ]
+}
