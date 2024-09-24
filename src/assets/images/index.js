@@ -6,6 +6,7 @@ const IMAGES = {
     logoLunas: require('./logoLunas.png'),
     logoTidakAda: require('./logoTidakAda.png'),
     logoRiwayat: require('./logoRiwayat.png'),
+    logoTutorial: require('./logoTutorial.png'),
     logoKembali: require('./logoKembali.png'),
 };
 
