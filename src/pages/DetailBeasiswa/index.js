@@ -58,14 +58,16 @@ export default function DetailBeasiswa({ isDenda, data }) {
 
 
 const LOCAL_STYLE = StyleSheet.create({
-    frame: {
-      width: 320,
-      backgroundColor: COLORS.secondary,
-      borderRadius: 20,
-      padding: SIZES.padding2,
-      marginTop: 20,
-      marginBottom: 15,
-    },
+  frame: {
+    width: 320,
+    backgroundColor: COLORS.secondary,
+    borderRadius: 20,
+    padding: SIZES.padding2,
+    marginTop: 20,
+    marginBottom: 15,
+    borderColor: COLORS.primary,
+    borderWidth: 1,
+  },
     row: {
       flexDirection: 'row',
       justifyContent: 'space-between',
