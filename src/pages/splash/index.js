@@ -6,10 +6,12 @@ import { SIZES, STYLES } from "../../styles";
 
 export default function SplashScreen({ navigation }) {
   useEffect(() => {
-    setTimeout(() => {
-      navigation.navigate("Auth");
-    }, 2000);
-  }, []);
+    const timer = setTimeout(() => {
+      navigation.replace("Auth");
+    }, 3000);
+
+    return () => clearTimeout(timer);
+  }, [navigation]);
 
   return (
     <ImageBackground
