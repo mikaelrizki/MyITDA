@@ -6,6 +6,7 @@ import HomeScreen from "../../pages/home";
 import Payment from "../../pages/Payment";
 import Riwayat from "../../pages/Riwayat";
 import Tutorial from "../../pages/Tutorial";
+import ReportScreen from "../../pages/report";
 
 const Stack = createNativeStackNavigator();
 
@@ -27,6 +28,7 @@ export default function Router() {
         <Stack.Screen name="Payment" component={Payment} />
         <Stack.Screen name="Riwayat" component={Riwayat} />
         <Stack.Screen name="Tutorial" component={Tutorial} />
+        <Stack.Screen name="Report" component={ReportScreen} />
       </Stack.Navigator>
     </BottomSheetModalProvider>
   );
