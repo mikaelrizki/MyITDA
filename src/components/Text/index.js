@@ -14,6 +14,7 @@ export default function Text({
   light = false,
   center = false,
   opacity = 1,
+  underline = false,
   style,
   ...props
 }) {
@@ -34,6 +35,7 @@ export default function Text({
         medium && { fontFamily: "medium" },
         regular && { fontFamily: "regular" },
         light && { fontFamily: "light" },
+        underline && { textDecorationLine: "underline" },
         style,
       ]}
     >

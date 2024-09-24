@@ -7,6 +7,7 @@ export default function InputField({
   isPassword = false,
   rightIcon,
   leftIcon,
+  ...props
 }) {
   return (
     <View
@@ -29,9 +30,10 @@ export default function InputField({
           color: COLORS.primary,
           fontSize: SIZES.mediumText,
           paddingVertical: SIZES.padding,
-          paddingRight: !rightIcon && SIZES.padding,
+          paddingRight: !rightIcon && 20,
           fontFamily: "semiBold",
         }}
+        {...props}
       />
       {rightIcon && <View style={LOCAL_STYLE.inputIcon}>{rightIcon}</View>}
     </View>
