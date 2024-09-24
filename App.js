@@ -1,4 +1,5 @@
-import { View } from "react-native";
+import React, { useEffect } from "react";
+import { View, AppState, Platform } from "react-native";
 import { useFonts } from "expo-font";
 import { StatusBar } from "expo-status-bar";
 import { NavigationContainer } from "@react-navigation/native";
@@ -9,11 +10,26 @@ import * as NavigationBar from "expo-navigation-bar";
 export default function App() {
   const [fontsLoaded, fontError] = useFonts(FONTS.KhumbhSans);
 
+  useEffect(() => {
+    const handleAppStateChange = (nextAppState) => {
+      if (nextAppState === "active" && Platform.OS === "android") {
+        NavigationBar.setVisibilityAsync("hidden");
+      }
+    };
+
+    const subscription = AppState.addEventListener(
+      "change",
+      handleAppStateChange
+    );
+
+    return () => {
+      subscription.remove();
+    };
+  }, []);
+
   if (!fontsLoaded && !fontError) {
     return null;
   }
-
-  NavigationBar.setVisibilityAsync("hidden");
 
   return (
     <View style={{ flex: 1 }}>
