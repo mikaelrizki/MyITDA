@@ -59,7 +59,7 @@ export default function Payment({ navigation }) {
             }
         }
     } else {
-        if (status === "B") {
+        if (status === "B" && denda > 0) {
             render = <BelumLunasDenda />
         } else {
             render = <BukanMasaPembayaran />
