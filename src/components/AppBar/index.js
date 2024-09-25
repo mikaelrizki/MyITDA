@@ -3,6 +3,7 @@ import { COLORS, SHADOWS, SIZES } from "../../styles";
 import Text from "../../components/Text";
 import IMAGES from "../../assets/images";
 
+
 export default function AppBar({
   username,
   bgColorBell,
@@ -60,7 +61,7 @@ export default function AppBar({
           justifyContent: "center",
           borderRadius: 45,
         }]}
-        onPress={() => navigation.navigate("Announcement")}
+        onPress={() => console.log("ke AnnouncementScreen")}
       >
         <Image source={bellIcon} style={{ width: 20, height: 21 }} />
       </TouchableOpacity>

@@ -73,7 +73,7 @@ export default function AuthScreen({ navigation }) {
         <Text medium center color={COLORS.gray}>
           Lupa Password? {""}
         </Text>
-        <TouchableOpacity onPress={() => console.log("Reset Button Pressed")}>
+        <TouchableOpacity onPress={() => console.log("ResetScreen")}>
           <Text medium center underline color={COLORS.primary}>
             Reset
           </Text>

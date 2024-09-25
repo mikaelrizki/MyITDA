@@ -3,13 +3,13 @@ import Text from "../Text";
 import { COLORS, SIZES } from "../../styles";
 import ICONS from "../../assets/icons";
 
-export default function Button({
+export default function ButtonNilai({
   value = "Login",
   backgroundColor = false,
   color = false,
   next = false,
   space = false,
-  margin = false,
+  marginTop = false,
 }) {
   return (
     <TouchableOpacity
@@ -19,12 +19,12 @@ export default function Button({
           width: SIZES.full,
           backgroundColor: backgroundColor ? COLORS.secondary : COLORS.primary,
           borderRadius: SIZES.bigRadius,
-          marginTop: 24,
           flexDirection: "row",
           justifyContent: space ? "space-between" : "center",
           alignItems: "center",
+          paddingHorizontal: SIZES.padding
         },
-        margin && { paddingHorizontal: 20 },
+        marginTop && { marginTop: 18  },
       ]}
     >
       <Text
