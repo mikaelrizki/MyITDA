@@ -16,6 +16,8 @@ export const COLORS = {
   success: "#88C097",
   darkGray: "#8C8C8C",
   lightGray: "#D5D5D5",
+  darkBlue: "#005388",
+  softBlue: "#BFE2F8",
 };
 
 export const SIZES = {
