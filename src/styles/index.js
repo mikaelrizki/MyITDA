@@ -48,5 +48,15 @@ export const STYLES = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
     padding: SIZES.padding2,
-  }
+  },
+});
+
+export const SHADOWS = StyleSheet.create({
+  shadowBox: {
+    shadowColor: "#000",
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.25,
+    shadowRadius: 4,
+    elevation: 7,
+  },
 });
