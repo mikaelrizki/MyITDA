@@ -5,6 +5,7 @@ import AppBar from "../../components/AppBar";
 import SectionTitle from "../../components/SectionTitle";
 import ItemKTM from "../../components/ItemKTM";
 import ItemDataInfoMhs from "../../components/ItemDataInfoMhs";
+import ICONS from "../../assets/icons";
 
 export default function Home({ navigation }) {
   return (
@@ -16,7 +17,7 @@ export default function Home({ navigation }) {
           flexdirection: "column",
         }}
       >
-        <AppBar username={"Melisa Wijaya"} />
+        <AppBar username={"Melisa Wijaya"} bgColorBell={COLORS.softBlue} bellIcon={ICONS.iconBellBlue} navigation={navigation} />
 
         <SectionTitle title={"Kartu Tanda Mahasiswa"} />
 

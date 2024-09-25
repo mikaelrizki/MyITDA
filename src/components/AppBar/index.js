@@ -1,10 +1,14 @@
 import { Image, TouchableOpacity, View } from "react-native";
-import { COLORS, SIZES } from "../../styles";
+import { COLORS, SHADOWS, SIZES } from "../../styles";
 import Text from "../../components/Text";
 import IMAGES from "../../assets/images";
-import ICONS from "../../assets/icons";
 
-export default function AppBar({ username }) {
+export default function AppBar({
+  username,
+  bgColorBell,
+  bellIcon,
+  navigation,
+}) {
   return (
     <View
       style={{
@@ -47,22 +51,32 @@ export default function AppBar({ username }) {
 
       <TouchableOpacity
         activeOpacity={0.7}
-        style={{
+        style={[SHADOWS.shadowBox, {
           height: 45,
           width: 45,
           marginRight: 10,
-          backgroundColor: COLORS.softBlue,
+          backgroundColor: bgColorBell,
           alignItems: "center",
           justifyContent: "center",
           borderRadius: 45,
-        }}
+        }]}
+        onPress={() => navigation.navigate("Announcement")}
       >
-        <Image source={ICONS.iconBellBlue} style={{ width: 20, height: 21 }} />
+        <Image source={bellIcon} style={{ width: 20, height: 21 }} />
       </TouchableOpacity>
 
       <View>
         <TouchableOpacity activeOpacity={0.7}>
-          <Image source={IMAGES.profilePic} style={{ width: 45, height: 45, borderWidth: 3, borderColor: COLORS.darkBlue, borderRadius: 25}} />
+          <Image
+            source={IMAGES.profilePic}
+            style={{
+              width: 45,
+              height: 45,
+              borderWidth: 3,
+              borderColor: COLORS.primary,
+              borderRadius: 25,
+            }}
+          />
         </TouchableOpacity>
       </View>
     </View>
