@@ -8,7 +8,7 @@ export default function ButtonPembayaran({ navigation, title, rightIcon }) {
       activeOpacity={0.7}
       onPress={navigation}
       style={{
-        width: 298,
+        width: SIZES.full,
         backgroundColor: COLORS.secondary,
         borderRadius: 50,
         marginTop: 15,

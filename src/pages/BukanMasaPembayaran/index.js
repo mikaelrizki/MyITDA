@@ -2,7 +2,7 @@ import { Button, Image, ImageBackground, StyleSheet, View } from "react-native";
 import IMAGES from "../../assets/images";
 import Text from "../../components/Text";
 import { COLORS, SIZES, STYLES } from "../../styles";
-import { LOCAL_STYLE, formatRupiah, renderSemester, formatTanggalIndonesia } from "../Payment";
+import { LOCAL_STYLE, formatRupiah, renderSemester, formatTanggalIndonesia } from "../../services/utils/formatter";
 import DATA from "../../services/cache";
 
 export default function BukanMasaPembayaran() {

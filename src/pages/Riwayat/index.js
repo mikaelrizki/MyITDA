@@ -1,4 +1,4 @@
-import { View, Button, ImageBackground, StyleSheet, TouchableOpacity, Image, ScrollView } from "react-native";
+import { View, Button, ImageBackground, StyleSheet, TouchableOpacity, Image, FlatList } from "react-native";
 import Text from "../../components/Text";
 import { COLORS, SIZES, STYLES } from "../../styles";
 import IMAGES from "../../assets/images";
@@ -7,50 +7,35 @@ import DATA from "../../services/cache";
 import DetailBeasiswa from "../DetailBeasiswa";
 
 export default function Riwayat({ navigation }) {
-  // data API nanti disini
   let beasiswa;
-  let renderDetails;
 
+  // Tentukan apakah ada beasiswa
   if (DATA.dataBeasiswa.data[0]) {
     beasiswa = true;
-  }else{
-      beasiswa = false;
-  }
-
-  // Array untuk menyimpan render detail
-  if (beasiswa) {
-    renderDetails = DATA.dataPembayaran.data.map((item, index) => {
-      const denda = parseInt(item.total_denda);
-
-      if (item.status_bayar === "B") {
-        return null;
-      }
-
-      return (
-        <DetailBeasiswa 
-          key={index} 
-          isDenda={denda > 0} 
-          data={item}
-        />
-      );
-    });
   } else {
-    renderDetails = DATA.dataPembayaran.data.map((item, index) => {
-      const denda = parseInt(item.total_denda);
-
-      if (item.status_bayar === "B") {
-        return null;
-      }
-      
-      return (
-        <DetailRiwayat 
-          key={index} 
-          isDenda={denda > 0} 
-          data={item}
-        />
-      );
-    });
+    beasiswa = false;
   }
+
+  // Function untuk merender item
+  const renderItem = ({ item }) => {
+    const denda = parseInt(item.total_denda);
+
+    if (item.status_bayar === "B") {
+      return null;
+    }
+
+    return beasiswa ? (
+      <DetailBeasiswa 
+        isDenda={denda > 0} 
+        data={item}
+      />
+    ) : (
+      <DetailRiwayat 
+        isDenda={denda > 0} 
+        data={item}
+      />
+    );
+  };
 
   return (
     <View style={{ flex: 1 }}>
@@ -65,19 +50,18 @@ export default function Riwayat({ navigation }) {
             resizeMode="contain"
           />
         </TouchableOpacity>
-        <Text color={"white"} bold fontsize={23} style={{ marginRight: 40 }}>
+        <Text color={"white"} bold fontsize={23} style={{ marginLeft: 15 }}>
           Riwayat Pembayaran
         </Text>
       </View>
 
       <ImageBackground source={IMAGES.bgDefault} style={[STYLES.container]}>
-        <ScrollView>
-          {renderDetails}
-        </ScrollView>
-        
-        <Button title="Go to Home" onPress={() => navigation.navigate("Home")} />
-        <Button title="Go to Report" onPress={() => navigation.navigate("Report")} />
-        <Button title="Go to Payment" onPress={() => navigation.navigate("Payment")} />
+        <FlatList
+          data={DATA.dataPembayaran.data}
+          renderItem={renderItem}
+          keyExtractor={(a, index) => index.toString()}
+          style={{ width: SIZES.full }}
+        />
       </ImageBackground>
     </View>
   );
@@ -87,7 +71,6 @@ const LOCAL_STYLE = StyleSheet.create({
   header: {
     flexDirection: 'row',
     alignItems: 'center',
-    justifyContent: 'space-between',
     padding: SIZES.padding2,
     backgroundColor: COLORS.primary,
     width: SIZES.full,

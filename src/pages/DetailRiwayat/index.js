@@ -2,8 +2,9 @@ import { Button, Image, ImageBackground, StyleSheet, View } from "react-native";
 import IMAGES from "../../assets/images";
 import Text from "../../components/Text";
 import { COLORS, SIZES, STYLES } from "../../styles";
-import { formatRupiah, renderSemester, formatTanggalIndonesia } from "../Payment";
+import { LOCAL_STYLE, formatRupiah, renderSemester, formatTanggalIndonesia } from "../../services/utils/formatter";
 import DATA from "../../services/cache";
+import RowRiwayat from "../../components/RowRiwayat";
 
 export default function DetailRiwayat({ isDenda, data }) {
     const tagihan = parseInt(data.total_harga);
@@ -14,56 +15,34 @@ export default function DetailRiwayat({ isDenda, data }) {
     const tanggal = "2024-09-21"; 
 
     return (
-      <View style={LOCAL_STYLE.frame}>
-        <View style={LOCAL_STYLE.row}>
-          <Text bold fontsize={SIZES.smallText} color={COLORS.darkGray}>
-            Semester
-          </Text>
-          <Text bold fontsize={SIZES.smallText} color={COLORS.black} right>
-            {renderSemester(tahun, semester)}
-          </Text>
-        </View>
+      <View style={[LOCAL_STYLE.frame, {borderWidth: 1.2, borderColor: COLORS.primary,}]}>
+        <RowRiwayat dataKey={"Semester"} dataValue={renderSemester(tahun, semester)} color={COLORS.black}/>
         {isDenda && (
-            <View>
-                <View style={LOCAL_STYLE.row}>
-                    <Text bold fontsize={SIZES.smallText} color={COLORS.darkGray}>
-                        Tagihan
-                    </Text>
-                    <Text bold fontsize={SIZES.smallText} color={COLORS.danger} right>
-                        {formatRupiah(tagihan)}
-                    </Text>
-                </View>
-                <View style={LOCAL_STYLE.row}>
-                    <Text bold fontsize={SIZES.smallText} color={COLORS.darkGray}>
-                        Denda
-                    </Text>
-                    <Text bold fontsize={SIZES.smallText} color={COLORS.danger} right>
-                        {formatRupiah(denda)}
-                    </Text>
-                </View>
+          <View>
+              <RowRiwayat dataKey={"Tagihan"} dataValue={formatRupiah(tagihan)} color={COLORS.danger}/>
+              <RowRiwayat dataKey={"Denda"} dataValue={formatRupiah(denda)} color={COLORS.danger}/>
             </View>
         )}
-        <View style={LOCAL_STYLE.row}>
+        <View style={STYLE.row}>
           <Text bold fontsize={SIZES.smallText} color={COLORS.darkGray}>
             Total Tagihan
           </Text>
-          <Text bold fontsize={SIZES.smallText} color={COLORS.danger} right>
-            {formatRupiah(totalTagihan)}
-          </Text>
+          {isDenda ? (
+            <Text bold fontsize={SIZES.smallText} color={COLORS.black} right>
+              {formatRupiah(totalTagihan)}
+            </Text>
+          ) : (
+            <Text bold fontsize={SIZES.smallText} color={COLORS.danger} right>
+              {formatRupiah(totalTagihan)}
+            </Text>
+          )}
         </View>
-        <View style={LOCAL_STYLE.row}>
-          <Text bold fontsize={SIZES.smallText} color={COLORS.darkGray}>
-            Total Pembayaran
-          </Text>
-          <Text bold fontsize={SIZES.smallText} color={COLORS.success} right>
-            {formatRupiah(totalTagihan)}
-          </Text>
-        </View>
-        <View style={LOCAL_STYLE.row}>
+        <RowRiwayat dataKey={"Total Pembayaran"} dataValue={formatRupiah(totalTagihan)} color={COLORS.success}/>
+        <View style={STYLE.row}>
           <Text bold fontsize={SIZES.smallText} color={COLORS.darkGray} style={{ marginTop: 30 }}>
             Tanggal Pembayaran
           </Text>
-          <View style={[LOCAL_STYLE.frameTanggal, {marginTop: 15}]}>
+          <View style={[STYLE.frameTanggal, {marginTop: 15}]}>
             <Text bold center color={COLORS.white} fontsize={SIZES.smallText}>
                 {formatTanggalIndonesia(tanggal)} {"\n"}
                 10:49:15 {"\n"}
@@ -76,26 +55,17 @@ export default function DetailRiwayat({ isDenda, data }) {
 }
 
 
-const LOCAL_STYLE = StyleSheet.create({
-  frame: {
-    width: 320,
-    backgroundColor: COLORS.secondary,
-    borderRadius: 20,
-    padding: SIZES.padding2,
-    marginTop: 20,
-    marginBottom: 15,
-    borderColor: COLORS.primary,
-    borderWidth: 1,
-  },
-    row: {
-      flexDirection: 'row',
-      justifyContent: 'space-between',
-      marginTop: -10,
-    },
+const STYLE = StyleSheet.create({
     frameTanggal: {
-      width: 128,
+      width: "45%",
       borderRadius: 10,
       alignSelf: "center",
       backgroundColor: COLORS.primary,
+      marginLeft: "15%",
     },
-  });
+    row: {
+      flexDirection: "row", 
+      justifyContent: "space-between", 
+      marginTop: -10
+    }
+});

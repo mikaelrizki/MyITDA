@@ -13,6 +13,9 @@ import ICONS from "../../assets/icons";
 import DATA from "../../services/cache";
 import Tutorial from "../Tutorial";
 import { useState } from "react";
+import AppBar from "../../components/AppBar";
+import SectionTitleBig from "../../components/SectionTitleBig";
+import { useRef } from 'react';
 
 export default function Payment({ navigation }) {
 
@@ -71,83 +74,51 @@ export default function Payment({ navigation }) {
     const toggleModal = () => {
         setIsModalVisible(!isModalVisible);
     };
-    
 
+    
     return (
     <ImageBackground source={IMAGES.bgDefault} style={[STYLES.container]}>
-        <Text bold fontsize={16} style={{ marginLeft: "-60%" }}>Tagihan Anda</Text>
-            
-        {render}
+        <AppBar username={"Melisa Wijaya"} bgColorBell={COLORS.softBlue} bellIcon={ICONS.iconBellBlue} navigation={navigation} />
+        <View style={LOCAL_STYLE.viewStyle}>
+            <View style={[LOCAL_STYLE.viewStyle, {marginTop: 12}]}>
+                <SectionTitleBig title={"Tagihan Anda"} />
 
-        <ButtonPembayaran 
-            title="Lihat Riwayat Pembayaran" 
-            navigation={() => navigation.navigate("Riwayat")}
-            rightIcon={
-                <Image
-                  source={IMAGES.logoRiwayat}
-                  style={{ width: 32, height: 32, }}
-                  resizeMode="contain"
+                {render}
+
+                <ButtonPembayaran 
+                    title="Lihat Riwayat Pembayaran" 
+                    navigation={() => navigation.navigate("Riwayat")}
+                    rightIcon={
+                        <Image
+                        source={IMAGES.logoRiwayat}
+                        style={{ width: 32, height: 32, }}
+                        resizeMode="contain"
+                        />
+                    }
                 />
-            }
-        />
-        <ButtonPembayaran 
-            title="Lihat Tutorial Pembayaran" 
-            navigation={toggleModal}
-            rightIcon={
-                <Image
-                  source={IMAGES.logoTutorial}
-                  style={{ width: 27, height: 27, marginTop: 3, marginRight: 2 }}
-                  resizeMode="contain"
+                <ButtonPembayaran 
+                    title="Lihat Tutorial Pembayaran" 
+                    navigation={toggleModal}
+                    rightIcon={
+                        <Image
+                        source={IMAGES.logoTutorial}
+                        style={{ width: 27, height: 27, marginTop: 3, marginRight: 2 }}
+                        resizeMode="contain"
+                        />
+                    }
                 />
-            }
-        />
 
-        {isModalVisible && <Tutorial isVisible={isModalVisible} onClose={toggleModal} />}
-
-        <Button title="Go to Home" onPress={() => navigation.navigate("Home")} />
-        <Button title="Go to Report" onPress={() => navigation.navigate("Report")} />
-        <Button title="Go to Payment" onPress={() => navigation.navigate("Payment")} />
+                {isModalVisible && <Tutorial isVisible={isModalVisible} onClose={toggleModal} />}
+            </View>
+        </View>
     </ImageBackground>
+    
   );
 }
 
 const LOCAL_STYLE = StyleSheet.create({
-  frame: {
-    width: 298,
-    backgroundColor: COLORS.secondary,
-    borderRadius: 20,
-    padding: SIZES.padding2,
-    marginTop: 20,
-    marginBottom: 15,
-  },
-  row: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    marginTop: -10,
-  },
-  frameTanggal: {
-    width: 192,
-    borderRadius: 10,
-    alignSelf: "center"
-  },
+  viewStyle: {
+    flex: 1,
+    width: SIZES.full
+  }
 });
-
-const formatRupiah = (number) => {
-    return `Rp ${number.toLocaleString('id-ID')}`;
-};
-
-const renderSemester = (tahun, semester) => {
-    tahun = `${tahun}/${tahun+1}`
-    semester = semester === 1 ? "Gasal" : "Genap"  
-    return `${semester} ${tahun}`;
-};
-
-const formatTanggalIndonesia = (tanggal) => {
-    return new Date(tanggal).toLocaleDateString('id-ID', {
-      day: 'numeric',
-      month: 'long',
-      year: 'numeric'
-    });
-};
-
-export {LOCAL_STYLE, formatRupiah, renderSemester, formatTanggalIndonesia}

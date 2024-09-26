@@ -2,8 +2,9 @@ import { Button, Image, ImageBackground, StyleSheet, View } from "react-native";
 import IMAGES from "../../assets/images";
 import Text from "../../components/Text";
 import { COLORS, SIZES, STYLES } from "../../styles";
-import { LOCAL_STYLE, formatRupiah, renderSemester, formatTanggalIndonesia } from "../Payment";
+import { LOCAL_STYLE, formatRupiah, renderSemester, formatTanggalIndonesia } from "../../services/utils/formatter";
 import DATA from "../../services/cache";
+import RowPayment from "../../components/RowPayment";
 
 export default function BelumLunasDenda() {
 
@@ -24,74 +25,10 @@ export default function BelumLunasDenda() {
           style={{ height: 100, alignSelf: "center", marginBottom: 30, }}
           resizeMode="contain"
         />
-        <View style={LOCAL_STYLE.row}>
-            <Text
-            bold
-            fontsize={SIZES.mediumText}
-            color={COLORS.black}
-            >
-            Tagihan
-            </Text>
-            <Text
-            bold
-            fontsize={SIZES.mediumText}
-            color={COLORS.black}
-            right
-            >
-            {formatRupiah(tagihan)}
-            </Text>
-        </View>
-        <View style={LOCAL_STYLE.row}>
-            <Text
-            bold
-            fontsize={SIZES.mediumText}
-            color={COLORS.danger}
-            >
-            Denda
-            </Text>
-            <Text
-            bold
-            fontsize={SIZES.mediumText}
-            color={COLORS.danger}
-            right
-            >
-            {formatRupiah(denda)}
-            </Text>
-        </View>
-        <View style={LOCAL_STYLE.row}>
-          <Text
-            bold
-            fontsize={SIZES.mediumText}
-            color={COLORS.black}
-          >
-            Total Tagihan
-          </Text>
-          <Text
-            bold
-            fontsize={SIZES.mediumText}
-            color={COLORS.black}
-            right
-          >
-            {formatRupiah(totalTagihan)}
-          </Text>
-        </View>
-        <View style={LOCAL_STYLE.row}>
-          <Text
-            bold
-            fontsize={SIZES.mediumText}
-            color={COLORS.black}
-          >
-            Semester
-          </Text>
-          <Text
-            bold
-            fontsize={SIZES.mediumText}
-            color={COLORS.black}
-            right
-          >
-            {renderSemester(tahun, semester)}
-          </Text>
-        </View>
+        <RowPayment dataKey="Tagihan" dataValue={formatRupiah(tagihan)} color={COLORS.black}/>
+        <RowPayment dataKey="Denda" dataValue={formatRupiah(denda)} color={COLORS.danger}/>
+        <RowPayment dataKey="Total Tagihan" dataValue={formatRupiah(totalTagihan)} color={COLORS.black}/>
+        <RowPayment dataKey="Semester" dataValue={renderSemester(tahun, semester)} color={COLORS.black}/>
         <Text bold center color={COLORS.black}>Batas Akhir Pembayaran</Text>
         <View style={[LOCAL_STYLE.frameTanggal, {backgroundColor: COLORS.danger}]}>
             <Text bold center color={COLORS.white}>{formatTanggalIndonesia(tanggal)}</Text>

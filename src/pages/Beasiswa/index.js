@@ -2,8 +2,10 @@ import { Button, Image, ImageBackground, StyleSheet, View } from "react-native";
 import IMAGES from "../../assets/images";
 import Text from "../../components/Text";
 import { COLORS, SIZES, STYLES } from "../../styles";
-import { LOCAL_STYLE, formatRupiah, renderSemester, formatTanggalIndonesia } from "../Payment";
+import { LOCAL_STYLE, formatRupiah, renderSemester, formatTanggalIndonesia } from "../../services/utils/formatter";
 import DATA from "../../services/cache";
+import SectionTitleBig from "../../components/SectionTitleBig";
+import RowPayment from "../../components/RowPayment";
 
 export default function Beasiswa() {
 
@@ -32,74 +34,10 @@ export default function Beasiswa() {
           style={{ height: 100, alignSelf: "center", marginBottom: 30, }}
           resizeMode="contain"
         />
-        <View style={LOCAL_STYLE.row}>
-            <Text
-            bold
-            fontsize={SIZES.mediumText}
-            color={COLORS.black}
-            >
-            Tagihan
-            </Text>
-            <Text
-            bold
-            fontsize={SIZES.mediumText}
-            color={COLORS.black}
-            right
-            >
-            {formatRupiah(tagihan)}
-            </Text>
-        </View>
-        <View style={LOCAL_STYLE.row}>
-            <Text
-            bold
-            fontsize={SIZES.mediumText}
-            color={COLORS.success}
-            >
-            Beasiswa
-            </Text>
-            <Text
-            bold
-            fontsize={SIZES.mediumText}
-            color={COLORS.success}
-            right
-            >
-            {jenisBeasiswa}
-            </Text>
-        </View>
-        <View style={LOCAL_STYLE.row}>
-          <Text
-            bold
-            fontsize={SIZES.mediumText}
-            color={COLORS.black}
-          >
-            Total Tagihan
-          </Text>
-          <Text
-            bold
-            fontsize={SIZES.mediumText}
-            color={COLORS.black}
-            right
-          >
-            {formatRupiah(0)}
-          </Text>
-        </View>
-        <View style={LOCAL_STYLE.row}>
-          <Text
-            bold
-            fontsize={SIZES.mediumText}
-            color={COLORS.black}
-          >
-            Semester
-          </Text>
-          <Text
-            bold
-            fontsize={SIZES.mediumText}
-            color={COLORS.black}
-            right
-          >
-            {renderSemester(tahun, semester)}
-          </Text>
-        </View>
+        <RowPayment dataKey="Tagihan" dataValue={formatRupiah(tagihan)} color={COLORS.black}/>
+        <RowPayment dataKey="Beasiswa" dataValue={jenisBeasiswa} color={COLORS.success}/>
+        <RowPayment dataKey="Total Tagihan" dataValue={formatRupiah(0)} color={COLORS.black}/>
+        <RowPayment dataKey="Semester" dataValue={renderSemester(tahun, semester)} color={COLORS.black}/>
       </View>
   );
 }
