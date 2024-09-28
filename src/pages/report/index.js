@@ -1,4 +1,4 @@
-import { View, ImageBackground, ScrollView } from "react-native";
+import { View, ImageBackground, ScrollView, Button } from "react-native";
 import React from "react";
 import IMAGES from "../../assets/images";
 import { COLORS, SIZES, STYLES } from "../../styles";
@@ -8,7 +8,7 @@ import TableContainer from "../../components/TableContainer";
 import SectionTitleBig from "../../components/SectionTitleBig";
 import ICONS from "../../assets/icons";
 
-export default function ResetScreen(navigation) {
+export default function ReportScreen({navigation}) {
   return (
     <ImageBackground source={IMAGES.bgDefault} style={STYLES.container}>
       <AppBar username={"Melisa Wijaya"} bgColorBell={COLORS.softBlue} bellIcon={ICONS.iconBellBlue} navigation={navigation} />
@@ -27,6 +27,9 @@ export default function ResetScreen(navigation) {
             backgroundColor
             color
             space
+            onPress={() => {
+              navigation.navigate("Khs")
+            }}
           />
           <ButtonNilai
             value="Daftar Nilai"
@@ -39,9 +42,9 @@ export default function ResetScreen(navigation) {
 
           <TableContainer
             title={"PERKEMBANGAN IP & SKS SEMSTER"}
-            showTable={true}
+            displayOption={"table"}
           />
-          <TableContainer title={"PERKEMBANGAN GRAFIK IP"} />
+          <TableContainer title={"PERKEMBANGAN GRAFIK IP"} displayOption={"chart"} />
         </View>
       </ScrollView>
     </ImageBackground>

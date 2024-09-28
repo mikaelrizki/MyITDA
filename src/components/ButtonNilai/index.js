@@ -10,6 +10,7 @@ export default function ButtonNilai({
   next = false,
   space = false,
   marginTop = false,
+  ...props
 }) {
   return (
     <TouchableOpacity
@@ -26,6 +27,7 @@ export default function ButtonNilai({
         },
         marginTop && { marginTop: 18  },
       ]}
+      {...props}
     >
       <Text
         center
