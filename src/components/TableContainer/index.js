@@ -5,6 +5,7 @@ import { COLORS, SIZES } from "../../styles";
 import ICONS from "../../assets/icons";
 import TableRow from "../TableRow";
 import Chart from "../Chart";
+import TableKhs from "../TableKhs";
 
 export default function TableContainer({ title, displayOption, rightIcon}) {
   return (
@@ -78,9 +79,9 @@ export default function TableContainer({ title, displayOption, rightIcon}) {
                 />
               );
             case "khs":
-              return <View/>;
+              return <TableKhs/>;
             default:
-              return <Text>Opsi tidak tersedia.</Text>;
+              return;
           }
         })()}
         {/* {showTable ? (

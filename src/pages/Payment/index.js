@@ -1,13 +1,6 @@
-import { Button, Image, ImageBackground, StyleSheet, View } from "react-native";
+import {  Image, ImageBackground, StyleSheet, View } from "react-native";
 import IMAGES from "../../assets/images";
-import Text from "../../components/Text";
 import { COLORS, SIZES, STYLES } from "../../styles";
-import BelumLunas from "../BelumLunas";
-import BelumLunasDenda from "../BelumLunasDenda";
-import Lunas from "../Lunas";
-import LunasDenda from "../LunasDenda";
-import Beasiswa from "../Beasiswa";
-import BukanMasaPembayaran from "../BukanMasaPembayaran";
 import ButtonPembayaran from "../../components/ButtonPembayaran";
 import ICONS from "../../assets/icons";
 import DATA from "../../services/cache";
@@ -15,7 +8,6 @@ import Tutorial from "../Tutorial";
 import { useState } from "react";
 import AppBar from "../../components/AppBar";
 import SectionTitleBig from "../../components/SectionTitleBig";
-import { useRef } from "react";
 import PaymentInfo from "../../components/PaymentInfo";
 
 export default function Payment({ navigation }) {
