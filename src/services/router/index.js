@@ -31,7 +31,7 @@ export default function Router() {
         <Stack.Screen name="Riwayat" component={Riwayat} />
         <Stack.Screen name="Tutorial" component={Tutorial} />
         <Stack.Screen name="Report" component={ReportScreen} />
-        {/* <Stack.Screen name="Announcement" component={AnnouncementScreen} /> */}
+        <Stack.Screen name="Announcement" component={AnnouncementScreen} />
         <Stack.Screen name="Reset" component={ResetScreen} />
       </Stack.Navigator>
     </BottomSheetModalProvider>
