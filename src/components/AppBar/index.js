@@ -61,7 +61,7 @@ export default function AppBar({
           justifyContent: "center",
           borderRadius: 45,
         }]}
-        onPress={() => console.log("ke AnnouncementScreen")}
+        onPress={() => navigation.navigate("Announcement")}
       >
         <Image source={bellIcon} style={{ width: 20, height: 21 }} />
       </TouchableOpacity>
