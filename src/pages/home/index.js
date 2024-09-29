@@ -19,9 +19,13 @@ export default function Home({ navigation }) {
       >
         <AppBar username={"Melisa Wijaya"} bgColorBell={COLORS.softBlue} bellIcon={ICONS.iconBellBlue} navigation={navigation} />
 
-        <SectionTitle title={"Kartu Tanda Mahasiswa"} />
+        <SectionTitle title={"Kartu Tanda Mahasiswa"}/>
 
-        <ItemKTM />
+        <ItemKTM 
+        nama={"Melisa Wijaya"}
+        nim={"71210714"}
+        fakultas={"Teknologi Informasi"}
+        jurusan={"Informatika"}/>
 
         <SectionTitle title={"Biodata"} />
 
