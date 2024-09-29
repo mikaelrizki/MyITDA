@@ -20,75 +20,89 @@ export default function PaymentInfo({
   isMasaPembayaran,
 }) {
   const [tanggal, waktu] = tgl_bayar.split(" ");
-  return (
-    <View style={LOCAL_STYLE.frame}>
-      <Image
-        source={
-          !isMasaPembayaran && status_bayar === "L"
-            ? IMAGES.logoTidakAda
-            : status_bayar === "B" && !beasiswa
-            ? IMAGES.logoBelumLunas
-            : IMAGES.logoLunas
-        }
-        style={{ height: 100, alignSelf: "center", marginBottom: 30 }}
-        resizeMode="contain"
-      />
-      {total_denda > 0 && isMasaPembayaran && (
-        <RowPayment
-          dataKey="Tagihan"
-          dataValue={formatRupiah(total_harga)}
-          color={COLORS.black}
-        />
-      )}
 
-      {beasiswa && isMasaPembayaran && (
-        <RowPayment
-          dataKey="Tagihan"
-          dataValue={formatRupiah(total_harga)}
-          color={COLORS.black}
+  if (!isMasaPembayaran && status_bayar === "L") {
+    return (
+      <View style={LOCAL_STYLE.frame}>
+        <Image
+          source={
+            !isMasaPembayaran && status_bayar === "L"
+              ? IMAGES.logoTidakAda
+              : status_bayar === "B" && !beasiswa
+              ? IMAGES.logoBelumLunas
+              : IMAGES.logoLunas
+          }
+          style={{ height: 100, alignSelf: "center", marginBottom: 30 }}
+          resizeMode="contain"
         />
-      )}
-      {total_denda > 0 && !beasiswa && isMasaPembayaran && (
-        <RowPayment
-          dataKey="Denda"
-          dataValue={formatRupiah(total_denda)}
-          color={COLORS.danger}
+        <Text bold center fontsize={SIZES.mediumText} color={COLORS.black}>
+          Anda Tidak Memiliki Tagihan {"\n"} Di Semester Ini
+        </Text>
+      </View>
+    );
+  } else {
+    return (
+      <View style={LOCAL_STYLE.frame}>
+        <Image
+          source={
+           status_bayar === "B" && !beasiswa
+              ? IMAGES.logoBelumLunas
+              : IMAGES.logoLunas
+          }
+          style={{ height: 100, alignSelf: "center", marginBottom: 30 }}
+          resizeMode="contain"
         />
-      )}
-      {beasiswa && isMasaPembayaran && (
-        <RowPayment
-          dataKey="Beasiswa"
-          dataValue={jenis_beasiswa}
-          color={COLORS.success}
-        />
-      )}
+        {total_denda > 0 && (
+          <RowPayment
+            dataKey="Tagihan"
+            dataValue={formatRupiah(total_harga)}
+            color={COLORS.black}
+          />
+        )}
 
-      {isMasaPembayaran && (
+        {beasiswa && (
+          <RowPayment
+            dataKey="Tagihan"
+            dataValue={formatRupiah(total_harga)}
+            color={COLORS.black}
+          />
+        )}
+        {total_denda > 0 && !beasiswa && (
+          <RowPayment
+            dataKey="Denda"
+            dataValue={formatRupiah(total_denda)}
+            color={COLORS.danger}
+          />
+        )}
+        {beasiswa && (
+          <RowPayment
+            dataKey="Beasiswa"
+            dataValue={jenis_beasiswa}
+            color={COLORS.success}
+          />
+        )}
+
         <RowPayment
           dataKey="Total Tagihan"
           dataValue={beasiswa ? formatRupiah(0) : formatRupiah(total_tagihan)}
           color={COLORS.black}
         />
-      )}
 
-      {isMasaPembayaran && (
         <RowPayment
           dataKey="Semester"
           dataValue={renderSemester(kd_ta, kd_smt)}
           color={COLORS.black}
         />
-      )}
-      {!beasiswa && status_bayar === "L" && isMasaPembayaran && (
-        <Text bold center color={COLORS.black}>
-          Tangal Pembayaran
-        </Text>
-      )}
-      {!beasiswa && status_bayar === "B" && isMasaPembayaran && (
-        <Text bold center color={COLORS.black}>
-          Batas Akhir Pembayaran
-        </Text>
-      )}
-      {isMasaPembayaran && (
+        {!beasiswa && status_bayar === "L" && (
+          <Text bold center color={COLORS.black}>
+            Tangal Pembayaran
+          </Text>
+        )}
+        {!beasiswa && status_bayar === "B" && (
+          <Text bold center color={COLORS.black}>
+            Batas Akhir Pembayaran
+          </Text>
+        )}
         <View
           style={[
             LOCAL_STYLE.frameTanggal,
@@ -110,14 +124,9 @@ export default function PaymentInfo({
             </Text>
           )}
         </View>
-      )}
-      {!isMasaPembayaran && (
-        <Text bold center fontsize={SIZES.mediumText} color={COLORS.black}>
-          Anda Tidak Memiliki Tagihan {"\n"} Di Semester Ini
-        </Text>
-      )}
-    </View>
-  );
+      </View>
+    );
+  }
 }
 
 const LOCAL_STYLE = StyleSheet.create({
