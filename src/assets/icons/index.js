@@ -5,6 +5,7 @@ const ICONS = {
   next: require("./next.png"),
   iconBellBlue: require("./iconBellBlue.png"),
   iconBellWhite: require("./iconBellWhite.png"),
+  iconPDF: require("./pdfIcon.png"),
 };
 
 export default ICONS;

@@ -7,7 +7,7 @@ import Payment from "../../pages/Payment";
 import Riwayat from "../../pages/Riwayat";
 import Tutorial from "../../pages/Tutorial";
 import ReportScreen from "../../pages/report";
-// import AnnouncementScreen from "../../pages/Announcement";
+import AnnouncementScreen from "../../pages/announcement";
 import ResetScreen from "../../pages/reset";
 
 const Stack = createNativeStackNavigator();
