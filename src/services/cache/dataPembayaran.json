@@ -1,67 +1,95 @@
 {
     "data": [
         {
-            "nim": "21030030",
-            "nama": "MUHAMMAD RIZKY MAHENDRA",
+            "nim": "21030020",
+            "nama": "GABRIEL MARKUS SIMBOLON ",
             "kd_ta": "2021",
             "kd_smt": "1",
-            "total_harga": "0",
+            "total_harga": "2500000",
             "total_denda": "0",
-            "status_bayar": "L"
+            "tgl_akhir_bayar": "2021-07-28 00:00:00",
+            "tgl_mulai": "2021-07-28 00:00:00",
+            "status_bayar": "L",
+            "tgl_bayar": "2021-07-28 00:00:00",
+            "metode_pembayaran": "Transfer VA Bank"
         },
         {
-            "nim": "21030030",
-            "nama": "MUHAMMAD RIZKY MAHENDRA",
+            "nim": "21030020",
+            "nama": "GABRIEL MARKUS SIMBOLON ",
             "kd_ta": "2021",
             "kd_smt": "2",
             "total_harga": "2500000",
             "total_denda": "250000.0",
-            "status_bayar": "L"
+            "tgl_akhir_bayar": "2022-03-08 23:59:58",
+            "tgl_mulai": "2022-01-10 00:00:00",
+            "status_bayar": "L",
+            "tgl_bayar": "2022-03-08 17:18:09",
+            "metode_pembayaran": "Transfer VA Bank"
         },
         {
-            "nim": "21030030",
-            "nama": "MUHAMMAD RIZKY MAHENDRA",
+            "nim": "21030020",
+            "nama": "GABRIEL MARKUS SIMBOLON ",
             "kd_ta": "2022",
             "kd_smt": "1",
             "total_harga": "2500000",
-            "total_denda": "250000.0",
-            "status_bayar": "L"
+            "total_denda": "0",
+            "tgl_akhir_bayar": "2022-08-24 23:59:59",
+            "tgl_mulai": "2022-07-29 00:00:00",
+            "status_bayar": "L",
+            "tgl_bayar": "2022-08-18 10:15:07",
+            "metode_pembayaran": "Transfer VA Bank"
         },
         {
-            "nim": "21030030",
-            "nama": "MUHAMMAD RIZKY MAHENDRA",
+            "nim": "21030020",
+            "nama": "GABRIEL MARKUS SIMBOLON ",
             "kd_ta": "2022",
             "kd_smt": "2",
             "total_harga": "2500000",
             "total_denda": "0",
-            "status_bayar": "L"
+            "tgl_akhir_bayar": "2023-03-13 23:59:59",
+            "tgl_mulai": "2023-02-01 00:00:00",
+            "status_bayar": "L",
+            "tgl_bayar": "2023-02-15 15:21:08",
+            "metode_pembayaran": "Transfer VA Bank"
         },
         {
-            "nim": "21030030",
-            "nama": "MUHAMMAD RIZKY MAHENDRA",
+            "nim": "21030020",
+            "nama": "GABRIEL MARKUS SIMBOLON ",
             "kd_ta": "2023",
             "kd_smt": "1",
             "total_harga": "2500000",
             "total_denda": "0",
-            "status_bayar": "L"
+            "tgl_akhir_bayar": "2023-08-31 23:59:59",
+            "tgl_mulai": "2023-08-07 00:00:00",
+            "status_bayar": "L",
+            "tgl_bayar": "2023-08-21 16:46:34",
+            "metode_pembayaran": "Transfer VA Bank"
         },
         {
-            "nim": "21030030",
-            "nama": "MUHAMMAD RIZKY MAHENDRA",
+            "nim": "21030020",
+            "nama": "GABRIEL MARKUS SIMBOLON ",
             "kd_ta": "2023",
             "kd_smt": "2",
             "total_harga": "2500000",
             "total_denda": "0",
-            "status_bayar": "L"
+            "tgl_akhir_bayar": "2024-03-13 23:59:59",
+            "tgl_mulai": "2023-12-28 00:00:00",
+            "status_bayar": "L",
+            "tgl_bayar": "2024-02-13 13:02:45",
+            "metode_pembayaran": "Transfer VA Bank"
         },
         {
-            "nim": "21030030",
-            "nama": "MUHAMMAD RIZKY MAHENDRA",
+            "nim": "21030020",
+            "nama": "GABRIEL MARKUS SIMBOLON ",
             "kd_ta": "2024",
             "kd_smt": "1",
             "total_harga": "2500000",
             "total_denda": "0",
-            "status_bayar": "L"
+            "tgl_akhir_bayar": "2024-08-23 23:59:59",
+            "tgl_mulai": "2024-07-23 00:00:00",
+            "status_bayar": "L",
+            "tgl_bayar": "2024-08-23 19:53:21",
+            "metode_pembayaran": "Transfer VA Bank"
         }
     ]
 }

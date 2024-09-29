@@ -3,7 +3,6 @@ import IMAGES from "../../assets/images";
 import Text from "../../components/Text";
 import { COLORS, SIZES, STYLES } from "../../styles";
 import { LOCAL_STYLE, formatRupiah, renderSemester, formatTanggalIndonesia } from "../../services/utils/formatter";
-import DATA from "../../services/cache";
 import RowRiwayat from "../../components/RowRiwayat";
 
 export default function DetailRiwayat({ isDenda, data }) {
