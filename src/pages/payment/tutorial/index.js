@@ -2,8 +2,8 @@ import React from 'react';
 import { View, StyleSheet, ScrollView, Button } from 'react-native';
 import Modal from 'react-native-modal';
 import { PanGestureHandler, GestureHandlerRootView } from 'react-native-gesture-handler';
-import Text from '../../components/Text';
-import { COLORS, SIZES } from '../../styles';
+import { COLORS, SIZES } from '../../../styles';
+import Text from '../../../components/Text';
 
 export default function Tutorial({ isVisible, onClose }) {
   const handleGesture = (event) => {

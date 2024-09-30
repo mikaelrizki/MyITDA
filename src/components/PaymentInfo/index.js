@@ -52,7 +52,7 @@ export default function PaymentInfo({
           style={{ height: 100, alignSelf: "center", marginBottom: 30 }}
           resizeMode="contain"
         />
-        {total_denda > 0 && (
+        {(total_denda > 0 || beasiswa) && (
           <RowPayment
             dataKey="Tagihan"
             dataValue={formatRupiah(total_harga)}
@@ -60,14 +60,7 @@ export default function PaymentInfo({
           />
         )}
 
-        {beasiswa && (
-          <RowPayment
-            dataKey="Tagihan"
-            dataValue={formatRupiah(total_harga)}
-            color={COLORS.black}
-          />
-        )}
-        {total_denda > 0 && !beasiswa && (
+        {(total_denda > 0 && !beasiswa) && (
           <RowPayment
             dataKey="Denda"
             dataValue={formatRupiah(total_denda)}
@@ -93,12 +86,12 @@ export default function PaymentInfo({
           dataValue={renderSemester(kd_ta, kd_smt)}
           color={COLORS.black}
         />
-        {!beasiswa && status_bayar === "L" && (
+        {(!beasiswa && status_bayar === "L") && (
           <Text bold center color={COLORS.black}>
             Tangal Pembayaran
           </Text>
         )}
-        {!beasiswa && status_bayar === "B" && (
+        {(!beasiswa && status_bayar === "B") && (
           <Text bold center color={COLORS.black}>
             Batas Akhir Pembayaran
           </Text>
@@ -111,14 +104,14 @@ export default function PaymentInfo({
                 status_bayar === "L" ? COLORS.success : COLORS.danger,
             },
           ]}>
-          {!beasiswa && status_bayar === "L" && (
+          {(!beasiswa && status_bayar === "L") && (
             <Text bold center color={COLORS.white}>
               {formatTanggalIndonesia(tanggal)} {"\n"}
               {waktu} {"\n"}
               {metode_pembayaran}
             </Text>
           )}
-          {!beasiswa && status_bayar === "B" && (
+          {(!beasiswa && status_bayar === "B") && (
             <Text bold center color={COLORS.white}>
               {formatTanggalIndonesia(tgl_akhir_bayar)}
             </Text>

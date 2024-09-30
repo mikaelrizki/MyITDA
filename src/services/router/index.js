@@ -3,14 +3,13 @@ import { BottomSheetModalProvider } from "@gorhom/bottom-sheet";
 import SplashScreen from "../../pages/splash";
 import AuthScreen from "../../pages/auth";
 import HomeScreen from "../../pages/home";
-import Payment from "../../pages/Payment";
-import Riwayat from "../../pages/Riwayat";
-import Tutorial from "../../pages/Tutorial";
+import Payment from "../../pages/payment";
+import Riwayat from "../../pages/payment/riwayat";
+import Tutorial from "../../pages/payment/tutorial";
 import ReportScreen from "../../pages/report";
 import AnnouncementScreen from "../../pages/announcement";
 import ResetScreen from "../../pages/reset";
 import KhsScreen from "../../pages/KHS";
-import TranskripScreen from "../../pages/transkrip";
 
 const Stack = createNativeStackNavigator();
 
@@ -36,7 +35,7 @@ export default function Router() {
         <Stack.Screen name="Announcement" component={AnnouncementScreen} />
         <Stack.Screen name="Reset" component={ResetScreen} />
         <Stack.Screen name="KHS" component={KhsScreen} />
-        <Stack.Screen name="Transkrip" component={TranskripScreen} />
+        {/* <Stack.Screen name="Transkrip" component={TranskripScreen} /> */}
       </Stack.Navigator>
     </BottomSheetModalProvider>
   );
