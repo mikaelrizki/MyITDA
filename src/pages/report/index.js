@@ -8,10 +8,15 @@ import TableContainer from "../../components/TableContainer";
 import SectionTitleBig from "../../components/SectionTitleBig";
 import ICONS from "../../assets/icons";
 
-export default function ReportScreen({navigation}) {
+export default function ReportScreen({ navigation }) {
   return (
     <ImageBackground source={IMAGES.bgDefault} style={STYLES.container}>
-      <AppBar username={"Melisa Wijaya"} bgColorBell={COLORS.softBlue} bellIcon={ICONS.iconBellBlue} navigation={navigation} />
+      <AppBar
+        username={"Melisa Wijaya"}
+        bgColorBell={COLORS.softBlue}
+        bellIcon={ICONS.iconBellBlue}
+        navigation={navigation}
+      />
       <ScrollView>
         <View
           style={{
@@ -28,7 +33,7 @@ export default function ReportScreen({navigation}) {
             color
             space
             onPress={() => {
-              navigation.navigate("Khs")
+              navigation.navigate("KHS");
             }}
           />
           <ButtonNilai
@@ -38,13 +43,19 @@ export default function ReportScreen({navigation}) {
             color
             space
             marginTop
+            onPress={() => {
+              navigation.navigate("Transkrip");
+            }}
           />
 
           <TableContainer
             title={"PERKEMBANGAN IP & SKS SEMSTER"}
             displayOption={"table"}
           />
-          <TableContainer title={"PERKEMBANGAN GRAFIK IP"} displayOption={"chart"} />
+          <TableContainer
+            title={"PERKEMBANGAN GRAFIK IP"}
+            displayOption={"chart"}
+          />
         </View>
       </ScrollView>
     </ImageBackground>

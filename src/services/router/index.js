@@ -9,6 +9,8 @@ import Tutorial from "../../pages/Tutorial";
 import ReportScreen from "../../pages/report";
 import AnnouncementScreen from "../../pages/announcement";
 import ResetScreen from "../../pages/reset";
+import KhsScreen from "../../pages/KHS";
+import TranskripScreen from "../../pages/transkrip";
 
 const Stack = createNativeStackNavigator();
 
@@ -33,6 +35,8 @@ export default function Router() {
         <Stack.Screen name="Report" component={ReportScreen} />
         <Stack.Screen name="Announcement" component={AnnouncementScreen} />
         <Stack.Screen name="Reset" component={ResetScreen} />
+        <Stack.Screen name="KHS" component={KhsScreen} />
+        <Stack.Screen name="Transkrip" component={TranskripScreen} />
       </Stack.Navigator>
     </BottomSheetModalProvider>
   );

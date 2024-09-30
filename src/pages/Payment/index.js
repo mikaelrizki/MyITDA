@@ -1,6 +1,5 @@
-import { Button, Image, ImageBackground, StyleSheet, View } from "react-native";
+import {  Image, ImageBackground, StyleSheet, View } from "react-native";
 import IMAGES from "../../assets/images";
-import Text from "../../components/Text";
 import { COLORS, SIZES, STYLES } from "../../styles";
 import ButtonPembayaran from "../../components/ButtonPembayaran";
 import ICONS from "../../assets/icons";
@@ -9,7 +8,6 @@ import Tutorial from "../Tutorial";
 import { useState } from "react";
 import AppBar from "../../components/AppBar";
 import SectionTitleBig from "../../components/SectionTitleBig";
-import { useRef } from "react";
 import PaymentInfo from "../../components/PaymentInfo";
 
 export default function Payment({ navigation }) {

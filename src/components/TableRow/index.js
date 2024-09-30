@@ -1,19 +1,20 @@
-import { StyleSheet, Text, View } from "react-native";
+import { StyleSheet, View } from "react-native";
 import React from "react";
 import { COLORS, SIZES } from "../../styles";
 import ProgressBar from "../ProgressBar";
+import Text from "../Text";
 
 export default function TableRow({ semester, sks, ip }) {
   return (
     <View style={LOKAL_STYLES.tableRow}>
       <View style={LOKAL_STYLES.semesterContainer}>
-        <Text>{semester}</Text>
+        <Text fontsize={SIZES.mediumText}>{semester}</Text>
       </View>
       <View style={LOKAL_STYLES.progressContainer}>
         <ProgressBar ip={ip.toFixed(2)} />
         <View style={LOKAL_STYLES.sksContainer}>
           <View style={LOKAL_STYLES.sksBadge}>
-            <Text style={LOKAL_STYLES.sksText}>{sks} sks</Text>
+            <Text color={COLORS.white} fontsize={SIZES.extraSmallText}>{sks} sks</Text>
           </View>
         </View>
       </View>
@@ -45,9 +46,5 @@ const LOKAL_STYLES = StyleSheet.create({
     backgroundColor: COLORS.gray,
     paddingHorizontal: 4,
     borderRadius: SIZES.radius,
-  },
-  sksText: {
-    color: COLORS.white,
-    fontSize: SIZES.extraSmallText,
   },
 });
