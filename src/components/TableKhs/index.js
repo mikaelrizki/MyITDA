@@ -4,7 +4,7 @@ import Text from "../Text";
 import { COLORS, SIZES } from "../../styles";
 import SksBadge from "../SksBadge";
 
-export default function TableKhs() {
+export default function TableKhs({ judul }) {
   return (
     <>
       <View style={LOKAL_STYLES.tableRow}>
@@ -121,7 +121,7 @@ export default function TableKhs() {
           fontsize={SIZES.smallText}
           style={{ width: "10%" }}
         >
-          2
+          3
         </Text>
         <Text
           color={COLORS.black}
@@ -158,20 +158,27 @@ export default function TableKhs() {
         <Text
           color={COLORS.black}
           fontsize={SIZES.smallText}
-          style={{ width: "12%" }}
+          style={{ width: "10%" }}
         >
-          GENAP 2023/2024
+          TOTAL SKS
         </Text>
-        <SksBadge value={"5"}/>
-        <SksBadge value={"35.7"} />
+        <SksBadge value={"6"} />
         <Text
           color={COLORS.black}
           fontsize={SIZES.smallText}
-          style={{ width: "10%" }}
+          style={{ width: "16%" }}
+        >
+          TOTAL KUALITAS
+        </Text>
+        <SksBadge value={"24"}/>
+        <Text
+          color={COLORS.black}
+          fontsize={SIZES.smallText}
+          style={{ width: "5%" }}
         >
           IPS
         </Text>
-        <SksBadge value={"3.96"} />
+        <SksBadge value={"4.00"} />
       </View>
     </>
   );
