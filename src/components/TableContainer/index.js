@@ -6,8 +6,14 @@ import ICONS from "../../assets/icons";
 import TableRow from "../TableRow";
 import Chart from "../Chart";
 import TableKhs from "../TableKhs";
+import TableTranskrip from "../TableTranskrip";
 
-export default function TableContainer({ title, displayOption, rightIcon}) {
+export default function TableContainer({
+  title,
+  displayOption,
+  rightIcon,
+  transkrip,
+}) {
   return (
     <View style={LOKAL_STYLES.tableCons}>
       <View style={LOKAL_STYLES.titleCons}>
@@ -57,9 +63,7 @@ export default function TableContainer({ title, displayOption, rightIcon}) {
                     sks={"24"}
                     ip={3.789}
                   />
-                  <TableRow semester={"Genap 2023/2024"} 
-                  sks={"20"} 
-                  ip={2.1} />
+                  <TableRow semester={"Genap 2023/2024"} sks={"20"} ip={2.1} />
                 </>
               );
             case "chart":
@@ -79,35 +83,13 @@ export default function TableContainer({ title, displayOption, rightIcon}) {
                 />
               );
             case "khs":
-              return <TableKhs/>;
+              return <TableKhs judul={title} />;
+            case "transkrip":
+              return <TableTranskrip judul={transkrip} />;
             default:
-              return;
+              return null;
           }
         })()}
-        {/* {showTable ? (
-          <>
-            <TableRow semester={"Gasal 2021/2022"} sks={"24"} ip={2.789} />
-            <TableRow semester={"Genap 2021/2022"} sks={"20"} ip={3.876} />
-            <TableRow semester={"Gasal 2022/2023"} sks={"24"} ip={3.789} />
-            <TableRow semester={"Genap 2022/2023"} sks={"21"} ip={2.876} />
-            <TableRow semester={"Gasal 2023/2024"} sks={"24"} ip={3.789} />
-            <TableRow semester={"Genap 2023/2024"} sks={"20"} ip={2.1} />
-          </>
-        ) : (
-          <Chart
-            labels={[
-              "2021-1",
-              "2021-2",
-              "2022-1",
-              "2022-2",
-              "2023-1",
-              "2023-2",
-              "2024-1",
-              "2024-2",
-            ]}
-            ip={[2.789, 3.876, 3.789, 2.876, 3.789, 2.1]}
-          />
-        )} */}
       </View>
     </View>
   );

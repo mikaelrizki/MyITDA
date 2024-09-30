@@ -1,10 +1,19 @@
 import { StyleSheet, View } from "react-native";
 import React from "react";
-import Text from "../Text";
 import { COLORS, SIZES } from "../../styles";
+import Text from "../Text";
 import SksBadge from "../SksBadge";
 
-export default function TableKhs({ judul }) {
+export default function TableTranskrip({ judul }) {
+    let displayedJudul;
+
+  if (judul == "wajib") {
+    displayedJudul = "Total Sks WAJIB";
+  } else if(judul == "pilihan") {
+    displayedJudul = "Total Sks PILIHAN";
+  }else {
+    displayedJudul = "tidak ada judul"
+  }
   return (
     <>
       <View style={LOKAL_STYLES.tableRow}>
@@ -49,6 +58,7 @@ export default function TableKhs({ judul }) {
           KUALITAS
         </Text>
       </View>
+
       <View style={LOKAL_STYLES.itemTableRow}>
         <Text
           color={COLORS.black}
@@ -86,28 +96,13 @@ export default function TableKhs({ judul }) {
           12
         </Text>
       </View>
-      <View style={LOKAL_STYLES.bottomTableRow}>
-        <Text color={COLORS.black} fontsize={SIZES.smallText}>
-          Presensi: 80
-        </Text>
-        <Text color={COLORS.black} fontsize={SIZES.smallText}>
-          Tugas: 20
-        </Text>
-        <Text color={COLORS.black} fontsize={SIZES.smallText}>
-          UTS: 90
-        </Text>
-        <Text color={COLORS.black} fontsize={SIZES.smallText}>
-          UAS: 100
-        </Text>
-      </View>
-
       <View style={LOKAL_STYLES.itemTableRow}>
         <Text
           color={COLORS.black}
           fontsize={SIZES.smallText}
           style={{ width: "12%" }}
         >
-          IF117
+          IF002
         </Text>
         <Text
           color={COLORS.black}
@@ -128,57 +123,32 @@ export default function TableKhs({ judul }) {
           fontsize={SIZES.smallText}
           style={{ width: "10%" }}
         >
-          A
+          B
         </Text>
         <Text
           color={COLORS.black}
           fontsize={SIZES.smallText}
           style={{ width: "20%" }}
         >
-          12
-        </Text>
-      </View>
-      <View style={LOKAL_STYLES.bottomTableRow}>
-        <Text color={COLORS.black} fontsize={SIZES.smallText}>
-          Presensi: 80
-        </Text>
-        <Text color={COLORS.black} fontsize={SIZES.smallText}>
-          Tugas: 20
-        </Text>
-        <Text color={COLORS.black} fontsize={SIZES.smallText}>
-          UTS: 90
-        </Text>
-        <Text color={COLORS.black} fontsize={SIZES.smallText}>
-          UAS: 100
+          9
         </Text>
       </View>
 
       {/* TOTAL SELURUHNYA */}
       <View style={LOKAL_STYLES.itemTableRow}>
-        <Text
-          color={COLORS.black}
-          fontsize={SIZES.smallText}
-          style={{ width: "10%" }}
-        >
-          TOTAL SKS
-        </Text>
-        <SksBadge value={"6"} />
-        <Text
-          color={COLORS.black}
-          fontsize={SIZES.smallText}
-          style={{ width: "16%" }}
-        >
-          TOTAL KUALITAS
-        </Text>
-        <SksBadge value={"24"}/>
-        <Text
-          color={COLORS.black}
-          fontsize={SIZES.smallText}
-          style={{ width: "5%" }}
-        >
-          IPS
-        </Text>
-        <SksBadge value={"4.00"} />
+        <View style={LOKAL_STYLES.sksContainer}>
+          <View style={LOKAL_STYLES.sksBadge}>
+            <Text color={COLORS.white} fontsize={SIZES.smallText}>
+              {displayedJudul}
+            </Text>
+          </View>
+        </View>
+        <View style={LOKAL_STYLES.BottomTableRow}>
+          <SksBadge value={"6"} />
+        </View>
+        <View style={LOKAL_STYLES.BottomTableRow}>
+          <SksBadge value={"21"} />
+        </View>
       </View>
     </>
   );
@@ -197,13 +167,22 @@ const LOKAL_STYLES = StyleSheet.create({
     flexDirection: "row",
     gap: 15,
     paddingHorizontal: 5,
-  },
-  bottomTableRow: {
-    flexDirection: "row",
-    justifyContent: "space-between",
-    gap: 15,
-    paddingHorizontal: 5,
-    backgroundColor: COLORS.lightGray,
     borderBottomWidth: 2,
+  },
+  BottomTableRow: {
+    width: "25%",
+    flexDirection: "row",
+  },
+  sksContainer: {
+    alignItems: "center",
+    paddingVertical: 5,
+    width: "40%",
+    height: 45,
+    resizeMode: "contain",
+  },
+  sksBadge: {
+    backgroundColor: COLORS.gray,
+    paddingHorizontal: 4,
+    borderRadius: SIZES.radius,
   },
 });
