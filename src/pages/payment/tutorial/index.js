@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, StyleSheet, ScrollView, Button } from 'react-native';
+import { View, StyleSheet} from 'react-native';
 import Modal from 'react-native-modal';
 import { PanGestureHandler, GestureHandlerRootView } from 'react-native-gesture-handler';
 import { COLORS, SIZES } from '../../../styles';
@@ -14,20 +14,7 @@ export default function Tutorial({ isVisible, onClose }) {
   };
 
   return (
-    <GestureHandlerRootView style={{ flex: 1 }}>
-      <Modal
-        isVisible={isVisible}
-        onBackdropPress={onClose}
-        style={LOCAL_STYLE.modal}
-        animationIn="slideInUp"
-        animationOut="slideOutDown"
-        swipeDirection="down"
-        onSwipeComplete={onClose}
-        swipeThreshold={100}
-      >
-        <PanGestureHandler onGestureEvent={handleGesture}>
           <View style={LOCAL_STYLE.modalContent}>
-            <View style={LOCAL_STYLE.closeBar}></View>
             <Text bold center fontsize={SIZES.LargeText} color={COLORS.black}>Cara Pembayaran SPP</Text>
               <View style={{ marginTop: 5, }}>
                 <View>
@@ -86,9 +73,6 @@ export default function Tutorial({ isVisible, onClose }) {
                     </View>
               </View>         
           </View>
-        </PanGestureHandler>
-      </Modal>
-    </GestureHandlerRootView>
   );
 }
 
@@ -98,17 +82,9 @@ const LOCAL_STYLE = StyleSheet.create({
     margin: 0,
   },
   modalContent: {
-    backgroundColor: COLORS.secondary,
     borderRadius: 20,
     padding: 25,
-  },
-  closeBar: {
-      backgroundColor: COLORS.lightGray,
-      width: 40,
-      height: 5,
-      borderRadius: 20,
-      alignSelf: "center",
-      marginTop: -8
+    marginTop: "-8%"
   },
   bulletItem: {
     flexDirection: "row",
