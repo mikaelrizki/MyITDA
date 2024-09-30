@@ -17,7 +17,7 @@ export default function Router() {
   return (
     <BottomSheetModalProvider>
       <Stack.Navigator
-        initialRouteName="Payment"
+        initialRouteName="Splash"
         screenOptions={{
           headerShown: false,
         }}
