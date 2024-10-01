@@ -1,7 +1,5 @@
 import React from 'react';
 import { View, StyleSheet} from 'react-native';
-import Modal from 'react-native-modal';
-import { PanGestureHandler, GestureHandlerRootView } from 'react-native-gesture-handler';
 import { COLORS, SIZES } from '../../../styles';
 import Text from '../../../components/Text';
 

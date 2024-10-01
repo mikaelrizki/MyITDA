@@ -1,13 +1,9 @@
 import {
   View,
-  Button,
   ImageBackground,
   StyleSheet,
-  TouchableOpacity,
-  Image,
   FlatList,
 } from "react-native";
-import Text from "../../../components/Text";
 import IMAGES from "../../../assets/images";
 import { COLORS, SIZES, STYLES } from "../../../styles";
 import DATA from "../../../services/cache";

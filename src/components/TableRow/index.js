@@ -37,9 +37,8 @@ const LOKAL_STYLES = StyleSheet.create({
   },
   sksContainer: {
     alignItems: "flex-start",
-    paddingVertical: 5,
-    width: 35,
-    height: 45,
+    paddingVertical: 3,
+    paddingBottom: 10,
     resizeMode: "contain",
   },
   sksBadge: {
