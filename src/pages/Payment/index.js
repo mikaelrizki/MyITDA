@@ -16,6 +16,7 @@ import React, { useRef, useState } from "react";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
 import Tutorial from "./tutorial";
 import Text from "../../components/Text";
+import BottomNavbar from "../../components/BottomNavbar";
 
 export default function Payment({ navigation }) {
   const jumlahArray = DATA.dataPembayaran.data.length - 1;
@@ -93,7 +94,7 @@ export default function Payment({ navigation }) {
                 navigation={() => navigation.navigate("Riwayat")}
                 rightIcon={
                   <Image
-                    source={IMAGES.logoRiwayat}
+                    source={ICONS.logoRiwayat}
                     style={{ width: 32, height: 32 }}
                     resizeMode="contain"
                   />
@@ -104,7 +105,7 @@ export default function Payment({ navigation }) {
                 navigation={toggleModal} // Trigger untuk membuka bottom sheet
                 rightIcon={
                   <Image
-                    source={IMAGES.logoTutorial}
+                    source={ICONS.logoTutorial}
                     style={{
                       width: 27,
                       height: 27,
@@ -118,6 +119,7 @@ export default function Payment({ navigation }) {
             </View>
           </View>
           
+          <BottomNavbar navigation={navigation} payment/>
 
           <BottomSheetModal
             ref={bottomSheetModalRef}

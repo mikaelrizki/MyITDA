@@ -6,6 +6,7 @@ import SectionTitle from "../../components/SectionTitle";
 import ItemKTM from "../../components/ItemKTM";
 import ItemDataInfoMhs from "../../components/ItemDataInfoMhs";
 import ICONS from "../../assets/icons";
+import BottomNavbar from "../../components/BottomNavbar";
 
 export default function Home({ navigation }) {
   return (
@@ -61,6 +62,7 @@ export default function Home({ navigation }) {
           />
         </View>
       </View>
+      <BottomNavbar navigation={navigation} home/>
     </ImageBackground>
   );
 }

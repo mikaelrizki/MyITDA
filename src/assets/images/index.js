@@ -5,14 +5,10 @@ const IMAGES = {
     logoBelumLunas: require('./logoBelumLunas.png'),
     logoLunas: require('./logoLunas.png'),
     logoTidakAda: require('./logoTidakAda.png'),
-    logoRiwayat: require('./logoRiwayat.png'),
-    logoTutorial: require('./logoTutorial.png'),
-    logoKembali: require('./logoKembali.png'),
     profilePic: require('./profilePicture.png'),
     bgKTM: require('./bgKTM.png'),
     picKTM: require('./picKTM.png'),
     qrCode: require('./qrCode.png'),
-
 };
 
 export default IMAGES;

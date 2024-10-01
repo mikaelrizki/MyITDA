@@ -4,6 +4,7 @@ import IMAGES from "../../assets/images";
 import { COLORS, SHADOWS, SIZES, STYLES } from "../../styles";
 import ICONS from "../../assets/icons";
 import Text from "../../components/Text";
+import BottomNavbar from "../../components/BottomNavbar";
 
 export default function AnnouncementScreen({ navigation }) {
   return (
@@ -76,6 +77,7 @@ export default function AnnouncementScreen({ navigation }) {
           </View>
         </View>
       </View>
+      <BottomNavbar navigation={navigation}/>
     </ImageBackground>
   );
 }

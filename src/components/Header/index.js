@@ -9,6 +9,7 @@ import {
 import Text from "../Text";
 import IMAGES from "../../assets/images";
 import { COLORS, SIZES } from "../../styles";
+import ICONS from "../../assets/icons";
 
 export default function Header({ onPress, title }) {
   return (
@@ -17,7 +18,7 @@ export default function Header({ onPress, title }) {
         activeOpacity={0.7}
         onPress={onPress}>
         <Image
-          source={IMAGES.logoKembali}
+          source={ICONS.logoKembali}
           style={{ width: 35, height: 35 }}
           resizeMode="contain"
         />

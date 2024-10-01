@@ -7,6 +7,7 @@ import ButtonNilai from "../../components/ButtonNilai";
 import TableContainer from "../../components/TableContainer";
 import SectionTitleBig from "../../components/SectionTitleBig";
 import ICONS from "../../assets/icons";
+import BottomNavbar from "../../components/BottomNavbar";
 
 export default function ReportScreen({ navigation }) {
   return (
@@ -58,6 +59,7 @@ export default function ReportScreen({ navigation }) {
           />
         </View>
       </ScrollView>
+      <BottomNavbar navigation={navigation} grade/>
     </ImageBackground>
   );
 }
