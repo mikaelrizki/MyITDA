@@ -158,23 +158,23 @@ export default function TableKhs({ judul }) {
         <Text
           color={COLORS.black}
           fontsize={SIZES.smallText}
-          style={{ width: "10%" }}
+          style={{ width: "8%" }}
         >
-          TOTAL SKS
+          SKS
         </Text>
         <SksBadge value={"6"} />
         <Text
           color={COLORS.black}
           fontsize={SIZES.smallText}
-          style={{ width: "16%" }}
+          style={{ width: "18%" }}
         >
-          TOTAL KUALITAS
+          KUALITAS
         </Text>
         <SksBadge value={"24"}/>
         <Text
           color={COLORS.black}
           fontsize={SIZES.smallText}
-          style={{ width: "5%" }}
+          style={{ width: "6%" }}
         >
           IPS
         </Text>

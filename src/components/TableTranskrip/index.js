@@ -8,9 +8,9 @@ export default function TableTranskrip({ judul }) {
     let displayedJudul;
 
   if (judul == "wajib") {
-    displayedJudul = "Total Sks WAJIB";
+    displayedJudul = "Total WAJIB";
   } else if(judul == "pilihan") {
-    displayedJudul = "Total Sks PILIHAN";
+    displayedJudul = "Total PILIHAN";
   }else {
     displayedJudul = "tidak ada judul"
   }
@@ -177,7 +177,6 @@ const LOKAL_STYLES = StyleSheet.create({
     alignItems: "center",
     paddingVertical: 5,
     width: "40%",
-    height: 45,
     resizeMode: "contain",
   },
   sksBadge: {

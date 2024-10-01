@@ -2,15 +2,14 @@ import {
   Image,
   ImageBackground,
   StyleSheet,
-  TouchableOpacity,
   View,
 } from "react-native";
 import React from "react";
-import { COLORS, SIZES, STYLES } from "../../styles";
-import IMAGES from "../../assets/images";
-import Text from "../../components/Text";
-import TableContainer from "../../components/TableContainer";
-import Header from "../../components/Header";
+import TableContainer from "../../../components/TableContainer";
+import Header from "../../../components/Header";
+import Text from "../../../components/Text";
+import { COLORS, SIZES, STYLES } from "../../../styles";
+import IMAGES from "../../../assets/images";
 
 export default function TranskripScreen({ navigation }) {
   return (
@@ -87,18 +86,9 @@ const LOKAL_STYLES = StyleSheet.create({
     justifyContent: "space-between",
     padding: 15
   },
-  header: {
-    flexDirection: "row",
-    alignItems: "center",
-    padding: SIZES.padding2,
-    backgroundColor: COLORS.primary,
-    width: SIZES.full,
-    height: "12%",
-    paddingTop: 30,
-  },
   infoContainerSks: {
-    width: "37%",
-    paddingLeft: SIZES.padding,
+    width: "36%",
+    paddingHorizontal: SIZES.padding,
     backgroundColor: COLORS.primary,
     flexDirection: "row",
     borderRadius: 5,
@@ -107,28 +97,26 @@ const LOKAL_STYLES = StyleSheet.create({
   },
   infoContainerKualitas: {
     width: "62%",
-    paddingLeft: SIZES.padding,
+    paddingHorizontal: SIZES.padding,
     backgroundColor: COLORS.primary,
     flexDirection: "row",
     borderRadius: 5,
     alignItems: 'center',
   },
   infoContainerIpk: {
-    width: "66%",
-    paddingLeft: SIZES.padding,
+    width: "65%",
+    alignSelf: "flex-start",
+    marginLeft: 12,
+    paddingHorizontal: SIZES.padding,
     backgroundColor: COLORS.primary,
     flexDirection: "row",
     borderRadius: 5,
     alignItems: "center",
-    // alignSelf: "flex-start",
   },
   sksContainer: {
-    alignItems: "flex-start",
-    paddingVertical: 5,
-    width: 35,
-    height: 45,
-    resizeMode: "contain",
-    marginLeft: 14,
+    alignItems: "center",
+    paddingVertical: 4,
+    paddingHorizontal: SIZES.padding,
   },
   sksBadge: {
     backgroundColor: COLORS.white,

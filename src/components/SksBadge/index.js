@@ -16,9 +16,7 @@ export default function SksBadge({value}) {
 const LOKAL_STYLES = StyleSheet.create({
     sksContainer: {
         alignItems: "flex-start",
-        paddingVertical: 5,
-        width: 35,
-        height: 45,
+        paddingVertical: 4,
         resizeMode: "contain",
         marginLeft: 14
       },

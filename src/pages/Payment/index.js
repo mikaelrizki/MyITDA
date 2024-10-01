@@ -10,12 +10,10 @@ import PaymentInfo from "../../components/PaymentInfo";
 import {
   BottomSheetModalProvider,
   BottomSheetModal,
-  BottomSheet,
 } from "@gorhom/bottom-sheet";
 import React, { useRef, useState } from "react";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
 import Tutorial from "./tutorial";
-import Text from "../../components/Text";
 import BottomNavbar from "../../components/BottomNavbar";
 
 export default function Payment({ navigation }) {
