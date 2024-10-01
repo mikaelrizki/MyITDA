@@ -12,6 +12,7 @@ import IMAGES from "../../assets/images";
 import Text from "../../components/Text";
 import TableContainer from "../../components/TableContainer";
 import ICONS from "../../assets/icons";
+import Header from "../../components/Header";
 
 export default function KhsScreen({ navigation }) {
   const data = [
@@ -23,26 +24,7 @@ export default function KhsScreen({ navigation }) {
   ];
   return (
     <View style={LOKAL_STYLES.container}>
-      <View style={LOKAL_STYLES.header}>
-        <TouchableOpacity
-          activeOpacity={0.8}
-          onPress={() => navigation.navigate("Report")}
-        >
-          <Image
-            source={IMAGES.logoKembali}
-            style={{ width: 35, height: 35 }}
-            resizeMode="contain"
-          />
-        </TouchableOpacity>
-        <Text
-          color={"white"}
-          bold
-          fontsize={SIZES.LargeText}
-          style={{ marginLeft: 40 }}
-        >
-          KHS/ Hasil Studi
-        </Text>
-      </View>
+      <Header onPress={() => navigation.navigate("Report")} title={"KHS/ Hasil Studi"}/>
 
       <ImageBackground source={IMAGES.bgDefault} style={[STYLES.container]}>
         <FlatList

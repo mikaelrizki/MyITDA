@@ -10,30 +10,12 @@ import { COLORS, SIZES, STYLES } from "../../styles";
 import IMAGES from "../../assets/images";
 import Text from "../../components/Text";
 import TableContainer from "../../components/TableContainer";
+import Header from "../../components/Header";
 
 export default function TranskripScreen({ navigation }) {
   return (
-    <View style={LOKAL_STYLES.container}>
-      <View style={LOKAL_STYLES.header}>
-        <TouchableOpacity
-          activeOpacity={0.8}
-          onPress={() => navigation.navigate("Report")}
-        >
-          <Image
-            source={IMAGES.logoKembali}
-            style={{ width: 35, height: 35 }}
-            resizeMode="contain"
-          />
-        </TouchableOpacity>
-        <Text
-          color={COLORS.white}
-          bold
-          fontsize={SIZES.LargeText}
-          style={{ marginLeft: 40 }}
-        >
-          Transkrip
-        </Text>
-      </View>
+    <View style={{ flex: 1 }}>
+      <Header onPress={() => navigation.navigate("Report")} title={"Daftar Nilai"}/>
 
       <ImageBackground source={IMAGES.bgDefault} style={[STYLES.container]}>
         <View style={LOKAL_STYLES.content}>
