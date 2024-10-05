@@ -10,7 +10,7 @@ import Home from "../home";
 import Payment from "../payment";
 import ReportScreen from "../report";
 
-export default function MainScreen({ navigation }) {
+export default function MainScreen({ navigation, route }) {
   const [index, setIndex] = useState(0);
   const [routes] = useState([
     { key: "home", title: "Home" },
@@ -18,17 +18,13 @@ export default function MainScreen({ navigation }) {
     { key: "payment", title: "Payment" },
   ]);
 
-  const generateHome = () => (
-    <Home/>
-  );
+  const { dataMhs } = route.params;
 
-  const generateReport = () => (
-    <ReportScreen navigation={navigation}/>
-  )
+  const generateHome = () => <Home data={dataMhs} />;
 
-  const generatePayment = () => (
-    <Payment navigation={navigation}/>
-  );
+  const generateReport = () => <ReportScreen navigation={navigation} />;
+
+  const generatePayment = () => <Payment navigation={navigation} />;
 
   function renderTabBar(props) {
     return (
@@ -50,15 +46,15 @@ export default function MainScreen({ navigation }) {
             style={{
               width: 35,
               height: 35,
-              marginLeft: route.title === 'Home' ? 28 : 0,
-              marginRight: route.title === 'Payment' ? 28 : 0,
+              marginLeft: route.title === "Home" ? 28 : 0,
+              marginRight: route.title === "Payment" ? 28 : 0,
               backgroundColor: focused ? COLORS.white : COLORS.primary,
               borderRadius: SIZES.bigRadius,
               justifyContent: "center",
               alignItems: "center",
             }}
           >
-           <Text
+            <Text
               bold
               color={focused ? COLORS.primary : COLORS.white}
               fontsize={20}
@@ -73,7 +69,7 @@ export default function MainScreen({ navigation }) {
   }
 
   return (
-    <ImageBackground source={IMAGES.bgDefault} style={{flex:1}}>
+    <ImageBackground source={IMAGES.bgDefault} style={{ flex: 1 }}>
       <AppBar
         username={"Melisa Wijaya"}
         bgColorBell={COLORS.softBlue}

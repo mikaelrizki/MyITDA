@@ -6,12 +6,15 @@ import Button from "../../components/Button";
 import { COLORS, SIZES, STYLES } from "../../styles";
 import InputField from "../../components/InputField";
 import ICONS from "../../assets/icons";
+import md5 from "md5";
 
-export default function AuthScreen({ navigation }) {
+export default function AuthScreen({ navigation, route }) {
   const [dataLogin, setDataLogin] = useState({
     nim: "",
     password: "",
   });
+
+  const { dataLoginAll, dataMahasiswaAll } = route.params;
 
   return (
     <ImageBackground
@@ -63,13 +66,23 @@ export default function AuthScreen({ navigation }) {
       <Button
         title="Login"
         onPress={() => {
-          if (dataLogin.nim === "1234" && dataLogin.password === "admin") {
-            navigation.navigate("Home");
+          const credential = dataLoginAll.find(
+            (item) =>
+              item.nim === dataLogin.nim && item.password === md5(dataLogin.password)
+          );
+          const mhsAvail = dataMahasiswaAll.find(
+            (item) => item.nim === dataLogin.nim
+          );
+          if (credential && mhsAvail) {
+            const dataMhs = dataMahasiswaAll.filter(
+              (item) => item.nim == dataLogin.nim
+            );
+            navigation.replace("Main", { dataMhs });
           }
         }}
         disable={dataLogin.nim === "" || dataLogin.password === ""}
       />
-      <View style={{ flexDirection: "row", marginTop: 10 }}>
+      {/* <View style={{ flexDirection: "row", marginTop: 10 }}>
         <Text medium center color={COLORS.gray}>
           Lupa Password? {""}
         </Text>
@@ -98,7 +111,12 @@ export default function AuthScreen({ navigation }) {
             Pembayaran
           </Text>
         </TouchableOpacity>
-      </View>
+        <TouchableOpacity onPress={() => navigation.navigate("Main")}>
+          <Text medium center underline color={COLORS.warning}>
+            Main
+          </Text>
+        </TouchableOpacity>
+      </View> */}
     </ImageBackground>
   );
 }

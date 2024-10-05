@@ -4,26 +4,34 @@ import SectionTitle from "../../components/SectionTitle";
 import ItemKTM from "../../components/ItemKTM";
 import ItemDataInfoMhs from "../../components/ItemDataInfoMhs";
 import { ScrollView } from "react-native-gesture-handler";
+import { formatTanggalIndonesia } from "../../services/utils/formatter";
 
-export default function Home({ navigation }) {
+export default function Home({ navigation, data }) {
+  console.log("datameme", data);
   return (
-    <ScrollView style={STYLES.containerTabView} showsVerticalScrollIndicator={false}>
+    <ScrollView
+      style={STYLES.containerTabView}
+      showsVerticalScrollIndicator={false}
+    >
       <SectionTitle title={"Kartu Tanda Mahasiswa"} />
 
       <ItemKTM
-        nama={"Melisa Wijaya"}
-        nim={"71210714"}
-        fakultas={"Teknologi Informasi"}
-        jurusan={"Informatika"}
+        nama={data[0].nama}
+        nim={data[0].nim}
+        fakultas={data[0].nm_fak}
+        jurusan={data[0].nm_prodi}
       />
 
       <SectionTitle title={"Biodata"} />
 
       <View style={LOCAL_STYLE.containerStyle}>
-        <ItemDataInfoMhs dataKey={"Tempat Lahir"} dataValue={"Semarang"} />
+        <ItemDataInfoMhs
+          dataKey={"Tempat Lahir"}
+          dataValue={data[0].tmp_lahir}
+        />
         <ItemDataInfoMhs
           dataKey={"Tanggal Lahir"}
-          dataValue={"21 Desember 2003"}
+          dataValue={formatTanggalIndonesia(data[0].tgl_lahir)}
         />
         <ItemDataInfoMhs
           dataKey={"Alamat"}
