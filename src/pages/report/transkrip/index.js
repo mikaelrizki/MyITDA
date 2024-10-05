@@ -1,61 +1,56 @@
-import {
-  ImageBackground,
-  ScrollView,
-  StyleSheet,
-  View,
-} from "react-native";
+import { ImageBackground, ScrollView, StyleSheet, View } from "react-native";
 import React from "react";
 import TableContainer from "../../../components/TableContainer";
-import Header from "../../../components/Header";
 import Text from "../../../components/Text";
 import { COLORS, SIZES, STYLES } from "../../../styles";
 import IMAGES from "../../../assets/images";
+import SecondAppBar from "../../../components/SecondAppBar";
 
 export default function TranskripScreen({ navigation }) {
   return (
-    <ScrollView style={{ flex: 1 }}>
-      <Header onPress={() => navigation.navigate("Report")} title={"Daftar Nilai"}/>
+    <ScrollView showsHorizontalScrollIndicator={false} style={{ flex: 1 }}>
+      <ImageBackground source={IMAGES.bgDefault} style={(flex = 1)}>
+        <SecondAppBar label={"Transkrip"} navigation={navigation} />
+        <View style={STYLES.container}>
+          <View style={LOKAL_STYLES.content}>
+            <View style={LOKAL_STYLES.infoContainerSks}>
+              <Text color={COLORS.white} bold fontsize={SIZES.smallText}>
+                Total Sks
+              </Text>
+              <View style={LOKAL_STYLES.sksContainer}>
+                <View style={LOKAL_STYLES.sksBadge}>
+                  <Text
+                    bold
+                    color={COLORS.primary}
+                    fontsize={SIZES.extraSmallText}
+                  >
+                    120
+                  </Text>
+                </View>
+              </View>
+            </View>
 
-      <ImageBackground source={IMAGES.bgDefault} style={[STYLES.container]}>
-        <View style={LOKAL_STYLES.content}>
-          <View style={LOKAL_STYLES.infoContainerSks}>
-            <Text color={COLORS.white} bold fontsize={SIZES.smallText}>
-              Total Sks
-            </Text>
-            <View style={LOKAL_STYLES.sksContainer}>
-              <View style={LOKAL_STYLES.sksBadge}>
-                <Text
-                  bold
-                  color={COLORS.primary}
-                  fontsize={SIZES.extraSmallText}
-                >
-                  120
-                </Text>
+            <View style={LOKAL_STYLES.infoContainerKualitas}>
+              <Text color={COLORS.white} bold fontsize={SIZES.smallText}>
+                Total Angka Kualitas
+              </Text>
+              <View style={LOKAL_STYLES.sksContainer}>
+                <View style={LOKAL_STYLES.sksBadge}>
+                  <Text
+                    bold
+                    color={COLORS.primary}
+                    fontsize={SIZES.extraSmallText}
+                  >
+                    54.0
+                  </Text>
+                </View>
               </View>
             </View>
           </View>
 
-          <View style={LOKAL_STYLES.infoContainerKualitas}>
+          <View style={LOKAL_STYLES.infoContainerIpk}>
             <Text color={COLORS.white} bold fontsize={SIZES.smallText}>
-              Total Angka Kualitas
-            </Text>
-            <View style={LOKAL_STYLES.sksContainer}>
-              <View style={LOKAL_STYLES.sksBadge}>
-                <Text
-                  bold
-                  color={COLORS.primary}
-                  fontsize={SIZES.extraSmallText}
-                >
-                  54.0
-                </Text>
-              </View>
-            </View>
-          </View>
-        </View>
-
-        <View style={LOKAL_STYLES.infoContainerIpk}>
-            <Text color={COLORS.white} bold fontsize={SIZES.smallText}>
-            Indeks Prestasi Kumulatif
+              Indeks Prestasi Kumulatif
             </Text>
             <View style={LOKAL_STYLES.sksContainer}>
               <View style={LOKAL_STYLES.sksBadge}>
@@ -70,8 +65,17 @@ export default function TranskripScreen({ navigation }) {
             </View>
           </View>
 
-          <TableContainer title={"MATAKULIAH WAJIB"} displayOption={"transkrip"} transkrip={"wajib"}/>
-          <TableContainer title={"MATAKULIAH PILIHAN"} displayOption={"transkrip"} transkrip={"pilihan"}/>
+          <TableContainer
+            title={"MATAKULIAH WAJIB"}
+            displayOption={"transkrip"}
+            transkrip={"wajib"}
+          />
+          <TableContainer
+            title={"MATAKULIAH PILIHAN"}
+            displayOption={"transkrip"}
+            transkrip={"pilihan"}
+          />
+        </View>
       </ImageBackground>
     </ScrollView>
   );
@@ -79,14 +83,13 @@ export default function TranskripScreen({ navigation }) {
 
 const LOKAL_STYLES = StyleSheet.create({
   container: {
-    flex: 1
+    flex: 1,
   },
-  content:{
+  content: {
     flexDirection: "row",
     justifyContent: "space-between",
     padding: 15,
-    flex: 1
-
+    flex: 1,
   },
   infoContainerSks: {
     paddingHorizontal: SIZES.padding,
@@ -101,7 +104,7 @@ const LOKAL_STYLES = StyleSheet.create({
     backgroundColor: COLORS.primary,
     flexDirection: "row",
     borderRadius: 5,
-    alignItems: 'center',
+    alignItems: "center",
   },
   infoContainerIpk: {
     paddingHorizontal: SIZES.padding,
@@ -110,7 +113,7 @@ const LOKAL_STYLES = StyleSheet.create({
     borderRadius: 5,
     alignItems: "center",
     alignSelf: "flex-start",
-    marginLeft: "5%"
+    marginLeft: "5%",
   },
   sksContainer: {
     alignItems: "center",
@@ -121,6 +124,6 @@ const LOKAL_STYLES = StyleSheet.create({
     backgroundColor: COLORS.white,
     paddingHorizontal: 4,
     borderRadius: SIZES.radius,
-    alignSelf: "flex-end"
+    alignSelf: "flex-end",
   },
 });

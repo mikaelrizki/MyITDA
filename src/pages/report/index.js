@@ -8,7 +8,7 @@ import SectionTitleBig from "../../components/SectionTitleBig";
 export default function ReportScreen({ navigation }) {
   return (
     
-      <ScrollView style={STYLES.containerTabView}>
+      <ScrollView showsVerticalScrollIndicator={false} style={STYLES.containerTabView}>
         <View
           style={{
             flex: 1,

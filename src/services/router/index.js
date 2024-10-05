@@ -16,7 +16,7 @@ export default function Router() {
   return (
     <BottomSheetModalProvider>
       <Stack.Navigator
-        initialRouteName="Splash"
+        initialRouteName="Main"
         screenOptions={{
           headerShown: false,
         }}

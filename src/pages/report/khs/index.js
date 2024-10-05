@@ -10,7 +10,7 @@ import { SIZES, STYLES } from "../../../styles";
 import IMAGES from "../../../assets/images";
 import TableContainer from "../../../components/TableContainer";
 import ICONS from "../../../assets/icons";
-import Header from "../../../components/Header";
+import SecondAppBar from "../../../components/SecondAppBar";
 
 export default function KhsScreen({ navigation }) {
   const data = [
@@ -21,24 +21,24 @@ export default function KhsScreen({ navigation }) {
     { id: "5", title: "GASAL 2020/2021" },
   ];
   return (
-    <View style={LOKAL_STYLES.container}>
-      <Header onPress={() => navigation.navigate("Report")} title={"KHS/ Hasil Studi"}/>
-
-      <ImageBackground source={IMAGES.bgDefault} style={[STYLES.container]}>
+    <ImageBackground source={IMAGES.bgDefault} style={{ flex: 1 }}>
+      <SecondAppBar label={"KHS/ Hasil Studi"} navigation={navigation} />
+      <View style={STYLES.container}>
         <FlatList
           data={data}
           renderItem={({ item }) => (
             <TableContainer
               title={item.title}
               displayOption={"khs"}
-              rightIcon={<Image source={ICONS.down}  />}
+              rightIcon={<Image source={ICONS.down} />}
             />
           )}
           keyExtractor={(item) => item.id}
           style={{ width: SIZES.full }}
+          showsVerticalScrollIndicator={false}
         />
-      </ImageBackground>
-    </View>
+      </View>
+    </ImageBackground>
   );
 }
 
