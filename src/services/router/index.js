@@ -11,6 +11,7 @@ import AnnouncementScreen from "../../pages/announcement";
 import ResetScreen from "../../pages/reset";
 import KhsScreen from "../../pages/report/khs";
 import TranskripScreen from "../../pages/report/transkrip";
+import MainScreen from "../../pages/main";
 
 const Stack = createNativeStackNavigator();
 
@@ -18,7 +19,7 @@ export default function Router() {
   return (
     <BottomSheetModalProvider>
       <Stack.Navigator
-        initialRouteName="Splash"
+        initialRouteName="Main"
         screenOptions={{
           headerShown: false,
         }}
@@ -28,6 +29,7 @@ export default function Router() {
       >
         <Stack.Screen name="Splash" component={SplashScreen} />
         <Stack.Screen name="Auth" component={AuthScreen} />
+        <Stack.Screen name="Main" component={MainScreen} />
         <Stack.Screen name="Home" component={HomeScreen} />
         <Stack.Screen name="Payment" component={Payment} />
         <Stack.Screen name="Riwayat" component={Riwayat} />
