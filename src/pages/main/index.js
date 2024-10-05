@@ -6,6 +6,7 @@ import ICONS from "../../assets/icons";
 import { useState } from "react";
 import { SceneMap, TabBar, TabView } from "react-native-tab-view";
 import Text from "../../components/Text";
+import Home from "../home";
 
 export default function MainScreen({ navigation }) {
   const [index, setIndex] = useState(0);
@@ -16,9 +17,7 @@ export default function MainScreen({ navigation }) {
   ]);
 
   const generateHome = () => (
-    <View style={{ flex: 1}}>
-      <Text>jhghjh</Text>
-    </View>
+    <Home/>
   );
 
   function renderTabBar(props) {
@@ -26,9 +25,10 @@ export default function MainScreen({ navigation }) {
       <TabBar
         {...props}
         style={{
-          bottom: 20,
-          width: 200,
-          left: SIZES.width / 2 -120,
+          bottom: 30,
+          width: 280,
+          paddingVertical: 4,
+          left: SIZES.width / 2 - 140,
           position: "absolute",
           backgroundColor: COLORS.primary,
           borderRadius: SIZES.bigRadius,
@@ -37,29 +37,24 @@ export default function MainScreen({ navigation }) {
         renderLabel={({ route, focused, color }) => (
           <View
             style={{
-              width: 36,
-              height: 36,
+              width: 35,
+              height: 35,
+              marginLeft: route.title === 'Home' ? 28 : 0,
+              marginRight: route.title === 'Payment' ? 28 : 0,
               backgroundColor: focused ? COLORS.white : COLORS.primary,
               borderRadius: SIZES.bigRadius,
               justifyContent: "center",
               alignItems: "center",
             }}
           >
-            {route.title ==='Home' ? <Text
+           <Text
               bold
               color={focused ? COLORS.primary : COLORS.white}
               fontsize={20}
               padVertical={0}
             >
               A
-            </Text> : <Text
-              bold
-              color={focused ? COLORS.primary : COLORS.white}
-              fontsize={20}
-              padVertical={0}
-            >
-              P
-            </Text>}
+            </Text>
           </View>
         )}
       />
@@ -67,7 +62,7 @@ export default function MainScreen({ navigation }) {
   }
 
   return (
-    <ImageBackground source={IMAGES.bgDefault} style={STYLES.container}>
+    <ImageBackground source={IMAGES.bgDefault} style={{flex:1}}>
       <AppBar
         username={"Melisa Wijaya"}
         bgColorBell={COLORS.softBlue}

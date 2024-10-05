@@ -2,7 +2,7 @@ import { Image, TouchableOpacity, View } from "react-native";
 import { COLORS, SHADOWS, SIZES } from "../../styles";
 import Text from "../../components/Text";
 import IMAGES from "../../assets/images";
-
+import Constants from "expo-constants";
 
 export default function AppBar({
   username,
@@ -10,13 +10,15 @@ export default function AppBar({
   bellIcon,
   navigation,
 }) {
+  const SBHeight = Constants.statusBarHeight + 10;
   return (
     <View
       style={{
         height: 47,
         flexDirection: "row",
         alignItems: "center",
-        marginTop: 23,
+        marginTop: SBHeight,
+        marginHorizontal: 20
       }}
     >
       <TouchableOpacity activeOpacity={0.7} style={{ height: 47, width: 47 }}>

@@ -50,6 +50,11 @@ export const STYLES = StyleSheet.create({
     alignItems: "center",
     padding: SIZES.padding2,
   },
+  containerTabView: {
+    flex: 1,
+    marginBottom: 80,
+    marginHorizontal: 20,
+  },
 });
 
 export const SHADOWS = StyleSheet.create({
