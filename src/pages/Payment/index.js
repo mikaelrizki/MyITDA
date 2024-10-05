@@ -61,72 +61,69 @@ export default function Payment({ navigation }) {
   };
 
   return (
-      <BottomSheetModalProvider>
-        <View style={[STYLES.containerTabView, {marginTop:"3%"}]}>
-            <SectionTitleBig title={"Tagihan Anda"} />
+    <View style={[STYLES.containerTabView, { marginTop: "3%" }]}>
+      <SectionTitleBig title={"Tagihan Anda"} />
 
-            <PaymentInfo
-              kd_ta={kd_ta}
-              kd_smt={kd_smt}
-              total_harga={total_harga}
-              total_denda={total_denda}
-              total_tagihan={total_tagihan}
-              tgl_akhir_bayar={tgl_akhir_bayar}
-              tgl_mulai={tgl_mulai}
-              status_bayar={status_bayar}
-              tgl_bayar={tgl_bayar}
-              metode_pembayaran={metode_pembayaran}
-              beasiswa={beasiswa}
-              jenis_beasiswa={jenis_beasiswa}
-              isMasaPembayaran={isMasaPembayaran}
-            />
+      <PaymentInfo
+        kd_ta={kd_ta}
+        kd_smt={kd_smt}
+        total_harga={total_harga}
+        total_denda={total_denda}
+        total_tagihan={total_tagihan}
+        tgl_akhir_bayar={tgl_akhir_bayar}
+        tgl_mulai={tgl_mulai}
+        status_bayar={status_bayar}
+        tgl_bayar={tgl_bayar}
+        metode_pembayaran={metode_pembayaran}
+        beasiswa={beasiswa}
+        jenis_beasiswa={jenis_beasiswa}
+        isMasaPembayaran={isMasaPembayaran}
+      />
 
-            <ButtonPembayaran
-              title="Lihat Riwayat Pembayaran"
-              navigation={() => navigation.navigate("Riwayat")}
-              rightIcon={
-                <Image
-                  source={ICONS.logoRiwayat}
-                  style={{ width: 32, height: 32 }}
-                  resizeMode="contain"
-                />
-              }
-            />
-            <ButtonPembayaran
-              title="Lihat Tutorial Pembayaran"
-              navigation={toggleModal}
-              rightIcon={
-                <Image
-                  source={ICONS.logoTutorial}
-                  style={{
-                    width: 27,
-                    height: 27,
-                    marginTop: 3,
-                    marginRight: 2,
-                  }}
-                  resizeMode="contain"
-                />
-              }
-            />
-        </View>
-
-        <BottomSheetModal
-          ref={bottomSheetModalRef}
-          index={1}
-          snapPoints={["70%", "70%"]}
-          onDismiss={() => setIsModalVisible(false)}
-          enablePanDownToClose={true}
-          backgroundStyle={{ backgroundColor: COLORS.secondary }}
-          handleIndicatorStyle={LOCAL_STYLE.handleIndicator}
-          backdropComponent={({ animatedIndex, style }) => (
-            <TouchableWithoutFeedback onPress={closeModal}>
-              <View style={[style, { backgroundColor: "rgba(0,0,0,0.7)" }]} />
-            </TouchableWithoutFeedback>
-          )}
-          animationConfigs={{ duration: 200 }}>
-          <Tutorial />
-        </BottomSheetModal>
-      </BottomSheetModalProvider>
+      <ButtonPembayaran
+        title="Lihat Riwayat Pembayaran"
+        navigation={() => navigation.navigate("Riwayat")}
+        rightIcon={
+          <Image
+            source={ICONS.logoRiwayat}
+            style={{ width: 32, height: 32 }}
+            resizeMode="contain"
+          />
+        }
+      />
+      <ButtonPembayaran
+        title="Lihat Tutorial Pembayaran"
+        navigation={toggleModal}
+        rightIcon={
+          <Image
+            source={ICONS.logoTutorial}
+            style={{
+              width: 27,
+              height: 27,
+              marginTop: 3,
+              marginRight: 2,
+            }}
+            resizeMode="contain"
+          />
+        }
+      />
+      <BottomSheetModal
+        ref={bottomSheetModalRef}
+        index={1}
+        snapPoints={["70%", "70%"]}
+        onDismiss={() => setIsModalVisible(false)}
+        enablePanDownToClose={true}
+        backgroundStyle={{ backgroundColor: COLORS.secondary }}
+        handleIndicatorStyle={LOCAL_STYLE.handleIndicator}
+        backdropComponent={({ animatedIndex, style }) => (
+          <TouchableWithoutFeedback onPress={closeModal}>
+            <View style={[style, { backgroundColor: "rgba(0,0,0,0.7)" }]} />
+          </TouchableWithoutFeedback>
+        )}
+        animationConfigs={{ duration: 150 }}>
+        <Tutorial />
+      </BottomSheetModal>
+    </View>
   );
 }
 

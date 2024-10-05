@@ -7,6 +7,7 @@ import Router from "./src/services/router";
 import FONTS from "./src/assets/fonts";
 import * as NavigationBar from "expo-navigation-bar";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
+import { BottomSheetModalProvider } from "@gorhom/bottom-sheet";
 
 export default function App() {
   const [fontsLoaded, fontError] = useFonts(FONTS.KhumbhSans);
@@ -34,12 +35,14 @@ export default function App() {
 
   return (
     <GestureHandlerRootView style={{ flex: 1 }}>
-      <View style={{ flex: 1 }}>
-        <NavigationContainer>
-          <Router />
-          <StatusBar style="auto" translucent={true} />
-        </NavigationContainer>
-      </View>
+      <BottomSheetModalProvider>
+        <View style={{ flex: 1 }}>
+          <NavigationContainer>
+            <Router />
+            <StatusBar style="auto" translucent={true} />
+          </NavigationContainer>
+        </View>
+      </BottomSheetModalProvider>
     </GestureHandlerRootView>
   );
 }
