@@ -1,32 +1,32 @@
-import {
-  View,
-  ImageBackground,
-  StyleSheet,
-  FlatList,
-} from "react-native";
+import { View, ImageBackground, StyleSheet, FlatList } from "react-native";
 import IMAGES from "../../../assets/images";
 import { COLORS, SIZES, STYLES } from "../../../styles";
 import DATA from "../../../services/cache";
 import DetailRiwayat from "../../../components/DetailRiwayat";
-import Header from "../../../components/Header";
+import SecondAppBar from "../../../components/SecondAppBar";
 
 export default function Riwayat({ navigation }) {
   return (
-    <View style={{ flex: 1 }}>
-      <Header onPress={() => navigation.navigate("Main")} title={"Riwayat Pembayaran"}/>
-
-      <ImageBackground source={IMAGES.bgDefault} style={[STYLES.container]}>
+    <ImageBackground
+      source={IMAGES.bgDefault}
+      style={{ flex: 1}}>
+      <SecondAppBar label={"Riwayat Pembayaran"} navigation={navigation} />
+      <View
+        style={{
+          flex: 1,
+          width: SIZES.full,
+          flexdirection: "column",
+          alignItems: "center",
+          paddingHorizontal: SIZES.padding2,
+        }}>
         <FlatList
           data={DATA.dataPembayaran.data}
-          renderItem={({ item }) => (
-            <DetailRiwayat data={item} />
-          )}
+          renderItem={({ item }) => <DetailRiwayat data={item} />}
           keyExtractor={(item, index) => index.toString()}
           style={{ width: SIZES.full }}
         />
-      </ImageBackground>
-      
-    </View>
+      </View>
+    </ImageBackground>
   );
 }
 

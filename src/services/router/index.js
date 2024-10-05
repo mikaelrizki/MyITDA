@@ -2,10 +2,7 @@ import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { BottomSheetModalProvider } from "@gorhom/bottom-sheet";
 import SplashScreen from "../../pages/splash";
 import AuthScreen from "../../pages/auth";
-import HomeScreen from "../../pages/home";
-import Payment from "../../pages/payment";
 import Riwayat from "../../pages/payment/riwayat";
-import Tutorial from "../../pages/payment/tutorial";
 import ReportScreen from "../../pages/report";
 import AnnouncementScreen from "../../pages/announcement";
 import ResetScreen from "../../pages/reset";
@@ -19,7 +16,7 @@ export default function Router() {
   return (
     <BottomSheetModalProvider>
       <Stack.Navigator
-        initialRouteName="Main"
+        initialRouteName="Splash"
         screenOptions={{
           headerShown: false,
         }}
@@ -30,10 +27,7 @@ export default function Router() {
         <Stack.Screen name="Splash" component={SplashScreen} />
         <Stack.Screen name="Auth" component={AuthScreen} />
         <Stack.Screen name="Main" component={MainScreen} />
-        <Stack.Screen name="Home" component={HomeScreen} />
-        <Stack.Screen name="Payment" component={Payment} />
         <Stack.Screen name="Riwayat" component={Riwayat} />
-        <Stack.Screen name="Tutorial" component={Tutorial} />
         <Stack.Screen name="Report" component={ReportScreen} />
         <Stack.Screen name="Announcement" component={AnnouncementScreen} />
         <Stack.Screen name="Reset" component={ResetScreen} />

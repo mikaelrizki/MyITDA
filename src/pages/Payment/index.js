@@ -10,9 +10,7 @@ import ICONS from "../../assets/icons";
 import DATA from "../../services/cache";
 import SectionTitleBig from "../../components/SectionTitleBig";
 import PaymentInfo from "../../components/PaymentInfo";
-import {
-  BottomSheetModal,
-} from "@gorhom/bottom-sheet";
+import { BottomSheetModal } from "@gorhom/bottom-sheet";
 import React, { useRef, useState } from "react";
 import Tutorial from "./tutorial";
 
