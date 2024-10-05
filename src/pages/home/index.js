@@ -3,10 +3,11 @@ import { COLORS, SIZES, STYLES } from "../../styles";
 import SectionTitle from "../../components/SectionTitle";
 import ItemKTM from "../../components/ItemKTM";
 import ItemDataInfoMhs from "../../components/ItemDataInfoMhs";
+import { ScrollView } from "react-native-gesture-handler";
 
 export default function Home({ navigation }) {
   return (
-    <View style={STYLES.containerTabView}>
+    <ScrollView style={STYLES.containerTabView} showsVerticalScrollIndicator={false}>
       <SectionTitle title={"Kartu Tanda Mahasiswa"} />
 
       <ItemKTM
@@ -49,7 +50,7 @@ export default function Home({ navigation }) {
           dataValue={"Gloria Virginia, S.Kom.,MAI, Ph.D"}
         />
       </View>
-    </View>
+    </ScrollView>
   );
 }
 

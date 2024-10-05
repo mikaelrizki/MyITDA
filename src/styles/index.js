@@ -52,7 +52,7 @@ export const STYLES = StyleSheet.create({
   },
   containerTabView: {
     flex: 1,
-    marginBottom: 80,
+    marginBottom: 100,
     marginHorizontal: 20,
   },
 });
