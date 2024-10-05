@@ -1,6 +1,6 @@
 import { View } from "react-native";
 import Text from "../Text";
-import { COLORS, SIZES } from "../../styles";
+import { SIZES } from "../../styles";
 
 export default function RowPayment({ dataKey, dataValue, color}) {
 

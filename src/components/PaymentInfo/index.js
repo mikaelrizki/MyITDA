@@ -1,7 +1,7 @@
 import { Image, StyleSheet, View } from "react-native";
 import IMAGES from "../../assets/images";
 import Text from "../../components/Text";
-import { COLORS, SIZES, STYLES } from "../../styles";
+import { COLORS, SIZES } from "../../styles";
 import RowPayment from "../../components/RowPayment";
 
 export default function PaymentInfo({

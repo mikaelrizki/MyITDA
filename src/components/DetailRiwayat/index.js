@@ -1,5 +1,5 @@
-import { Button, Image, ImageBackground, StyleSheet, View } from "react-native";
-import { COLORS, SIZES, STYLES } from "../../styles";
+import { StyleSheet, View } from "react-native";
+import { COLORS, SIZES } from "../../styles";
 import Text from "../Text";
 import {
   formatRupiah,

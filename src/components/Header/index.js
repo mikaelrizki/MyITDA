@@ -1,13 +1,10 @@
 import {
-  FlatList,
   Image,
-  ImageBackground,
   StyleSheet,
   TouchableOpacity,
   View,
 } from "react-native";
 import Text from "../Text";
-import IMAGES from "../../assets/images";
 import { COLORS, SIZES } from "../../styles";
 import ICONS from "../../assets/icons";
 

@@ -1,6 +1,5 @@
 import {
   Image,
-  ImageBackground,
   StyleSheet,
   TouchableWithoutFeedback,
   View,
@@ -12,11 +11,9 @@ import DATA from "../../services/cache";
 import SectionTitleBig from "../../components/SectionTitleBig";
 import PaymentInfo from "../../components/PaymentInfo";
 import {
-  BottomSheetModalProvider,
   BottomSheetModal,
 } from "@gorhom/bottom-sheet";
 import React, { useRef, useState } from "react";
-import { GestureHandlerRootView } from "react-native-gesture-handler";
 import Tutorial from "./tutorial";
 
 export default function Payment({ navigation }) {
