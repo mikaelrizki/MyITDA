@@ -1,14 +1,39 @@
 import { View, ImageBackground, ScrollView, Button } from "react-native";
 import React from "react";
-import { SIZES, STYLES } from "../../styles";
+import { SIZES } from "../../styles";
 import ButtonNilai from "../../components/ButtonNilai";
 import TableContainer from "../../components/TableContainer";
 import SectionTitleBig from "../../components/SectionTitleBig";
 
 export default function ReportScreen({ navigation }) {
   return (
-    
-      <ScrollView showsVerticalScrollIndicator={false} style={STYLES.containerTabView}>
+    <View style={{ flex: 1, padding: SIZES.padding2 }}>
+      <SectionTitleBig title={"Data Akademik"} />
+      <ButtonNilai
+        value="KHS/ Hasil Studi"
+        next
+        backgroundColor
+        color
+        space
+        onPress={() => {
+          navigation.navigate("KHS");
+        }}
+      />
+      <ButtonNilai
+        value="Daftar Nilai"
+        next
+        backgroundColor
+        color
+        space
+        marginTop
+        onPress={() => {
+          navigation.navigate("Transkrip");
+        }}
+      />
+      <ScrollView
+        showsVerticalScrollIndicator={false}
+        style={{ marginBottom: 100, marginTop: 10 }}
+      >
         <View
           style={{
             flex: 1,
@@ -16,29 +41,6 @@ export default function ReportScreen({ navigation }) {
             flexDirection: "column",
           }}
         >
-          <SectionTitleBig title={"Data Akademik"} />
-          <ButtonNilai
-            value="KHS/ Hasil Studi"
-            next
-            backgroundColor
-            color
-            space
-            onPress={() => {
-              navigation.navigate("KHS");
-            }}
-          />
-          <ButtonNilai
-            value="Daftar Nilai"
-            next
-            backgroundColor
-            color
-            space
-            marginTop
-            onPress={() => {
-              navigation.navigate("Transkrip");
-            }}
-          />
-
           <TableContainer
             title={"PERKEMBANGAN IP & SKS SEMSTER"}
             displayOption={"table"}
@@ -49,5 +51,6 @@ export default function ReportScreen({ navigation }) {
           />
         </View>
       </ScrollView>
+    </View>
   );
 }
