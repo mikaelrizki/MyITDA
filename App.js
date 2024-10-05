@@ -6,6 +6,7 @@ import { NavigationContainer } from "@react-navigation/native";
 import Router from "./src/services/router";
 import FONTS from "./src/assets/fonts";
 import * as NavigationBar from "expo-navigation-bar";
+import { GestureHandlerRootView } from "react-native-gesture-handler";
 
 export default function App() {
   const [fontsLoaded, fontError] = useFonts(FONTS.KhumbhSans);
@@ -32,11 +33,13 @@ export default function App() {
   }
 
   return (
-    <View style={{ flex: 1 }}>
-      <NavigationContainer>
-        <Router />
-        <StatusBar style="auto" translucent={true} />
-      </NavigationContainer>
-    </View>
+    <GestureHandlerRootView style={{ flex: 1 }}>
+      <View style={{ flex: 1 }}>
+        <NavigationContainer>
+          <Router />
+          <StatusBar style="auto" translucent={true} />
+        </NavigationContainer>
+      </View>
+    </GestureHandlerRootView>
   );
 }

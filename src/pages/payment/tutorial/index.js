@@ -82,7 +82,7 @@ const LOCAL_STYLE = StyleSheet.create({
   modalContent: {
     borderRadius: 20,
     padding: 25,
-    marginTop: "-8%"
+    marginTop: "-8%",
   },
   bulletItem: {
     flexDirection: "row",

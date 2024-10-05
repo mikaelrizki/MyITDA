@@ -13,7 +13,7 @@ import Header from "../../../components/Header";
 export default function Riwayat({ navigation }) {
   return (
     <View style={{ flex: 1 }}>
-      <Header onPress={() => navigation.navigate("Payment")} title={"Riwayat Pembayaran"}/>
+      <Header onPress={() => navigation.navigate("Main")} title={"Riwayat Pembayaran"}/>
 
       <ImageBackground source={IMAGES.bgDefault} style={[STYLES.container]}>
         <FlatList
