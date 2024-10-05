@@ -1,12 +1,8 @@
-import { ImageBackground, StyleSheet, View } from "react-native";
-import IMAGES from "../../assets/images";
+import { StyleSheet, View } from "react-native";
 import { COLORS, SIZES, STYLES } from "../../styles";
-import AppBar from "../../components/AppBar";
 import SectionTitle from "../../components/SectionTitle";
 import ItemKTM from "../../components/ItemKTM";
 import ItemDataInfoMhs from "../../components/ItemDataInfoMhs";
-import ICONS from "../../assets/icons";
-import BottomNavbar from "../../components/BottomNavbar";
 
 export default function Home({ navigation }) {
   return (
