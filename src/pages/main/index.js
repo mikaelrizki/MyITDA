@@ -8,6 +8,7 @@ import { SceneMap, TabBar, TabView } from "react-native-tab-view";
 import Text from "../../components/Text";
 import Home from "../home";
 import Payment from "../payment";
+import ReportScreen from "../report";
 
 export default function MainScreen({ navigation }) {
   const [index, setIndex] = useState(0);
@@ -20,6 +21,10 @@ export default function MainScreen({ navigation }) {
   const generateHome = () => (
     <Home/>
   );
+
+  const generateReport = () => (
+    <ReportScreen navigation={navigation}/>
+  )
 
   const generatePayment = () => (
     <Payment navigation={navigation}/>
@@ -79,7 +84,7 @@ export default function MainScreen({ navigation }) {
         navigationState={{ index, routes }}
         renderScene={SceneMap({
           home: generateHome,
-          report: generateHome,
+          report: generateReport,
           payment: generatePayment,
         })}
         renderTabBar={renderTabBar}

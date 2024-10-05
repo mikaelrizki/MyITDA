@@ -1,6 +1,6 @@
 import {
-  Image,
   ImageBackground,
+  ScrollView,
   StyleSheet,
   View,
 } from "react-native";
@@ -13,13 +13,13 @@ import IMAGES from "../../../assets/images";
 
 export default function TranskripScreen({ navigation }) {
   return (
-    <View style={{ flex: 1 }}>
+    <ScrollView style={{ flex: 1 }}>
       <Header onPress={() => navigation.navigate("Report")} title={"Daftar Nilai"}/>
 
       <ImageBackground source={IMAGES.bgDefault} style={[STYLES.container]}>
         <View style={LOKAL_STYLES.content}>
           <View style={LOKAL_STYLES.infoContainerSks}>
-            <Text color={COLORS.white} bold fontsize={SIZES.mediumText}>
+            <Text color={COLORS.white} bold fontsize={SIZES.smallText}>
               Total Sks
             </Text>
             <View style={LOKAL_STYLES.sksContainer}>
@@ -27,7 +27,7 @@ export default function TranskripScreen({ navigation }) {
                 <Text
                   bold
                   color={COLORS.primary}
-                  fontsize={SIZES.smallText}
+                  fontsize={SIZES.extraSmallText}
                 >
                   120
                 </Text>
@@ -36,7 +36,7 @@ export default function TranskripScreen({ navigation }) {
           </View>
 
           <View style={LOKAL_STYLES.infoContainerKualitas}>
-            <Text color={COLORS.white} bold fontsize={SIZES.mediumText}>
+            <Text color={COLORS.white} bold fontsize={SIZES.smallText}>
               Total Angka Kualitas
             </Text>
             <View style={LOKAL_STYLES.sksContainer}>
@@ -44,7 +44,7 @@ export default function TranskripScreen({ navigation }) {
                 <Text
                   bold
                   color={COLORS.primary}
-                  fontsize={SIZES.smallText}
+                  fontsize={SIZES.extraSmallText}
                 >
                   54.0
                 </Text>
@@ -54,7 +54,7 @@ export default function TranskripScreen({ navigation }) {
         </View>
 
         <View style={LOKAL_STYLES.infoContainerIpk}>
-            <Text color={COLORS.white} bold fontsize={SIZES.mediumText}>
+            <Text color={COLORS.white} bold fontsize={SIZES.smallText}>
             Indeks Prestasi Kumulatif
             </Text>
             <View style={LOKAL_STYLES.sksContainer}>
@@ -62,7 +62,7 @@ export default function TranskripScreen({ navigation }) {
                 <Text
                   bold
                   color={COLORS.primary}
-                  fontsize={SIZES.smallText}
+                  fontsize={SIZES.extraSmallText}
                 >
                   36.2
                 </Text>
@@ -73,7 +73,7 @@ export default function TranskripScreen({ navigation }) {
           <TableContainer title={"MATAKULIAH WAJIB"} displayOption={"transkrip"} transkrip={"wajib"}/>
           <TableContainer title={"MATAKULIAH PILIHAN"} displayOption={"transkrip"} transkrip={"pilihan"}/>
       </ImageBackground>
-    </View>
+    </ScrollView>
   );
 }
 
@@ -84,19 +84,19 @@ const LOKAL_STYLES = StyleSheet.create({
   content:{
     flexDirection: "row",
     justifyContent: "space-between",
-    padding: 15
+    padding: 15,
+    flex: 1
+
   },
   infoContainerSks: {
-    width: "36%",
     paddingHorizontal: SIZES.padding,
     backgroundColor: COLORS.primary,
     flexDirection: "row",
     borderRadius: 5,
     alignItems: "center",
-    marginRight: 10,
+    marginRight: "2%",
   },
   infoContainerKualitas: {
-    width: "62%",
     paddingHorizontal: SIZES.padding,
     backgroundColor: COLORS.primary,
     flexDirection: "row",
@@ -104,14 +104,13 @@ const LOKAL_STYLES = StyleSheet.create({
     alignItems: 'center',
   },
   infoContainerIpk: {
-    width: "65%",
-    alignSelf: "flex-start",
-    marginLeft: 12,
     paddingHorizontal: SIZES.padding,
     backgroundColor: COLORS.primary,
     flexDirection: "row",
     borderRadius: 5,
     alignItems: "center",
+    alignSelf: "flex-start",
+    marginLeft: "5%"
   },
   sksContainer: {
     alignItems: "center",
@@ -122,5 +121,6 @@ const LOKAL_STYLES = StyleSheet.create({
     backgroundColor: COLORS.white,
     paddingHorizontal: 4,
     borderRadius: SIZES.radius,
+    alignSelf: "flex-end"
   },
 });

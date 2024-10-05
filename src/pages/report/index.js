@@ -1,24 +1,14 @@
 import { View, ImageBackground, ScrollView, Button } from "react-native";
 import React from "react";
-import IMAGES from "../../assets/images";
-import { COLORS, SIZES, STYLES } from "../../styles";
-import AppBar from "../../components/AppBar";
+import { SIZES, STYLES } from "../../styles";
 import ButtonNilai from "../../components/ButtonNilai";
 import TableContainer from "../../components/TableContainer";
 import SectionTitleBig from "../../components/SectionTitleBig";
-import ICONS from "../../assets/icons";
-import BottomNavbar from "../../components/BottomNavbar";
 
 export default function ReportScreen({ navigation }) {
   return (
-    <ImageBackground source={IMAGES.bgDefault} style={STYLES.container}>
-      <AppBar
-        username={"Melisa Wijaya"}
-        bgColorBell={COLORS.softBlue}
-        bellIcon={ICONS.iconBellBlue}
-        navigation={navigation}
-      />
-      <ScrollView>
+    
+      <ScrollView style={STYLES.containerTabView}>
         <View
           style={{
             flex: 1,
@@ -59,7 +49,5 @@ export default function ReportScreen({ navigation }) {
           />
         </View>
       </ScrollView>
-      <BottomNavbar navigation={navigation} grade/>
-    </ImageBackground>
   );
 }
