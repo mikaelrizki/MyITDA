@@ -39,6 +39,7 @@ export default function MainScreen({ navigation }) {
           borderRadius: SIZES.bigRadius,
         }}
         indicatorStyle={{ backgroundColor: COLORS.transparent }}
+        pressColor="transparent"
         renderLabel={({ route, focused, color }) => (
           <View
             style={{

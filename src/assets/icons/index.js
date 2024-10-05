@@ -16,6 +16,7 @@ const ICONS = {
   paymentActive: require('./paymentActive.png'),
   grade: require('./grade.png'),
   gradeActive: require('./gradeActive.png'),
+  iconBack: require('./iconBack.png'),
 };
 
 export default ICONS;
