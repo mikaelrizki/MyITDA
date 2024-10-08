@@ -4,6 +4,7 @@ import { SIZES } from "../../styles";
 import ItemDataInfoKTM from "../ItemDataInfoKTM";
 
 export default function ItemKTM({
+  profilePic,
   nama,
   nim,
   fakultas, 
@@ -43,7 +44,7 @@ export default function ItemKTM({
             }}
           >
             <Image
-              source={IMAGES.picKTM}
+              source={{uri: profilePic}}
               style={{
                 width: "100%",
                 height: "100%",

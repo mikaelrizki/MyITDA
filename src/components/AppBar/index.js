@@ -47,6 +47,7 @@ export default function AppBar({
           fontsize={SIZES.smallText}
           color={COLORS.darkBlue}
           padVertical={0}
+          style={{textTransform: "capitalize"}}
         >
           {username}
         </Text>

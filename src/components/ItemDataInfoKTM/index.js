@@ -24,6 +24,7 @@ export default function ItemDataInfoKTM({ dataKey, dataValue }) {
         fontsize={SIZES.extraSmallText}
         padVertical={1}
         paddingLeft={3}
+        style={{textTransform: "capitalize"}}
       >
         {dataValue}
       </Text>

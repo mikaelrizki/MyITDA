@@ -7,7 +7,6 @@ import { ScrollView } from "react-native-gesture-handler";
 import { formatTanggalIndonesia } from "../../services/utils/formatter";
 
 export default function Home({ navigation, data }) {
-  console.log("datameme", data);
   return (
     <ScrollView
       style={STYLES.containerTabView}
@@ -16,6 +15,8 @@ export default function Home({ navigation, data }) {
       <SectionTitle title={"Kartu Tanda Mahasiswa"} />
 
       <ItemKTM
+        //FOTONYA NDAK BISA KELUARRRRRRRRRRRRRR
+        // profilePic={"https://mahasiswa.itda.ac.id/perpus/img/" + data[0].path_foto}
         nama={data[0].nama}
         nim={data[0].nim}
         fakultas={data[0].nm_fak}
@@ -35,27 +36,27 @@ export default function Home({ navigation, data }) {
         />
         <ItemDataInfoMhs
           dataKey={"Alamat"}
-          dataValue={"Jl. Gedongkiwo 1082C"}
+          dataValue={data[0].alamat_mhs}
         />
-        <ItemDataInfoMhs dataKey={"Jenis Kelamin"} dataValue={"Perempuan"} />
-        <ItemDataInfoMhs dataKey={"Agama"} dataValue={"Katolik"} />
-        <ItemDataInfoMhs dataKey={"Golongan Darah"} dataValue={"O"} />
-        <ItemDataInfoMhs dataKey={"Telepon"} dataValue={"089671467070"} />
+        <ItemDataInfoMhs dataKey={"Jenis Kelamin"} dataValue={data[0].jenis_kelamin} />
+        <ItemDataInfoMhs dataKey={"Agama"} dataValue={data[0].agama} />
+        <ItemDataInfoMhs dataKey={"Golongan Darah"} dataValue={data[0].gol_darah} />
+        <ItemDataInfoMhs dataKey={"Telepon"} dataValue={data[0].hp_mhs} />
         <ItemDataInfoMhs
           dataKey={"Email"}
-          dataValue={"melisa.wijaya@ti.ukdw.ac.id"}
+          dataValue={data[0].email_mhs}
         />
       </View>
 
       <SectionTitle title={"Informasi Akademik"} />
 
       <View style={LOCAL_STYLE.containerStyle}>
-        <ItemDataInfoMhs dataKey={"Status Mahasiswa"} dataValue={"Aktif"} />
-        <ItemDataInfoMhs dataKey={"IP Kumulatif"} dataValue={"4.00"} />
-        <ItemDataInfoMhs dataKey={"Total SKS"} dataValue={"126"} />
+        <ItemDataInfoMhs dataKey={"Status Mahasiswa"} dataValue={data[0].status_mhs} />
+        <ItemDataInfoMhs dataKey={"IP Kumulatif"} dataValue={data[0].ipk} />
+        <ItemDataInfoMhs dataKey={"Total SKS"} dataValue={data[0].sks_kum} />
         <ItemDataInfoMhs
           dataKey={"Dosen Wali"}
-          dataValue={"Gloria Virginia, S.Kom.,MAI, Ph.D"}
+          dataValue={data[0].nm_dosen_dpa}
         />
       </View>
     </ScrollView>

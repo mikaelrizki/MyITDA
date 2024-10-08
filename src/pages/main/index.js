@@ -71,7 +71,7 @@ export default function MainScreen({ navigation, route }) {
   return (
     <ImageBackground source={IMAGES.bgDefault} style={{ flex: 1 }}>
       <AppBar
-        username={"Melisa Wijaya"}
+        username={dataMhs[0].nama}
         bgColorBell={COLORS.softBlue}
         bellIcon={ICONS.iconBellBlue}
         navigation={navigation}

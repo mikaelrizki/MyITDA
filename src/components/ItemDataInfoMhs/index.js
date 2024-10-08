@@ -24,6 +24,7 @@ export default function ItemDataInfoMhs({ dataKey, dataValue }) {
         fontsize={SIZES.smallText}
         padVertical={3}
         paddingLeft={3}
+        style={{textTransform: "capitalize"}}
       >
         {dataValue}
       </Text>
