@@ -7,20 +7,22 @@ import { ScrollView } from "react-native-gesture-handler";
 import { formatTanggalIndonesia } from "../../services/utils/formatter";
 
 export default function Home({ navigation, data }) {
+  const namaFakultas = data[0].nm_fak.replace("Fakultas ", "")
+  const alamat = data[0].alamat_mhs.replace(/\r?\n|\r/g, '');
   return (
     <ScrollView
-      style={STYLES.containerTabView}
+      style={[STYLES.containerTabView, { marginTop: 15 }]}
       showsVerticalScrollIndicator={false}
     >
-      <SectionTitle title={"Kartu Tanda Mahasiswa"} />
+      <SectionTitle title={"Kartu Tanda Mahasiswa"} first />
 
       <ItemKTM
-        //FOTONYA NDAK BISA KELUARRRRRRRRRRRRRR
-        // profilePic={"https://mahasiswa.itda.ac.id/perpus/img/" + data[0].path_foto}
+        profilePic={"https://mahasiswa.itda.ac.id/perpus/img/" + data[0].path_foto}
         nama={data[0].nama}
         nim={data[0].nim}
-        fakultas={data[0].nm_fak}
+        fakultas={namaFakultas}
         jurusan={data[0].nm_prodi}
+        jenisKelamin={data[0].jenis_kelamin}
       />
 
       <SectionTitle title={"Biodata"} />
@@ -34,26 +36,29 @@ export default function Home({ navigation, data }) {
           dataKey={"Tanggal Lahir"}
           dataValue={formatTanggalIndonesia(data[0].tgl_lahir)}
         />
+        <ItemDataInfoMhs dataKey={"Alamat"} dataValue={alamat.trim()} />
         <ItemDataInfoMhs
-          dataKey={"Alamat"}
-          dataValue={data[0].alamat_mhs}
+          dataKey={"Jenis Kelamin"}
+          dataValue={data[0].jenis_kelamin === "L" ? "Laki-Laki" : "Perempuan"}
         />
-        <ItemDataInfoMhs dataKey={"Jenis Kelamin"} dataValue={data[0].jenis_kelamin} />
         <ItemDataInfoMhs dataKey={"Agama"} dataValue={data[0].agama} />
-        <ItemDataInfoMhs dataKey={"Golongan Darah"} dataValue={data[0].gol_darah} />
-        <ItemDataInfoMhs dataKey={"Telepon"} dataValue={data[0].hp_mhs} />
         <ItemDataInfoMhs
-          dataKey={"Email"}
-          dataValue={data[0].email_mhs}
+          dataKey={"Golongan Darah"}
+          dataValue={data[0].gol_darah}
         />
+        <ItemDataInfoMhs dataKey={"Telepon"} dataValue={data[0].hp_mhs} />
+        <ItemDataInfoMhs dataKey={"Email"} dataValue={data[0].email_mhs} capitalize={false} />
       </View>
 
       <SectionTitle title={"Informasi Akademik"} />
 
       <View style={LOCAL_STYLE.containerStyle}>
-        <ItemDataInfoMhs dataKey={"Status Mahasiswa"} dataValue={data[0].status_mhs} />
-        <ItemDataInfoMhs dataKey={"IP Kumulatif"} dataValue={data[0].ipk} />
-        <ItemDataInfoMhs dataKey={"Total SKS"} dataValue={data[0].sks_kum} />
+        <ItemDataInfoMhs
+          dataKey={"Status Mahasiswa"}
+          dataValue={data[0].status_mhs === "A" ? "Aktif" : "Tidak Aktif"}
+        />
+        <ItemDataInfoMhs dataKey={"IP Kumulatif"} dataValue={data[0].ipk || "-"} />
+        <ItemDataInfoMhs dataKey={"Total SKS"} dataValue={data[0].sks_kum || "-"} />
         <ItemDataInfoMhs
           dataKey={"Dosen Wali"}
           dataValue={data[0].nm_dosen_dpa}
