@@ -4,7 +4,7 @@ import { SIZES } from "../../styles";
 
 export default function ItemDataInfoKTM({ dataKey, dataValue }) {
   return (
-    <View style={{ flexDirection: "row" }}>
+    <View style={{ flexDirection: "row", flex: 1 }}>
       <View
         style={{
           justifyContent: "space-between",
@@ -24,7 +24,8 @@ export default function ItemDataInfoKTM({ dataKey, dataValue }) {
         fontsize={SIZES.extraSmallText}
         padVertical={1}
         paddingLeft={3}
-        style={{textTransform: "capitalize"}}
+        style={{ textTransform: "capitalize", flex: 1, paddingRight: 5 }}
+        numberOfLines={1}
       >
         {dataValue}
       </Text>
