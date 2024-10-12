@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Image, ImageBackground, TouchableOpacity, View } from "react-native";
+import { Image, ImageBackground } from "react-native";
 import IMAGES from "../../assets/images";
 import Text from "../../components/Text";
 import Button from "../../components/Button";
@@ -13,6 +13,9 @@ export default function AuthScreen({ navigation, route }) {
     nim: "",
     password: "",
   });
+  const [errorSubmit, setErrorSubmit] = useState(false);
+  const [errorNim, setErrorNim] = useState(false);
+  const [errorPassword, setErrorPassword] = useState(false);
 
   const { dataLoginAll, dataMahasiswaAll } = route.params;
 
@@ -40,35 +43,72 @@ export default function AuthScreen({ navigation, route }) {
       </Text>
       <InputField
         placeholder={"NIM"}
-        onChangeText={(value) => setDataLogin({ ...dataLogin, nim: value })}
+        keyboardType={"number-pad"}
+        value={dataLogin.nim}
+        onChangeText={(value) => {
+          value = value.replace(/\s/g, "");
+          value.length === 0 ? setErrorNim(true) : setErrorNim(false);
+          setDataLogin({ ...dataLogin, nim: value });
+          setErrorSubmit(false);
+        }}
+        error={errorNim}
         leftIcon={
           <Image
-            source={ICONS.iconNIM}
+            source={errorNim ? ICONS.warningNIM : ICONS.iconNIM}
             style={{ width: 20, height: 14 }}
             resizeMode="contain"
           />
         }
       />
+      {errorNim && !errorSubmit && (
+        <Text
+          semiBold
+          center
+          color={COLORS.warning}
+          padVertical={0}
+          style={{ marginTop: 16, marginBottom: -8 }}
+        >
+          NIM harus diisi.
+        </Text>
+      )}
       <InputField
         placeholder={"Password"}
         isPassword
-        onChangeText={(value) =>
-          setDataLogin({ ...dataLogin, password: value })
-        }
+        value={dataLogin.password}
+        onChangeText={(value) => {
+          value.length === 0 ? setErrorPassword(true) : setErrorPassword(false);
+          setDataLogin({ ...dataLogin, password: value });
+          setErrorSubmit(false);
+        }}
+        error={errorPassword}
         leftIcon={
           <Image
-            source={ICONS.iconKey}
+            source={errorPassword ? ICONS.warningKey : ICONS.iconKey}
             style={{ width: 18, height: 14 }}
             resizeMode="contain"
           />
         }
       />
+      {(errorPassword || errorSubmit) && (
+        <Text
+          semiBold
+          center
+          color={COLORS.warning}
+          padVertical={0}
+          style={{ marginTop: 16, marginBottom: -8 }}
+        >
+          {errorSubmit
+            ? "NIM atau Password tidak sesuai."
+            : "Password harus diisi."}
+        </Text>
+      )}
       <Button
         title="Login"
         onPress={() => {
           const credential = dataLoginAll.find(
             (item) =>
-              item.nim === dataLogin.nim && item.password === md5(dataLogin.password)
+              item.nim === dataLogin.nim &&
+              item.password === md5(dataLogin.password)
           );
           const mhsAvail = dataMahasiswaAll.find(
             (item) => item.nim === dataLogin.nim
@@ -78,6 +118,11 @@ export default function AuthScreen({ navigation, route }) {
               (item) => item.nim == dataLogin.nim
             );
             navigation.replace("Main", { dataMhs });
+          } else {
+            setErrorNim(true);
+            setErrorPassword(true);
+            setErrorSubmit(true);
+            setDataLogin({ nim: "", password: "" });
           }
         }}
         disable={dataLogin.nim === "" || dataLogin.password === ""}

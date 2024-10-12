@@ -5,6 +5,7 @@ export default function InputField({
   placeholder,
   keyboardType = "text",
   isPassword = false,
+  error,
   rightIcon,
   leftIcon,
   ...props
@@ -12,7 +13,9 @@ export default function InputField({
   return (
     <View
       style={{
-        backgroundColor: COLORS.secondary,
+        backgroundColor: error ? COLORS.lightWarning : COLORS.secondary,
+        borderWidth: 2,
+        borderColor: error ? COLORS.warning : COLORS.secondary,
         borderRadius: SIZES.bigRadius,
         marginTop: 24,
         flexDirection: "row",
@@ -24,10 +27,10 @@ export default function InputField({
         keyboardType={keyboardType}
         secureTextEntry={isPassword}
         placeholder={placeholder}
-        placeholderTextColor={COLORS.primary}
+        placeholderTextColor={error ? COLORS.warning : COLORS.primary}
         style={{
           flex: 1,
-          color: COLORS.primary,
+          color: error ? COLORS.warning : COLORS.primary,
           fontSize: SIZES.mediumText,
           paddingVertical: SIZES.padding,
           paddingRight: !rightIcon && 20,
