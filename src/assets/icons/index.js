@@ -1,6 +1,8 @@
 const ICONS = {
   iconNIM: require("./iconNIM.png"),
+  warningNIM: require("./warningIconNIM.png"),
   iconKey: require("./iconKey.png"),
+  warningKey: require("./warningIconKey.png"),
   bookmark: require("./Bookmark.png"),
   next: require("./next.png"),
   down: require("./down.png"),
