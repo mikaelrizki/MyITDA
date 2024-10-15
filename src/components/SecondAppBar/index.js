@@ -4,7 +4,7 @@ import Text from "../../components/Text";
 import Constants from "expo-constants";
 import ICONS from "../../assets/icons";
 
-export default function SecondAppBar({ label, navigation }) {
+export default function SecondAppBar({ label, navigation, setting }) {
   const SBHeight = Constants.statusBarHeight + 10;
   return (
     <View
@@ -16,34 +16,42 @@ export default function SecondAppBar({ label, navigation }) {
         marginHorizontal: 20,
       }}
     >
-      <TouchableOpacity
-        activeOpacity={0.7}
-        style={{
-          height: 45,
-          width: 45,
-          backgroundColor: COLORS.transparent,
-          left: -5,
-          alignItems: "center",
-          justifyContent: "center",
-        }}
-        onPress={() => navigation.goBack()}
-      >
-        <Image
-          source={ICONS.iconBack}
-          style={{ height: 22, width: 13}}
-        />
-      </TouchableOpacity>
-
       <View
         style={{
           flex: 1,
           height: 50,
+          width: "100%",
           justifyContent: "center",
+          alignItems: "center",
+          position: "absolute",
         }}
       >
-        <Text bold fontsize={SIZES.LargeText} padVertical={0}>
+        <Text
+          bold
+          fontsize={SIZES.LargeText}
+          padVertical={0}
+          color={setting ? COLORS.white : COLORS.primary}
+        >
           {label}
         </Text>
+
+        <TouchableOpacity
+          activeOpacity={0.7}
+          style={{
+            position: "absolute",
+            paddingRight: 3,
+            height: 40,
+            width: 40,
+            borderRadius: 50,
+            backgroundColor: setting ? COLORS.white : COLORS.transparent,
+            left: -5,
+            alignItems: "center",
+            justifyContent: "center",
+          }}
+          onPress={() => navigation.goBack()}
+        >
+          <Image source={ICONS.iconBack} style={{ height: 22, width: 13 }} />
+        </TouchableOpacity>
       </View>
     </View>
   );

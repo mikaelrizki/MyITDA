@@ -19,6 +19,7 @@ export const COLORS = {
   darkBlue: "#005388",
   softBlue: "#BFE2F8",
   lightBlue: "#7DAFCF",
+  red: "#D22020",
 };
 
 export const SIZES = {
