@@ -1,4 +1,4 @@
-import { View, Image } from "react-native";
+import { View, Image, TouchableOpacity } from "react-native";
 import { COLORS, SHADOWS, SIZES} from "../../styles";
 import ICONS from "../../assets/icons";
 import Text from "../../components/Text";
@@ -8,9 +8,10 @@ export default function ItemAnnouncement({
   announcementDate,
   announcementContent,
   anouncementFileName,
+  onPress
 }) {
   return (
-    <View
+    <TouchableOpacity activeOpacity={0.8} onPress={onPress}
       style={[
         SHADOWS.shadowBox,
         {
@@ -71,12 +72,12 @@ export default function ItemAnnouncement({
           medium
           fontsize={SIZES.extraSmallText}
           padVertical={0}
-          style={{ color: COLORS.lightBlue }}
+          style={{ color: COLORS.lightBlue, marginRight: 8}}
         >
           {anouncementFileName}
           {"..."}
         </Text>
       </View>
-    </View>
+    </TouchableOpacity>
   );
 }

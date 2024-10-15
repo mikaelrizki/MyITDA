@@ -10,7 +10,8 @@ const IMAGES = {
     picKTM: require('./picKTM.png'),
     qrCode: require('./qrCode.png'),
     manProfile: require('./defaultManProfile.png'),
-    womanProfile: require('./defaultWomanProfile.jpg')
+    womanProfile: require('./defaultWomanProfile.jpg'),
+    imageDetailAnnouncement: require('./imageDetailAnnouncement.png'),
 };
 
 export default IMAGES;

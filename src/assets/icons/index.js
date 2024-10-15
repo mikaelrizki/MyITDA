@@ -23,6 +23,7 @@ const ICONS = {
   grade: require('./grade.png'),
   gradeActive: require('./gradeActive.png'),
   iconBack: require('./iconBack.png'),
+  calendarIcon: require('./calendarIcon.png'),
 };
 
 export default ICONS;
