@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Image, ImageBackground } from "react-native";
+import { Image, ImageBackground, TouchableOpacity } from "react-native";
 import IMAGES from "../../assets/images";
 import Text from "../../components/Text";
 import Button from "../../components/Button";
@@ -13,6 +13,7 @@ export default function AuthScreen({ navigation, route }) {
     nim: "",
     password: "",
   });
+  const [showPassword, setShowPassword] = useState(false);
   const [errorSubmit, setErrorSubmit] = useState(false);
   const [errorNim, setErrorNim] = useState(false);
   const [errorPassword, setErrorPassword] = useState(false);
@@ -73,7 +74,7 @@ export default function AuthScreen({ navigation, route }) {
       )}
       <InputField
         placeholder={"Password"}
-        isPassword
+        isPassword={!showPassword}
         value={dataLogin.password}
         onChangeText={(value) => {
           value.length === 0 ? setErrorPassword(true) : setErrorPassword(false);
@@ -87,6 +88,28 @@ export default function AuthScreen({ navigation, route }) {
             style={{ width: 18, height: 14 }}
             resizeMode="contain"
           />
+        }
+        rightIcon={
+          <TouchableOpacity
+            onPress={() => {
+              setShowPassword(!showPassword);
+              console.log(showPassword);
+            }}
+          >
+            <Image
+              source={
+                showPassword && errorPassword
+                  ? ICONS.warningClosedEye
+                  : !showPassword && errorPassword
+                  ? ICONS.warningOpenEye
+                  : showPassword && !errorPassword
+                  ? ICONS.iconClosedEye
+                  : ICONS.iconOpenEye
+              }
+              style={{ width: 18, height: 14 }}
+              resizeMode="contain"
+            />
+          </TouchableOpacity>
         }
       />
       {(errorPassword || errorSubmit) && (

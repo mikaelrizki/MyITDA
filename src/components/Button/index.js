@@ -9,7 +9,7 @@ export default function Button({
 }) {
   return (
     <TouchableOpacity
-      disabled={disabled}
+      disabled={disable}
       activeOpacity={0.8}
       style={{
         width: SIZES.full,

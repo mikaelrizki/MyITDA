@@ -28,6 +28,7 @@ export default function InputField({
         secureTextEntry={isPassword}
         placeholder={placeholder}
         placeholderTextColor={error ? COLORS.warning : COLORS.primary}
+        fontFamily={'semiBold'}
         style={{
           flex: 1,
           color: error ? COLORS.warning : COLORS.primary,
