@@ -18,7 +18,7 @@ export default function AppBar({
         flexDirection: "row",
         alignItems: "center",
         marginTop: SBHeight,
-        marginHorizontal: 20
+        marginHorizontal: 20,
       }}
     >
       <TouchableOpacity activeOpacity={0.7} style={{ height: 47, width: 47 }}>
@@ -47,7 +47,7 @@ export default function AppBar({
           fontsize={SIZES.smallText}
           color={COLORS.darkBlue}
           padVertical={0}
-          style={{textTransform: "capitalize"}}
+          style={{ textTransform: "capitalize" }}
         >
           {username}
         </Text>
@@ -55,22 +55,28 @@ export default function AppBar({
 
       <TouchableOpacity
         activeOpacity={0.7}
-        style={[SHADOWS.shadowBox, {
-          height: 45,
-          width: 45,
-          marginRight: 10,
-          backgroundColor: bgColorBell,
-          alignItems: "center",
-          justifyContent: "center",
-          borderRadius: 45,
-        }]}
+        style={[
+          SHADOWS.shadowBox,
+          {
+            height: 45,
+            width: 45,
+            marginRight: 10,
+            backgroundColor: bgColorBell,
+            alignItems: "center",
+            justifyContent: "center",
+            borderRadius: 45,
+          },
+        ]}
         onPress={() => navigation.navigate("Announcement")}
       >
         <Image source={bellIcon} style={{ width: 20, height: 21 }} />
       </TouchableOpacity>
 
       <View>
-        <TouchableOpacity activeOpacity={0.7}>
+        <TouchableOpacity
+          activeOpacity={0.7}
+          onPress={() => navigation.navigate("Setting")}
+        >
           <Image
             source={IMAGES.profilePic}
             style={{

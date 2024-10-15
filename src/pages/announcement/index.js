@@ -117,7 +117,7 @@ export default function AnnouncementScreen({ navigation }) {
             </View>
             <ScrollView
               showsVerticalScrollIndicator={false}
-              style={{ flex: 1}}
+              style={{ flex: 1 }}
             >
               <Text regular fontsize={SIZES.smallText}>
                 Teman-teman silakan untuk melakukan registrasi Sem. Gasal
@@ -137,7 +137,7 @@ export default function AnnouncementScreen({ navigation }) {
                 borderRadius: 5,
                 borderColor: "#DBDBDB",
                 borderWidth: 0.5,
-                marginBottom: 30
+                marginBottom: 30,
               }}
             ></View>
           </View>

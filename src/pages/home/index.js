@@ -7,8 +7,8 @@ import { ScrollView } from "react-native-gesture-handler";
 import { formatTanggalIndonesia } from "../../services/utils/formatter";
 
 export default function Home({ navigation, data }) {
-  const namaFakultas = data[0].nm_fak.replace("Fakultas ", "")
-  const alamat = data[0].alamat_mhs.replace(/\r?\n|\r/g, '');
+  const namaFakultas = data[0].nm_fak.replace("Fakultas ", "");
+  const alamat = data[0].alamat_mhs.replace(/\r?\n|\r/g, "");
   return (
     <ScrollView
       style={[STYLES.containerTabView, { marginTop: 15 }]}
@@ -17,7 +17,9 @@ export default function Home({ navigation, data }) {
       <SectionTitle title={"Kartu Tanda Mahasiswa"} first />
 
       <ItemKTM
-        profilePic={"https://mahasiswa.itda.ac.id/perpus/img/" + data[0].path_foto}
+        profilePic={
+          "https://mahasiswa.itda.ac.id/perpus/img/" + data[0].path_foto
+        }
         nama={data[0].nama}
         nim={data[0].nim}
         fakultas={namaFakultas}
@@ -47,7 +49,11 @@ export default function Home({ navigation, data }) {
           dataValue={data[0].gol_darah}
         />
         <ItemDataInfoMhs dataKey={"Telepon"} dataValue={data[0].hp_mhs} />
-        <ItemDataInfoMhs dataKey={"Email"} dataValue={data[0].email_mhs} capitalize={false} />
+        <ItemDataInfoMhs
+          dataKey={"Email"}
+          dataValue={data[0].email_mhs}
+          capitalize={false}
+        />
       </View>
 
       <SectionTitle title={"Informasi Akademik"} />
@@ -57,8 +63,14 @@ export default function Home({ navigation, data }) {
           dataKey={"Status Mahasiswa"}
           dataValue={data[0].status_mhs === "A" ? "Aktif" : "Tidak Aktif"}
         />
-        <ItemDataInfoMhs dataKey={"IP Kumulatif"} dataValue={data[0].ipk || "-"} />
-        <ItemDataInfoMhs dataKey={"Total SKS"} dataValue={data[0].sks_kum || "-"} />
+        <ItemDataInfoMhs
+          dataKey={"IP Kumulatif"}
+          dataValue={data[0].ipk || "-"}
+        />
+        <ItemDataInfoMhs
+          dataKey={"Total SKS"}
+          dataValue={data[0].sks_kum || "-"}
+        />
         <ItemDataInfoMhs
           dataKey={"Dosen Wali"}
           dataValue={data[0].nm_dosen_dpa}

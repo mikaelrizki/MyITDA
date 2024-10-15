@@ -1,6 +1,6 @@
 import { ImageBackground, View } from "react-native";
 import IMAGES from "../../assets/images";
-import { COLORS, SIZES, STYLES } from "../../styles";
+import { COLORS, SIZES } from "../../styles";
 import AppBar from "../../components/AppBar";
 import ICONS from "../../assets/icons";
 import { useState } from "react";
