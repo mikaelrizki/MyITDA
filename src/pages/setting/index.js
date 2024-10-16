@@ -4,8 +4,11 @@ import IMAGES from "../../assets/images";
 import { COLORS, SHADOWS, SIZES } from "../../styles";
 import SecondAppBar from "../../components/SecondAppBar";
 import ICONS from "../../assets/icons";
+import ItemSetting from "../../components/ItemSetting";
+import { useState } from "react";
 
 export default function SettingScreen({ navigation }) {
+  const [showNotif, setShowNotif] = useState(true);
   return (
     <View
       style={{
@@ -75,21 +78,7 @@ export default function SettingScreen({ navigation }) {
             },
           ]}
         >
-          <View
-            style={{
-              flexDirection: "row",
-              paddingHorizontal: 20,
-              alignItems: "center",
-            }}
-          >
-            <Image
-              source={ICONS.usernameIcon}
-              style={{ width: 30, height: 29 }}
-            />
-            <Text bold fontsize={SIZES.smallText} style={{ paddingLeft: 20 }}>
-              Melisa Wijaya
-            </Text>
-          </View>
+          <ItemSetting icon={ICONS.usernameIcon} value={"Melisa Wijaya"} />
           <View
             style={{
               borderWidth: 0.5,
@@ -97,63 +86,33 @@ export default function SettingScreen({ navigation }) {
               marginHorizontal: 20,
             }}
           />
-          <View
-            style={{
-              flexDirection: "row",
-              paddingHorizontal: 20,
-              alignItems: "center",
-            }}
-          >
-            <Image source={ICONS.nimIcon} style={{ width: 30, height: 29 }} />
-            <Text bold fontsize={SIZES.smallText} style={{ paddingLeft: 20 }}>
-              71210714
-            </Text>
-          </View>
+          <ItemSetting icon={ICONS.nimIcon} value={"71210714"} />
         </View>
 
-        <View
+        <TouchableOpacity
           style={{
             width: "65%",
-            height: "34%",
-            justifyContent: "space-between",
+            flexDirection: "row",
+            paddingHorizontal: 20,
+            alignItems: "center",
+            backgroundColor: COLORS.secondary,
+            borderRadius: 10,
+          }}
+          onPress={() => {
+            setShowNotif(!showNotif);
+            console.log(showNotif);
           }}
         >
-          <View
-            style={{
-              flexDirection: "row",
-              paddingHorizontal: 20,
-              alignItems: "center",
-              backgroundColor: COLORS.secondary,
-              borderRadius: 10,
-            }}
-          >
-            <Image
-              source={ICONS.notificationSwitch}
-              style={{ width: 30, height: 29 }}
-            />
-            <Text bold fontsize={SIZES.smallText} style={{ paddingLeft: 20 }}>
-              Notifikasi
-            </Text>
-          </View>
-
-          <View
-            style={{
-              flexDirection: "row",
-              paddingHorizontal: 20,
-              alignItems: "center",
-              backgroundColor: COLORS.secondary,
-              borderRadius: 10,
-            }}
-          >
-            <Image
-              source={ICONS.changePasswordIcon}
-              style={{ width: 30, height: 29 }}
-            />
-            <Text bold fontsize={SIZES.smallText} style={{ paddingLeft: 20 }}>
-              Ubah Kata Sandi
-            </Text>
-          </View>
-        </View>
+          <Image
+            source={
+              showNotif ? ICONS.notificationSwitch : ICONS.notificationSwitchOff
+            }
+            style={{ width: 30, height: 29 }}
+          />
+          <Text bold fontsize={SIZES.smallText} style={{ paddingLeft: 20 }}>
+            Notifikasi
+          </Text>
+        </TouchableOpacity>
       </View>
       <TouchableOpacity
         activeOpacity={0.87}

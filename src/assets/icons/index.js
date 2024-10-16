@@ -27,6 +27,7 @@ const ICONS = {
   usernameIcon: require("./usernameIcon.png"),
   nimIcon: require("./nimIcon.png"),
   notificationSwitch: require("./notificationSwitch.png"),
+  notificationSwitchOff: require("./notificationSwitchOff.png"),
   changePasswordIcon: require("./changePassIcon.png"),
 };
 
