@@ -9,6 +9,8 @@ import ResetScreen from "../../pages/reset";
 import KhsScreen from "../../pages/report/khs";
 import TranskripScreen from "../../pages/report/transkrip";
 import MainScreen from "../../pages/main";
+import SettingScreen from "../../pages/setting";
+import MainAdminScreen from "../../pages/mainAdmin";
 
 const Stack = createNativeStackNavigator();
 
@@ -33,6 +35,8 @@ export default function Router() {
         <Stack.Screen name="Reset" component={ResetScreen} />
         <Stack.Screen name="KHS" component={KhsScreen} />
         <Stack.Screen name="Transkrip" component={TranskripScreen} />
+        <Stack.Screen name="Setting" component={SettingScreen} />
+        <Stack.Screen name="MainAdmin" component={MainAdminScreen} />
       </Stack.Navigator>
     </BottomSheetModalProvider>
   );

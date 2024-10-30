@@ -1,25 +1,24 @@
 import { Image, ImageBackground, ScrollView, View } from "react-native";
-import ItemAnnouncement from "../../components/ItemAnnouncement";
-import IMAGES from "../../assets/images";
-import { SIZES } from "../../styles";
-import SecondAppBar from "../../components/SecondAppBar";
+import ItemAnnouncement from "../../../components/ItemAnnouncement";
+import { SIZES } from "../../../styles";
 import { useState } from "react";
 import ModalBox from "react-native-modalbox";
-import Text from "../../components/Text";
-import ICONS from "../../assets/icons";
+import IMAGES from "../../../assets/images";
+import Text from "../../../components/Text";
+import ICONS from "../../../assets/icons";
 
-export default function AnnouncementScreen({ navigation }) {
+export default function ListAnnouncementScreen() {
   const [showModal, setShowModal] = useState(false);
   return (
-    <ImageBackground source={IMAGES.bgDefault} style={{ flex: 1 }}>
-      <SecondAppBar label={"Pengumuman"} navigation={navigation} />
+    <View
+      style={{
+        flex: 1,
+        width: SIZES.full,
+        paddingHorizontal: 20,
+      }}
+    >
       <ScrollView
-        style={{
-          flex: 1,
-          width: SIZES.full,
-          marginBottom: 50,
-          paddingHorizontal: 20,
-        }}
+        style={{ marginBottom: 50 }}
         showsVerticalScrollIndicator={false}
       >
         <ItemAnnouncement
@@ -159,6 +158,6 @@ export default function AnnouncementScreen({ navigation }) {
           </View>
         </ImageBackground>
       </ModalBox>
-    </ImageBackground>
+    </View>
   );
 }
