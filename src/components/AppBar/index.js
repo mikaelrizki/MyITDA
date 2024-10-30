@@ -21,7 +21,11 @@ export default function AppBar({
         marginHorizontal: 20,
       }}
     >
-      <TouchableOpacity activeOpacity={0.7} style={{ height: 47, width: 47 }}>
+      <TouchableOpacity
+        activeOpacity={0.7}
+        style={{ height: 47, width: 47 }}
+        onPress={() => navigation.navigate("MainAdmin")}
+      >
         <Image
           source={IMAGES.logoITDA}
           style={{

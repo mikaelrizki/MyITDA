@@ -57,7 +57,7 @@ export default function MainScreen({ navigation, route }) {
             <Text
               bold
               color={focused ? COLORS.primary : COLORS.white}
-              fontsize={20}
+              fontsize={SIZES.LargeText}
               padVertical={0}
             >
               A
