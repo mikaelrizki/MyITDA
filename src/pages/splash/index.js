@@ -1,20 +1,36 @@
 import React, { useEffect, useState } from "react";
-import { Button, Image, ImageBackground } from "react-native";
+import { Image, ImageBackground } from "react-native";
 import IMAGES from "../../assets/images";
 import Text from "../../components/Text";
 import { SIZES, STYLES } from "../../styles";
 import axios from "axios";
+import { useDispatch, useSelector } from "react-redux";
+import { resetDataAuth } from "../../stores/actions/actionAuth";
 
 export default function SplashScreen({ navigation }) {
-  const [dataLoginAll, setDataLoginAll] = useState([]);
+  const [isAuth, setIsAuth] = useState(false);
   const [dataMahasiswaAll, setDataMahasiswaAll] = useState([]);
+  
+  const dispatch = useDispatch();
+  const dataAuth = useSelector((state) => state.dataAuth);
+  console.log(dataAuth);
 
-  const getDataLogin = async () => {
+  const getAuth = async () => {
     try {
-      const response = await axios.get(
-        "https://perpustakaan.itda.ac.id/api/json_login_mhs.php"
+      const formData = new FormData();
+      formData.append("username", dataAuth.dataLogin.nim);
+      formData.append("password", dataAuth.dataLogin.password);
+
+      const response = await axios.post(
+        "https://perpustakaan.itda.ac.id/api/json_login.php",
+        formData,
+        {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        }
       );
-      setDataLoginAll(response.data["data"]);
+      setIsAuth(response.data["data"][0].result);
     } catch (error) {
       console.error("Error fetching data: ", error);
     }
@@ -29,11 +45,11 @@ export default function SplashScreen({ navigation }) {
     } catch (error) {
       console.error("Error fetching data: ", error);
     }
-  }
+  };
 
   useEffect(() => {
     const fetchData = async () => {
-      await getDataLogin();
+      await getAuth();
       await getDataMahasiswa();
     };
 
@@ -45,10 +61,26 @@ export default function SplashScreen({ navigation }) {
   }, []);
 
   useEffect(() => {
-    if (dataLoginAll.length > 0 && dataMahasiswaAll.length > 0) {
-      navigation.replace("Auth", { dataLoginAll, dataMahasiswaAll });
+    if (dataMahasiswaAll.length > 0) {
+      const loginAllowed =
+        dataAuth.loginDate &&
+        new Date() - new Date(dataAuth.loginDate) < 86400000;
+
+      const mhsAvail = dataMahasiswaAll.find(
+        (item) => item.nim === dataAuth.dataLogin.nim
+      );
+
+      if (loginAllowed && isAuth && mhsAvail) {
+        const dataMhs = dataMahasiswaAll.filter(
+          (item) => item.nim == dataAuth.dataLogin.nim
+        );
+        navigation.replace("Main", { dataMhs });
+      } else {
+        dispatch(resetDataAuth());
+        navigation.replace("Auth", { dataMahasiswaAll });
+      }
     }
-  }, [dataLoginAll, dataMahasiswaAll, navigation]);
+  }, [dataMahasiswaAll, navigation]);
 
   return (
     <ImageBackground source={IMAGES.bgSplash} style={STYLES.container}>

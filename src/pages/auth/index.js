@@ -7,18 +7,64 @@ import { COLORS, SIZES, STYLES } from "../../styles";
 import InputField from "../../components/InputField";
 import ICONS from "../../assets/icons";
 import md5 from "md5";
+import { useDispatch } from "react-redux";
+import { setDataAuth } from "../../stores/actions/actionAuth";
+import axios from "axios";
 
 export default function AuthScreen({ navigation, route }) {
+  const dispatch = useDispatch();
+
   const [dataLogin, setDataLogin] = useState({
     nim: "",
     password: "",
   });
+  const [isAuth, setIsAuth] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
   const [errorSubmit, setErrorSubmit] = useState(false);
   const [errorNim, setErrorNim] = useState(false);
   const [errorPassword, setErrorPassword] = useState(false);
 
-  const { dataLoginAll, dataMahasiswaAll } = route.params;
+  const { dataMahasiswaAll } = route.params;
+
+  const getAuth = async () => {
+    try {
+      const formData = new FormData();
+      formData.append("username", dataLogin.nim);
+      formData.append("password", dataLogin.password);
+
+      const response = await axios.post(
+        "https://perpustakaan.itda.ac.id/api/json_login.php",
+        formData,
+        {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        }
+      );
+      setIsAuth(response.data["data"][0].result);
+    } catch (error) {
+      console.error("Error fetching data: ", error);
+    }
+  };
+
+  const handleLogin = async () => {
+    await getAuth();
+    const mhsAvail = dataMahasiswaAll.find(
+      (item) => item.nim === dataLogin.nim
+    );
+    if (isAuth && mhsAvail) {
+      const dataMhs = dataMahasiswaAll.filter(
+        (item) => item.nim == dataLogin.nim
+      );
+      dispatch(setDataAuth(dataLogin));
+      navigation.replace("Main", { dataMhs });
+    } else {
+      setErrorNim(true);
+      setErrorPassword(true);
+      setErrorSubmit(true);
+      setDataLogin({ nim: "", password: "" });
+    }
+  }
 
   return (
     <ImageBackground
@@ -127,27 +173,7 @@ export default function AuthScreen({ navigation, route }) {
       )}
       <Button
         title="Login"
-        onPress={() => {
-          const credential = dataLoginAll.find(
-            (item) =>
-              item.nim === dataLogin.nim &&
-              item.password === md5(dataLogin.password)
-          );
-          const mhsAvail = dataMahasiswaAll.find(
-            (item) => item.nim === dataLogin.nim
-          );
-          if (credential && mhsAvail) {
-            const dataMhs = dataMahasiswaAll.filter(
-              (item) => item.nim == dataLogin.nim
-            );
-            navigation.replace("Main", { dataMhs });
-          } else {
-            setErrorNim(true);
-            setErrorPassword(true);
-            setErrorSubmit(true);
-            setDataLogin({ nim: "", password: "" });
-          }
-        }}
+        onPress={handleLogin}
         disable={dataLogin.nim === "" || dataLogin.password === ""}
       />
       {/* <View style={{ flexDirection: "row", marginTop: 10 }}>

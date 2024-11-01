@@ -8,6 +8,9 @@ import FONTS from "./src/assets/fonts";
 import * as NavigationBar from "expo-navigation-bar";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
 import { BottomSheetModalProvider } from "@gorhom/bottom-sheet";
+import { Provider } from "react-redux";
+import { PersistGate } from "redux-persist/integration/react";
+import { persistor, store } from "./src/stores";
 
 export default function App() {
   const [fontsLoaded, fontError] = useFonts(FONTS.KhumbhSans);
@@ -34,15 +37,19 @@ export default function App() {
   }
 
   return (
-    <GestureHandlerRootView style={{ flex: 1 }}>
-      <BottomSheetModalProvider>
-        <View style={{ flex: 1 }}>
-          <NavigationContainer>
-            <Router />
-            <StatusBar style="auto" translucent={true} />
-          </NavigationContainer>
-        </View>
-      </BottomSheetModalProvider>
-    </GestureHandlerRootView>
+    <Provider store={store}>
+      <PersistGate loading={null} persistor={persistor}>
+        <GestureHandlerRootView style={{ flex: 1 }}>
+          <BottomSheetModalProvider>
+            <View style={{ flex: 1 }}>
+              <NavigationContainer>
+                <Router />
+                <StatusBar style="auto" translucent={true} />
+              </NavigationContainer>
+            </View>
+          </BottomSheetModalProvider>
+        </GestureHandlerRootView>
+      </PersistGate>
+    </Provider>
   );
 }
