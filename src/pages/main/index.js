@@ -75,6 +75,7 @@ export default function MainScreen({ navigation, route }) {
         bgColorBell={COLORS.softBlue}
         bellIcon={ICONS.iconBellBlue}
         navigation={navigation}
+        profilePicture={"https://mahasiswa.itda.ac.id/perpus/img/" + dataMhs[0].path_foto}
       />
       <TabView
         navigationState={{ index, routes }}

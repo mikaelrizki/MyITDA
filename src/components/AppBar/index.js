@@ -9,6 +9,7 @@ export default function AppBar({
   bgColorBell,
   bellIcon,
   navigation,
+  profilePicture,
 }) {
   const SBHeight = Constants.statusBarHeight + 10;
   return (
@@ -82,7 +83,7 @@ export default function AppBar({
           onPress={() => navigation.navigate("Setting")}
         >
           <Image
-            source={IMAGES.profilePic}
+            source={{uri: profilePicture}}
             style={{
               width: 45,
               height: 45,
