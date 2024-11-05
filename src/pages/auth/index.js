@@ -6,10 +6,9 @@ import Button from "../../components/Button";
 import { COLORS, SIZES, STYLES } from "../../styles";
 import InputField from "../../components/InputField";
 import ICONS from "../../assets/icons";
-import md5 from "md5";
 import { useDispatch } from "react-redux";
 import { setDataAuth } from "../../stores/actions/actionAuth";
-import axios from "axios";
+import adapter from "../../services/adapter";
 
 export default function AuthScreen({ navigation, route }) {
   const dispatch = useDispatch();
@@ -18,42 +17,19 @@ export default function AuthScreen({ navigation, route }) {
     nim: "",
     password: "",
   });
-  const [isAuth, setIsAuth] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
   const [errorSubmit, setErrorSubmit] = useState(false);
   const [errorNim, setErrorNim] = useState(false);
   const [errorPassword, setErrorPassword] = useState(false);
 
-  const { dataMahasiswaAll } = route.params;
-
-  const getAuth = async () => {
-    try {
-      const formData = new FormData();
-      formData.append("username", dataLogin.nim);
-      formData.append("password", dataLogin.password);
-
-      const response = await axios.post(
-        "https://perpustakaan.itda.ac.id/api/json_login.php",
-        formData,
-        {
-          headers: {
-            "Content-Type": "multipart/form-data",
-          },
-        }
-      );
-      setIsAuth(response.data["data"][0].result);
-    } catch (error) {
-      console.error("Error fetching data: ", error);
-    }
-  };
+  const { dataMahasiswaAll } = route.params || {};
 
   const handleLogin = async () => {
-    await getAuth();
-    const mhsAvail = dataMahasiswaAll.find(
-      (item) => item.nim === dataLogin.nim
-    );
+    const isAuth = await adapter.getAuth(dataLogin.nim, dataLogin.password);
+    const dataMhsAll = dataMahasiswaAll || (await adapter.getDataMahasiswa());
+    const mhsAvail = dataMhsAll.find((item) => item.nim === dataLogin.nim);
     if (isAuth && mhsAvail) {
-      const dataMhs = dataMahasiswaAll.filter(
+      const dataMhs = dataMhsAll.filter(
         (item) => item.nim == dataLogin.nim
       );
       dispatch(setDataAuth(dataLogin));
@@ -64,7 +40,7 @@ export default function AuthScreen({ navigation, route }) {
       setErrorSubmit(true);
       setDataLogin({ nim: "", password: "" });
     }
-  }
+  };
 
   return (
     <ImageBackground

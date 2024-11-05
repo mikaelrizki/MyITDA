@@ -6,9 +6,12 @@ import SecondAppBar from "../../components/SecondAppBar";
 import ICONS from "../../assets/icons";
 import ItemSetting from "../../components/ItemSetting";
 import { useState } from "react";
+import { resetDataAuth } from "../../stores/actions/actionAuth";
+import { useDispatch } from "react-redux";
 
 export default function SettingScreen({ navigation }) {
   const [showNotif, setShowNotif] = useState(true);
+  const dispatch = useDispatch()
   return (
     <View
       style={{
@@ -130,7 +133,10 @@ export default function SettingScreen({ navigation }) {
           shadowRadius: 8,
           elevation: 4,
         }}
-        onPress={() => navigation.navigate("Splash")}
+        onPress={() => {
+          navigation.navigate("Auth")
+          dispatch(resetDataAuth())
+        }}
       >
         <Text bold fontsize={SIZES.mediumText} color={COLORS.white}>
           Keluar

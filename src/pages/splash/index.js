@@ -1,56 +1,39 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { Image, ImageBackground } from "react-native";
 import IMAGES from "../../assets/images";
 import Text from "../../components/Text";
 import { SIZES, STYLES } from "../../styles";
-import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
 import { resetDataAuth } from "../../stores/actions/actionAuth";
+import adapter from "../../services/adapter";
 
 export default function SplashScreen({ navigation }) {
-  const [isAuth, setIsAuth] = useState(false);
-  const [dataMahasiswaAll, setDataMahasiswaAll] = useState([]);
-  
   const dispatch = useDispatch();
   const dataAuth = useSelector((state) => state.dataAuth);
-  console.log(dataAuth);
-
-  const getAuth = async () => {
-    try {
-      const formData = new FormData();
-      formData.append("username", dataAuth.dataLogin.nim);
-      formData.append("password", dataAuth.dataLogin.password);
-
-      const response = await axios.post(
-        "https://perpustakaan.itda.ac.id/api/json_login.php",
-        formData,
-        {
-          headers: {
-            "Content-Type": "multipart/form-data",
-          },
-        }
-      );
-      setIsAuth(response.data["data"][0].result);
-    } catch (error) {
-      console.error("Error fetching data: ", error);
-    }
-  };
-
-  const getDataMahasiswa = async () => {
-    try {
-      const response = await axios.get(
-        "https://perpustakaan.itda.ac.id/api/json_all_mhs.php"
-      );
-      setDataMahasiswaAll(response.data["data"]);
-    } catch (error) {
-      console.error("Error fetching data: ", error);
-    }
-  };
+  console.log("[Redux] DataLogin Selector", dataAuth);
 
   useEffect(() => {
     const fetchData = async () => {
-      await getAuth();
-      await getDataMahasiswa();
+      const isAuth = await adapter.getAuth(
+        dataAuth.dataLogin.nim,
+        dataAuth.dataLogin.password
+      );
+      const dataMhsAll = await adapter.getDataMahasiswa();
+      const loginAllowed =
+        dataAuth.loginDate &&
+        new Date() - new Date(dataAuth.loginDate) < 86400000;
+      const mhsAvail = dataMhsAll.find(
+        (item) => item.nim === dataAuth.dataLogin.nim
+      );
+      if (loginAllowed && isAuth && mhsAvail) {
+        const dataMhs = dataMhsAll.filter(
+          (item) => item.nim == dataAuth.dataLogin.nim
+        );
+        navigation.replace("Main", { dataMhs });
+      } else {
+        dispatch(resetDataAuth());
+        navigation.replace("Auth", { dataMhsAll });
+      }
     };
 
     const timer = setTimeout(() => {
@@ -59,28 +42,6 @@ export default function SplashScreen({ navigation }) {
 
     return () => clearTimeout(timer);
   }, []);
-
-  useEffect(() => {
-    if (dataMahasiswaAll.length > 0) {
-      const loginAllowed =
-        dataAuth.loginDate &&
-        new Date() - new Date(dataAuth.loginDate) < 86400000;
-
-      const mhsAvail = dataMahasiswaAll.find(
-        (item) => item.nim === dataAuth.dataLogin.nim
-      );
-
-      if (loginAllowed && isAuth && mhsAvail) {
-        const dataMhs = dataMahasiswaAll.filter(
-          (item) => item.nim == dataAuth.dataLogin.nim
-        );
-        navigation.replace("Main", { dataMhs });
-      } else {
-        dispatch(resetDataAuth());
-        navigation.replace("Auth", { dataMahasiswaAll });
-      }
-    }
-  }, [dataMahasiswaAll, navigation]);
 
   return (
     <ImageBackground source={IMAGES.bgSplash} style={STYLES.container}>
