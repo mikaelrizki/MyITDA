@@ -18,27 +18,6 @@ import { useSelector } from "react-redux";
 export default function Payment({ navigation }) {
   const dataPayment = useSelector((state) => state.dataPayment.dataPayment);
   const dataBeasiswa = useSelector((state) => state.dataBeasiswa.dataBeasiswa);
-  console.log(dataPayment.data.length - 1);
-  console.log(dataBeasiswa);
-
-  // const jumlahArray = DATA.dataPembayaran.data.length - 1;
-  // const nim = DATA.dataPembayaran.data[jumlahArray].nim;
-  // const nama = DATA.dataPembayaran.data[jumlahArray].nama;
-  // const kd_ta = parseInt(DATA.dataPembayaran.data[jumlahArray].kd_ta);
-  // const kd_smt = parseInt(DATA.dataPembayaran.data[jumlahArray].kd_smt);
-  // const total_harga = parseInt(
-  //   DATA.dataPembayaran.data[jumlahArray].total_harga
-  // );
-  // const total_denda = parseInt(
-  //   DATA.dataPembayaran.data[jumlahArray].total_denda
-  // );
-  // const total_tagihan = total_harga + total_denda;
-  // const tgl_akhir_bayar = DATA.dataPembayaran.data[jumlahArray].tgl_akhir_bayar;
-  // const tgl_mulai = DATA.dataPembayaran.data[jumlahArray].tgl_mulai;
-  // const tgl_bayar = DATA.dataPembayaran.data[jumlahArray].tgl_bayar;
-  // const status_bayar = DATA.dataPembayaran.data[jumlahArray].status_bayar;
-  // const metode_pembayaran =
-  //   DATA.dataPembayaran.data[jumlahArray].metode_pembayaran;
 
   const jumlahArray = dataPayment.data.length - 1;
   const nim = dataPayment.data[jumlahArray].nim;
@@ -54,7 +33,7 @@ export default function Payment({ navigation }) {
   const status_bayar = dataPayment.data[jumlahArray].status_bayar;
   const metode_pembayaran = dataPayment.data[jumlahArray].metode_pembayaran;
 
-  const isMasaPembayaran = false;
+  const isMasaPembayaran = new Date() >= tgl_mulai && new Date() <= tgl_akhir_bayar;
 
   const statusBeasiswa = dataBeasiswa.data.length > 0 ? true : false;
   console.log(statusBeasiswa);
