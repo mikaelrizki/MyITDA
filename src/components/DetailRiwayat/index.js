@@ -8,8 +8,11 @@ import {
 } from "../../services/utils/formatter";
 import RowRiwayat from "../RowRiwayat";
 import DATA from "../../services/cache";
+import { useSelector } from "react-redux";
 
 export default function DetailRiwayat({ isDenda, data }) {
+  const dataBeasiswa = useSelector((state) => state.dataBeasiswa.dataBeasiswa);
+
   const nim = data.nim;
   const nama = data.nama;
   const kd_ta = parseInt(data.kd_ta);
@@ -24,14 +27,15 @@ export default function DetailRiwayat({ isDenda, data }) {
   const metode_pembayaran = data.metode_pembayaran;
   const [tanggal, waktu] = tgl_bayar.split(" ");
 
-  let beasiswa;
+  const beasiswa = dataBeasiswa.data.length > 0 ? true : false;
   let jenisBeasiswa;
 
-  if (DATA.dataBeasiswa.data[0]) {
-    beasiswa = true;
-    jenisBeasiswa = DATA.dataBeasiswa.data[0].jenis_beasiswa;
-  } else {
-    beasiswa = false;
+  if (beasiswa) {
+    jenisBeasiswa = dataBeasiswa.data[0].jenis_beasiswa;
+  }
+  
+  if (status_bayar !== "L" && status_bayar) {
+    return null;
   }
 
   return (
@@ -49,6 +53,7 @@ export default function DetailRiwayat({ isDenda, data }) {
           color={COLORS.danger}
         />
       )}
+      
       {beasiswa && (
         <RowRiwayat
           dataKey={"Beasiswa"}
@@ -65,7 +70,7 @@ export default function DetailRiwayat({ isDenda, data }) {
       )}
       <RowRiwayat
         dataKey={"Total Tagihan"}
-        dataValue={formatRupiah(total_tagihan)}
+        dataValue={beasiswa ? "Rp 0" : formatRupiah(total_tagihan)}
         color={total_denda > 0 || beasiswa ? COLORS.black : COLORS.danger}
       />
       {!beasiswa && (

@@ -13,33 +13,55 @@ import PaymentInfo from "../../components/PaymentInfo";
 import { BottomSheetModal } from "@gorhom/bottom-sheet";
 import React, { useRef, useState } from "react";
 import Tutorial from "./tutorial";
+import { useSelector } from "react-redux";
 
 export default function Payment({ navigation }) {
-  const jumlahArray = DATA.dataPembayaran.data.length - 1;
-  const nim = DATA.dataPembayaran.data[jumlahArray].nim;
-  const nama = DATA.dataPembayaran.data[jumlahArray].nama;
-  const kd_ta = parseInt(DATA.dataPembayaran.data[jumlahArray].kd_ta);
-  const kd_smt = parseInt(DATA.dataPembayaran.data[jumlahArray].kd_smt);
-  const total_harga = parseInt(
-    DATA.dataPembayaran.data[jumlahArray].total_harga
-  );
-  const total_denda = parseInt(
-    DATA.dataPembayaran.data[jumlahArray].total_denda
-  );
-  const total_tagihan = total_harga + total_denda;
-  const tgl_akhir_bayar = DATA.dataPembayaran.data[jumlahArray].tgl_akhir_bayar;
-  const tgl_mulai = DATA.dataPembayaran.data[jumlahArray].tgl_mulai;
-  const tgl_bayar = DATA.dataPembayaran.data[jumlahArray].tgl_bayar;
-  const status_bayar = DATA.dataPembayaran.data[jumlahArray].status_bayar;
-  const metode_pembayaran =
-    DATA.dataPembayaran.data[jumlahArray].metode_pembayaran;
+  const dataPayment = useSelector((state) => state.dataPayment.dataPayment);
+  const dataBeasiswa = useSelector((state) => state.dataBeasiswa.dataBeasiswa);
+  console.log(dataPayment.data.length - 1);
+  console.log(dataBeasiswa);
 
-  const isMasaPembayaran = true;
-  const beasiswa = DATA.dataBeasiswa.data[0] ? true : false;
+  // const jumlahArray = DATA.dataPembayaran.data.length - 1;
+  // const nim = DATA.dataPembayaran.data[jumlahArray].nim;
+  // const nama = DATA.dataPembayaran.data[jumlahArray].nama;
+  // const kd_ta = parseInt(DATA.dataPembayaran.data[jumlahArray].kd_ta);
+  // const kd_smt = parseInt(DATA.dataPembayaran.data[jumlahArray].kd_smt);
+  // const total_harga = parseInt(
+  //   DATA.dataPembayaran.data[jumlahArray].total_harga
+  // );
+  // const total_denda = parseInt(
+  //   DATA.dataPembayaran.data[jumlahArray].total_denda
+  // );
+  // const total_tagihan = total_harga + total_denda;
+  // const tgl_akhir_bayar = DATA.dataPembayaran.data[jumlahArray].tgl_akhir_bayar;
+  // const tgl_mulai = DATA.dataPembayaran.data[jumlahArray].tgl_mulai;
+  // const tgl_bayar = DATA.dataPembayaran.data[jumlahArray].tgl_bayar;
+  // const status_bayar = DATA.dataPembayaran.data[jumlahArray].status_bayar;
+  // const metode_pembayaran =
+  //   DATA.dataPembayaran.data[jumlahArray].metode_pembayaran;
+
+  const jumlahArray = dataPayment.data.length - 1;
+  const nim = dataPayment.data[jumlahArray].nim;
+  const nama = dataPayment.data[jumlahArray].nama;
+  const kd_ta = parseInt(dataPayment.data[jumlahArray].kd_ta);
+  const kd_smt = parseInt(dataPayment.data[jumlahArray].kd_smt);
+  const total_harga = parseInt(dataPayment.data[jumlahArray].total_harga);
+  const total_denda = parseInt(dataPayment.data[jumlahArray].total_denda);
+  const total_tagihan = total_harga + total_denda;
+  const tgl_akhir_bayar = dataPayment.data[jumlahArray].tgl_akhir_bayar;
+  const tgl_mulai = dataPayment.data[jumlahArray].tgl_mulai;
+  const tgl_bayar = dataPayment.data[jumlahArray].tgl_bayar;
+  const status_bayar = dataPayment.data[jumlahArray].status_bayar;
+  const metode_pembayaran = dataPayment.data[jumlahArray].metode_pembayaran;
+
+  const isMasaPembayaran = false;
+
+  const statusBeasiswa = dataBeasiswa.data.length > 0 ? true : false;
+  console.log(statusBeasiswa);
 
   let jenis_beasiswa = "";
-  if (beasiswa) {
-    jenis_beasiswa = DATA.dataBeasiswa.data[0].jenis_beasiswa;
+  if (statusBeasiswa) {
+    jenis_beasiswa = dataBeasiswa.data[0].jenis_beasiswa;
   }
 
   const [isModalVisible, setIsModalVisible] = useState(false);
@@ -70,7 +92,7 @@ export default function Payment({ navigation }) {
         status_bayar={status_bayar}
         tgl_bayar={tgl_bayar}
         metode_pembayaran={metode_pembayaran}
-        beasiswa={beasiswa}
+        beasiswa={statusBeasiswa}
         jenis_beasiswa={jenis_beasiswa}
         isMasaPembayaran={isMasaPembayaran}
       />

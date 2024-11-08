@@ -9,6 +9,8 @@ import ICONS from "../../assets/icons";
 import { useDispatch } from "react-redux";
 import { setDataAuth } from "../../stores/actions/actionAuth";
 import adapter from "../../services/adapter";
+import { setDataBeasiswa } from "../../stores/actions/actionBeasiswa";
+import { setDataPayment } from "../../stores/actions/actionPayment";
 
 export default function AuthScreen({ navigation, route }) {
   const dispatch = useDispatch();
@@ -28,11 +30,15 @@ export default function AuthScreen({ navigation, route }) {
     const isAuth = await adapter.getAuth(dataLogin.nim, dataLogin.password);
     const dataMhsAll = dataMahasiswaAll || (await adapter.getDataMahasiswa());
     const mhsAvail = dataMhsAll.find((item) => item.nim === dataLogin.nim);
+    const dataBeasiswa = await adapter.getDataBeasiswa(dataLogin.nim);
+    const dataPayment = await adapter.getDataPayment(dataLogin.nim);
     if (isAuth && mhsAvail) {
       const dataMhs = dataMhsAll.filter(
         (item) => item.nim == dataLogin.nim
       );
       dispatch(setDataAuth(dataLogin));
+      dispatch(setDataBeasiswa(dataBeasiswa));
+      dispatch(setDataPayment(dataPayment));
       navigation.replace("Main", { dataMhs });
     } else {
       setErrorNim(true);

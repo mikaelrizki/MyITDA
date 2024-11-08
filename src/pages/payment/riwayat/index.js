@@ -4,8 +4,10 @@ import { SIZES} from "../../../styles";
 import DATA from "../../../services/cache";
 import DetailRiwayat from "../../../components/DetailRiwayat";
 import SecondAppBar from "../../../components/SecondAppBar";
+import { useSelector } from "react-redux";
 
 export default function Riwayat({ navigation }) {
+  const dataPayment = useSelector((state) => state.dataPayment.dataPayment);
   return (
     <ImageBackground
       source={IMAGES.bgDefault}
@@ -20,7 +22,7 @@ export default function Riwayat({ navigation }) {
           paddingHorizontal: SIZES.padding2,
         }}>
         <FlatList
-          data={DATA.dataPembayaran.data}
+          data={dataPayment.data}
           renderItem={({ item }) => <DetailRiwayat data={item} />}
           keyExtractor={(item, index) => index.toString()}
           style={{ width: SIZES.full }}

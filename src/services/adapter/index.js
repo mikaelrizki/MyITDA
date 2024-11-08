@@ -34,5 +34,29 @@ export default {
       } catch (error) {
         console.error("[API] GetDataMahasiswa error", error);
       }
-  }
+  },
+
+  async getDataBeasiswa(nim) {
+    try {
+        const response = await axios.get(
+          `https://perpustakaan.itda.ac.id/api/json_mhs_beasiswa.php?nim=${nim}`
+        );
+        console.log("[API] GetDataBeasiswa", response.data);
+        return response.data;
+      } catch (error) {
+        console.error("[API] GetDataBeasiswa error", error);
+      }
+  },
+
+  async getDataPayment(nim) {
+    try {
+        const response = await axios.get(
+          `https://perpustakaan.itda.ac.id/api/json_tagihan_ukt.php?nim=${nim}`
+        );
+        console.log("[API] GetDataPayment", response.data);
+        return response.data;
+      } catch (error) {
+        console.error("[API] GetDataPayment error", error);
+      }
+  },
 };
