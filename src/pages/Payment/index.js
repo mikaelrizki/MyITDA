@@ -20,8 +20,6 @@ export default function Payment({ navigation }) {
   const dataBeasiswa = useSelector((state) => state.dataBeasiswa.dataBeasiswa);
 
   const jumlahArray = dataPayment.data.length - 1;
-  const nim = dataPayment.data[jumlahArray].nim;
-  const nama = dataPayment.data[jumlahArray].nama;
   const kd_ta = parseInt(dataPayment.data[jumlahArray].kd_ta);
   const kd_smt = parseInt(dataPayment.data[jumlahArray].kd_smt);
   const total_harga = parseInt(dataPayment.data[jumlahArray].total_harga);
@@ -36,7 +34,6 @@ export default function Payment({ navigation }) {
   const isMasaPembayaran = new Date() >= tgl_mulai && new Date() <= tgl_akhir_bayar;
 
   const statusBeasiswa = dataBeasiswa.data.length > 0 ? true : false;
-  console.log(statusBeasiswa);
 
   let jenis_beasiswa = "";
   if (statusBeasiswa) {
