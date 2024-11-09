@@ -10,6 +10,8 @@ import { resetDataAuth } from "../../stores/actions/actionAuth";
 import { useDispatch } from "react-redux";
 import { resetDataPayment } from "../../stores/actions/actionPayment";
 import { resetDataBeasiswa } from "../../stores/actions/actionBeasiswa";
+import { resetNilaiKHS } from "../../stores/actions/actionKHS";
+import { resetNilaiTranskrip } from "../../stores/actions/actionTranskrip";
 
 export default function SettingScreen({ navigation }) {
   const [showNotif, setShowNotif] = useState(true);
@@ -140,6 +142,8 @@ export default function SettingScreen({ navigation }) {
           dispatch(resetDataAuth());
           dispatch(resetDataPayment());
           dispatch(resetDataBeasiswa());
+          dispatch(resetNilaiKHS())
+          dispatch(resetNilaiTranskrip())
         }}
       >
         <Text bold fontsize={SIZES.mediumText} color={COLORS.white}>

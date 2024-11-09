@@ -1,12 +1,30 @@
-import { StyleSheet, View } from "react-native";
 import React from "react";
-import Text from "../Text";
+import { View, Text } from "react-native";
 import { COLORS, SIZES } from "../../styles";
 import SksBadge from "../SksBadge";
+import { useSelector } from "react-redux";
 
-export default function TableKhs({ judul }) {
+export default function TableKhs() {
+  const khsData = useSelector((state) => state.dataKHS.dataKHS);
+  console.log("[Table KHS : ", khsData);
+
+  const totalSks =
+    khsData.reduce((total, item) => total + parseInt(item.sks), 0) || 0;
+  const totalKualitas =
+    khsData.reduce(
+      (total, item) => total + parseInt(item.bobot_nilai) * parseInt(item.sks),
+      0
+    ) || 0;
+
+  const ips = totalSks ? (totalKualitas / totalSks).toFixed(2) : 0;
+
+  if (!khsData || khsData.length === 0) {
+    return <Text>No data available</Text>; // Menampilkan pesan jika data tidak ada
+  }
+
   return (
     <>
+      {/* Header */}
       <View style={LOKAL_STYLES.tableRow}>
         <Text
           bold
@@ -49,109 +67,65 @@ export default function TableKhs({ judul }) {
           KUALITAS
         </Text>
       </View>
-      <View style={LOKAL_STYLES.itemTableRow}>
-        <Text
-          color={COLORS.black}
-          fontsize={SIZES.smallText}
-          style={{ width: "12%" }}
-        >
-          IF001
-        </Text>
-        <Text
-          color={COLORS.black}
-          fontsize={SIZES.smallText}
-          style={{ flex: 1 }}
-        >
-          LOGIKA MATEMATIKA
-        </Text>
-        <Text
-          color={COLORS.black}
-          fontsize={SIZES.smallText}
-          style={{ width: "10%" }}
-        >
-          3
-        </Text>
-        <Text
-          color={COLORS.black}
-          fontsize={SIZES.smallText}
-          style={{ width: "10%" }}
-        >
-          A
-        </Text>
-        <Text
-          color={COLORS.black}
-          fontsize={SIZES.smallText}
-          style={{ width: "20%" }}
-        >
-          12
-        </Text>
-      </View>
-      <View style={LOKAL_STYLES.bottomTableRow}>
-        <Text color={COLORS.black} fontsize={SIZES.smallText}>
-          Presensi: 80
-        </Text>
-        <Text color={COLORS.black} fontsize={SIZES.smallText}>
-          Tugas: 20
-        </Text>
-        <Text color={COLORS.black} fontsize={SIZES.smallText}>
-          UTS: 90
-        </Text>
-        <Text color={COLORS.black} fontsize={SIZES.smallText}>
-          UAS: 100
-        </Text>
-      </View>
 
-      <View style={LOKAL_STYLES.itemTableRow}>
-        <Text
-          color={COLORS.black}
-          fontsize={SIZES.smallText}
-          style={{ width: "12%" }}
-        >
-          IF117
-        </Text>
-        <Text
-          color={COLORS.black}
-          fontsize={SIZES.smallText}
-          style={{ flex: 1 }}
-        >
-          SISTEM PAKAR
-        </Text>
-        <Text
-          color={COLORS.black}
-          fontsize={SIZES.smallText}
-          style={{ width: "10%" }}
-        >
-          3
-        </Text>
-        <Text
-          color={COLORS.black}
-          fontsize={SIZES.smallText}
-          style={{ width: "10%" }}
-        >
-          A
-        </Text>
-        <Text
-          color={COLORS.black}
-          fontsize={SIZES.smallText}
-          style={{ width: "20%" }}
-        >
-          12
-        </Text>
-      </View>
-      <View style={LOKAL_STYLES.bottomTableRow}>
-        <Text color={COLORS.black} fontsize={SIZES.smallText}>
-          Presensi: 80
-        </Text>
-        <Text color={COLORS.black} fontsize={SIZES.smallText}>
-          Tugas: 20
-        </Text>
-        <Text color={COLORS.black} fontsize={SIZES.smallText}>
-          UTS: 90
-        </Text>
-        <Text color={COLORS.black} fontsize={SIZES.smallText}>
-          UAS: 100
-        </Text>
-      </View>
+      {khsData.map((item, index) => (
+        <React.Fragment key={index}>
+          {/* Data per Mata Kuliah */}
+          <View style={LOKAL_STYLES.itemTableRow}>
+            <Text
+              color={COLORS.black}
+              fontsize={SIZES.smallText}
+              style={{ width: "12%" }}
+            >
+              {item.kd_mk}
+            </Text>
+            <Text
+              color={COLORS.black}
+              fontsize={SIZES.smallText}
+              style={{ flex: 1 }}
+            >
+              {item.nm_mk}
+            </Text>
+            <Text
+              color={COLORS.black}
+              fontsize={SIZES.smallText}
+              style={{ width: "10%" }}
+            >
+              {item.sks}
+            </Text>
+            <Text
+              color={COLORS.black}
+              fontsize={SIZES.smallText}
+              style={{ width: "10%" }}
+            >
+              {item.nilai}
+            </Text>
+            <Text
+              color={COLORS.black}
+              fontsize={SIZES.smallText}
+              style={{ width: "20%" }}
+            >
+              {item.bobot_nilai}
+            </Text>
+          </View>
+
+          {/* Bottom Section (Presensi, Tugas, UTS, UAS) */}
+          <View style={LOKAL_STYLES.bottomTableRow}>
+            <Text color={COLORS.black} fontsize={SIZES.smallText}>
+              Presensi: {item.presensi}
+            </Text>
+            <Text color={COLORS.black} fontsize={SIZES.smallText}>
+              Tugas: {item.tugas}
+            </Text>
+            <Text color={COLORS.black} fontsize={SIZES.smallText}>
+              UTS: {item.uts}
+            </Text>
+            <Text color={COLORS.black} fontsize={SIZES.smallText}>
+              UAS: {item.uas}
+            </Text>
+          </View>
+        </React.Fragment>
+      ))}
 
       {/* TOTAL SELURUHNYA */}
       <View style={LOKAL_STYLES.itemTableRow}>
@@ -162,7 +136,7 @@ export default function TableKhs({ judul }) {
         >
           SKS
         </Text>
-        <SksBadge value={"6"} />
+        <SksBadge value={totalSks.toString()} />
         <Text
           color={COLORS.black}
           fontsize={SIZES.smallText}
@@ -170,7 +144,7 @@ export default function TableKhs({ judul }) {
         >
           KUALITAS
         </Text>
-        <SksBadge value={"24"}/>
+        <SksBadge value={totalKualitas.toString()} />
         <Text
           color={COLORS.black}
           fontsize={SIZES.smallText}
@@ -178,13 +152,13 @@ export default function TableKhs({ judul }) {
         >
           IPS
         </Text>
-        <SksBadge value={"4.00"} />
+        <SksBadge value={ips} />
       </View>
     </>
   );
 }
 
-const LOKAL_STYLES = StyleSheet.create({
+const LOKAL_STYLES = {
   tableRow: {
     flexDirection: "row",
     gap: 15,
@@ -206,4 +180,4 @@ const LOKAL_STYLES = StyleSheet.create({
     backgroundColor: COLORS.lightGray,
     borderBottomWidth: 2,
   },
-});
+};

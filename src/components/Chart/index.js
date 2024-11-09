@@ -1,4 +1,4 @@
-import { Dimensions, StyleSheet, Text, View } from "react-native";
+import { Dimensions, StyleSheet,} from "react-native";
 import React from "react";
 import { LineChart } from "react-native-chart-kit";
 import { COLORS, SIZES } from "../../styles";
@@ -48,9 +48,9 @@ export default function Chart({ labels, ip }) {
       fromZero={true}
       withShadow={false}
       yAxisSuffix=""
-      yAxisInterval={1}
-      segments={10}
-      yAxisMax={4}
+      yAxisInterval={0.5}
+      segments={8}
+      yAxisMax={4.0}
       chartConfig={chartConfig}
       bezier={false}
       style={LOKAL_STYLES.chartStyle}

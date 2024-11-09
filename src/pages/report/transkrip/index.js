@@ -6,7 +6,8 @@ import { COLORS, SIZES, STYLES } from "../../../styles";
 import IMAGES from "../../../assets/images";
 import SecondAppBar from "../../../components/SecondAppBar";
 
-export default function TranskripScreen({ navigation }) {
+export default function TranskripScreen({ navigation, dataTranskrip }) {
+  console.log("TRANSKRIP DATA : ", dataTranskrip)
   return (
     <ScrollView showsHorizontalScrollIndicator={false} style={{ flex: 1 }}>
       <ImageBackground source={IMAGES.bgDefault} style={(flex = 1)}>
@@ -112,7 +113,6 @@ const LOKAL_STYLES = StyleSheet.create({
     flexDirection: "row",
     borderRadius: 5,
     alignItems: "center",
-    alignSelf: "flex-start",
     marginLeft: "5%",
   },
   sksContainer: {

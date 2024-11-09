@@ -1,4 +1,4 @@
-import { View, ImageBackground, ScrollView, Button } from "react-native";
+import { View, ScrollView } from "react-native";
 import React from "react";
 import { SIZES } from "../../styles";
 import ButtonNilai from "../../components/ButtonNilai";

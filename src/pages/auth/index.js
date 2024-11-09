@@ -11,6 +11,8 @@ import { setDataAuth } from "../../stores/actions/actionAuth";
 import adapter from "../../services/adapter";
 import { setDataBeasiswa } from "../../stores/actions/actionBeasiswa";
 import { setDataPayment } from "../../stores/actions/actionPayment";
+import { setNilaiKHS, setYearnSmt } from "../../stores/actions/actionKHS";
+import { setNilaiTranskrip } from "../../stores/actions/actionTranskrip";
 
 export default function AuthScreen({ navigation, route }) {
   const dispatch = useDispatch();
@@ -32,6 +34,11 @@ export default function AuthScreen({ navigation, route }) {
     const mhsAvail = dataMhsAll.find((item) => item.nim === dataLogin.nim);
     const dataBeasiswa = await adapter.getDataBeasiswa(dataLogin.nim);
     const dataPayment = await adapter.getDataPayment(dataLogin.nim);
+    const dataYearnSmt = await adapter.getDataYearnSmt(dataLogin.nim);
+
+    console.log("[AUTH] year : ", dataYearnSmt);
+
+    const dataTranskrip = await adapter.getDataTranskrip(dataLogin.nim);
     if (isAuth && mhsAvail) {
       const dataMhs = dataMhsAll.filter(
         (item) => item.nim == dataLogin.nim
@@ -39,6 +46,8 @@ export default function AuthScreen({ navigation, route }) {
       dispatch(setDataAuth(dataLogin));
       dispatch(setDataBeasiswa(dataBeasiswa));
       dispatch(setDataPayment(dataPayment));
+      dispatch(setNilaiTranskrip(dataTranskrip));
+      dispatch(setYearnSmt(dataYearnSmt));
       navigation.replace("Main", { dataMhs });
     } else {
       setErrorNim(true);

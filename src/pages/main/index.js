@@ -20,7 +20,7 @@ export default function MainScreen({ navigation, route }) {
 
   const { dataMhs } = route.params;
 
-  const generateHome = () => <Home data={dataMhs} />;
+  const generateHome = () => <Home data={dataMhs}/>;
 
   const generateReport = () => <ReportScreen navigation={navigation} />;
 
