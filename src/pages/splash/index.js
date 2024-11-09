@@ -6,10 +6,13 @@ import { SIZES, STYLES } from "../../styles";
 import { useDispatch, useSelector } from "react-redux";
 import { resetDataAuth } from "../../stores/actions/actionAuth";
 import adapter from "../../services/adapter";
+import { resetDataPayment, setDataPayment } from "../../stores/actions/actionPayment";
+import { resetDataBeasiswa, setDataBeasiswa } from "../../stores/actions/actionBeasiswa";
 
 export default function SplashScreen({ navigation }) {
   const dispatch = useDispatch();
   const dataAuth = useSelector((state) => state.dataAuth);
+
   console.log("[Redux] DataLogin Selector", dataAuth);
 
   useEffect(() => {
@@ -19,6 +22,8 @@ export default function SplashScreen({ navigation }) {
         dataAuth.dataLogin.password
       );
       const dataMhsAll = await adapter.getDataMahasiswa();
+      const dataPayment = await adapter.getDataPayment(dataAuth.dataLogin.nim);
+      const dataBeasiswa = await adapter.getDataBeasiswa(dataAuth.dataLogin.nim);
       const loginAllowed =
         dataAuth.loginDate &&
         new Date() - new Date(dataAuth.loginDate) < 86400000;
@@ -29,9 +34,13 @@ export default function SplashScreen({ navigation }) {
         const dataMhs = dataMhsAll.filter(
           (item) => item.nim == dataAuth.dataLogin.nim
         );
+        dispatch(setDataPayment(dataPayment));
+        dispatch(setDataBeasiswa(dataBeasiswa));
         navigation.replace("Main", { dataMhs });
       } else {
         dispatch(resetDataAuth());
+        dispatch(resetDataPayment());
+        dispatch(resetDataBeasiswa());
         navigation.replace("Auth", { dataMhsAll });
       }
     };

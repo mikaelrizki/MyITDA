@@ -8,6 +8,8 @@ import ItemSetting from "../../components/ItemSetting";
 import { useState } from "react";
 import { resetDataAuth } from "../../stores/actions/actionAuth";
 import { useDispatch } from "react-redux";
+import { resetDataPayment } from "../../stores/actions/actionPayment";
+import { resetDataBeasiswa } from "../../stores/actions/actionBeasiswa";
 
 export default function SettingScreen({ navigation }) {
   const [showNotif, setShowNotif] = useState(true);
@@ -134,8 +136,10 @@ export default function SettingScreen({ navigation }) {
           elevation: 4,
         }}
         onPress={() => {
-          navigation.navigate("Auth")
-          dispatch(resetDataAuth())
+          navigation.navigate("Auth");
+          dispatch(resetDataAuth());
+          dispatch(resetDataPayment());
+          dispatch(resetDataBeasiswa());
         }}
       >
         <Text bold fontsize={SIZES.mediumText} color={COLORS.white}>

@@ -1,7 +1,6 @@
 import { View, ImageBackground, StyleSheet, FlatList } from "react-native";
 import IMAGES from "../../../assets/images";
 import { SIZES} from "../../../styles";
-import DATA from "../../../services/cache";
 import DetailRiwayat from "../../../components/DetailRiwayat";
 import SecondAppBar from "../../../components/SecondAppBar";
 import { useSelector } from "react-redux";

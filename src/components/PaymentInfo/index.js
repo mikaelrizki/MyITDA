@@ -11,7 +11,6 @@ export default function PaymentInfo({
   total_denda,
   total_tagihan,
   tgl_akhir_bayar,
-  tgl_mulai,
   status_bayar,
   tgl_bayar,
   metode_pembayaran,
@@ -19,7 +18,7 @@ export default function PaymentInfo({
   jenis_beasiswa,
   isMasaPembayaran,
 }) {
-  const [tanggal, waktu] = tgl_bayar.split(" ");
+  const [tanggal, waktu] = tgl_bayar ? tgl_bayar.split(" ") : ["-", "-"];
 
   if (!isMasaPembayaran && status_bayar === "L") {
     return (

@@ -7,7 +7,6 @@ import {
 import { COLORS, SIZES, STYLES } from "../../styles";
 import ButtonPembayaran from "../../components/ButtonPembayaran";
 import ICONS from "../../assets/icons";
-import DATA from "../../services/cache";
 import SectionTitleBig from "../../components/SectionTitleBig";
 import PaymentInfo from "../../components/PaymentInfo";
 import { BottomSheetModal } from "@gorhom/bottom-sheet";
@@ -16,28 +15,73 @@ import Tutorial from "./tutorial";
 import { useSelector } from "react-redux";
 
 export default function Payment({ navigation }) {
-  const dataPayment = useSelector((state) => state.dataPayment.dataPayment);
-  const dataBeasiswa = useSelector((state) => state.dataBeasiswa.dataBeasiswa);
+  const dataPayment = useSelector(
+    (state) => state.dataPayment?.dataPayment || null
+  );
+  const dataBeasiswa = useSelector(
+    (state) => state.dataBeasiswa?.dataBeasiswa || null
+  );
 
-  const jumlahArray = dataPayment.data.length - 1;
-  const kd_ta = parseInt(dataPayment.data[jumlahArray].kd_ta);
-  const kd_smt = parseInt(dataPayment.data[jumlahArray].kd_smt);
-  const total_harga = parseInt(dataPayment.data[jumlahArray].total_harga);
-  const total_denda = parseInt(dataPayment.data[jumlahArray].total_denda);
+  let jumlahArrayPayment, jumlahArrayBeasiswa;
+
+  if (dataPayment?.data?.length > 0) {
+    jumlahArrayPayment = dataPayment.data.length - 1;
+  }
+
+  if (dataBeasiswa?.data?.length > 0) {
+    jumlahArrayBeasiswa = dataBeasiswa.data.length;
+  }
+
+  const kd_ta =
+    jumlahArrayPayment !== undefined
+      ? parseInt(dataPayment.data[jumlahArrayPayment].kd_ta)
+      : null;
+  const kd_smt =
+    jumlahArrayPayment !== undefined
+      ? parseInt(dataPayment.data[jumlahArrayPayment].kd_smt)
+      : null;
+  const total_harga =
+    jumlahArrayPayment !== undefined
+      ? parseInt(dataPayment.data[jumlahArrayPayment].total_harga)
+      : 0;
+  const total_denda =
+    jumlahArrayPayment !== undefined
+      ? parseInt(dataPayment.data[jumlahArrayPayment].total_denda)
+      : 0;
   const total_tagihan = total_harga + total_denda;
-  const tgl_akhir_bayar = dataPayment.data[jumlahArray].tgl_akhir_bayar;
-  const tgl_mulai = dataPayment.data[jumlahArray].tgl_mulai;
-  const tgl_bayar = dataPayment.data[jumlahArray].tgl_bayar;
-  const status_bayar = dataPayment.data[jumlahArray].status_bayar;
-  const metode_pembayaran = dataPayment.data[jumlahArray].metode_pembayaran;
 
-  const isMasaPembayaran = new Date() >= tgl_mulai && new Date() <= tgl_akhir_bayar;
+  const tgl_akhir_bayar =
+    jumlahArrayPayment !== undefined
+      ? dataPayment.data[jumlahArrayPayment].tgl_akhir_bayar
+      : null;
+  const tgl_mulai =
+    jumlahArrayPayment !== undefined
+      ? dataPayment.data[jumlahArrayPayment].tgl_mulai
+      : null;
+  const tgl_bayar =
+    jumlahArrayPayment !== undefined
+      ? dataPayment.data[jumlahArrayPayment].tgl_bayar
+      : null;
+  const status_bayar =
+    jumlahArrayPayment !== undefined
+      ? dataPayment.data[jumlahArrayPayment].status_bayar
+      : null;
+  const metode_pembayaran =
+    jumlahArrayPayment !== undefined
+      ? dataPayment.data[jumlahArrayPayment].metode_pembayaran
+      : null;
 
-  const statusBeasiswa = dataBeasiswa.data.length > 0 ? true : false;
+  const isMasaPembayaran =
+    tgl_mulai && tgl_akhir_bayar
+      ? new Date() >= new Date(tgl_mulai) &&
+        new Date() <= new Date(tgl_akhir_bayar)
+      : false;
+
+  const statusBeasiswa = jumlahArrayBeasiswa > 0;
 
   let jenis_beasiswa = "";
   if (statusBeasiswa) {
-    jenis_beasiswa = dataBeasiswa.data[0].jenis_beasiswa;
+    jenis_beasiswa = dataBeasiswa.data[0]?.jenis_beasiswa || "";
   }
 
   const [isModalVisible, setIsModalVisible] = useState(false);
