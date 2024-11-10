@@ -21,6 +21,7 @@ export default function AuthScreen({ navigation, route }) {
     nim: "",
     password: "",
   });
+  const [showLoadingBar, setShowLoadingBar] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
   const [errorSubmit, setErrorSubmit] = useState(false);
   const [errorNim, setErrorNim] = useState(false);
@@ -29,6 +30,7 @@ export default function AuthScreen({ navigation, route }) {
   const { dataMahasiswaAll } = route.params || {};
 
   const handleLogin = async () => {
+    setShowLoadingBar(true);
     const isAuth = await adapter.getAuth(dataLogin.nim, dataLogin.password);
     const dataMhsAll = dataMahasiswaAll || (await adapter.getDataMahasiswa());
     const mhsAvail = dataMhsAll.find((item) => item.nim === dataLogin.nim);
@@ -55,6 +57,7 @@ export default function AuthScreen({ navigation, route }) {
       setErrorSubmit(true);
       setDataLogin({ nim: "", password: "" });
     }
+    setShowLoadingBar(false);
   };
 
   return (
@@ -166,6 +169,7 @@ export default function AuthScreen({ navigation, route }) {
         title="Login"
         onPress={handleLogin}
         disable={dataLogin.nim === "" || dataLogin.password === ""}
+        isLoading={showLoadingBar}
       />
       {/* <View style={{ flexDirection: "row", marginTop: 10 }}>
         <Text medium center color={COLORS.gray}>

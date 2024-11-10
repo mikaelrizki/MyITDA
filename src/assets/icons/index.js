@@ -29,6 +29,8 @@ const ICONS = {
   notificationSwitch: require("./notificationSwitch.png"),
   notificationSwitchOff: require("./notificationSwitchOff.png"),
   changePasswordIcon: require("./changePassIcon.png"),
+  loadingBar: require("./loadingBar.gif"),
+  iconLogout: require("./logoutIcon.png"),
 };
 
 export default ICONS;
