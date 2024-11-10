@@ -5,9 +5,8 @@ import CreateAnnouncementScreen from "./createAnnouncement";
 import { SceneMap, TabBar, TabView } from "react-native-tab-view";
 import { COLORS, SIZES } from "../../styles";
 import IMAGES from "../../assets/images";
-import AppBar from "../../components/AppBar";
 import { useState } from "react";
-import ICONS from "../../assets/icons";
+import ThirdAppBar from "../../components/ThirdAppBar";
 
 export default function MainAdminScreen({ navigation }) {
   const [index, setIndex] = useState(0);
@@ -42,8 +41,6 @@ export default function MainAdminScreen({ navigation }) {
         renderLabel={({ route, focused }) => (
           <View
             style={{
-              width: SIZES.full,
-              height: SIZES.full,
               backgroundColor: focused ? COLORS.primary : COLORS.white,
               justifyContent: "center",
               alignItems: "center",
@@ -66,10 +63,7 @@ export default function MainAdminScreen({ navigation }) {
   }
   return (
     <ImageBackground source={IMAGES.bgDefault} style={{ flex: 1 }}>
-      <AppBar
-        username={"Melisa Wijaya"}
-        bgColorBell={COLORS.softBlue}
-        bellIcon={ICONS.iconBellBlue}
+      <ThirdAppBar
         navigation={navigation}
       />
       <TabView
