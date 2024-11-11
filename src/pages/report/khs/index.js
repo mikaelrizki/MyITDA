@@ -21,11 +21,7 @@ export default function KhsScreen({ navigation }) {
   const [selectedData, setSelectedData] = useState(null);
   const dispatch = useDispatch();
   const dataAuth = useSelector((state) => state.dataAuth);
-  console.log("[KHS] data login : ", dataAuth);
-
-  const data2 = useSelector((state) => state.dataKHS);
   const dataYearnSmt = useSelector((state) => state.dataKHS.dataYearnSmt);
-  console.log("[KHS PAGE] DATA KHS : ", data2);
 
   const processDataTahun = (dataYearnSmt) => {
     const result = [];
@@ -55,25 +51,21 @@ export default function KhsScreen({ navigation }) {
     return result;
   };
 
-  // Fungsi untuk menangani event tekan
   const handlePress = async (id) => {
     try {
       setSelectedData(id);
       const [year, sem] = id.split("-");
 
-      // Panggil fungsi getDataKHS secara async
       const dataKHS = await adapter.getDataKHS(
         dataAuth.dataLogin.nim,
         year,
         sem
       );
       dispatch(setNilaiKHS(dataKHS));
-      console.log("[KHS PAGE] handler : ", dataKHS);
     } catch (error) {
       console.error("Error fetching data KHS:", error);
     }
   };
-
   const data = processDataTahun(dataYearnSmt);
   return (
     <ScrollView>

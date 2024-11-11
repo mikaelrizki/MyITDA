@@ -11,7 +11,7 @@ import { setDataAuth } from "../../stores/actions/actionAuth";
 import adapter from "../../services/adapter";
 import { setDataBeasiswa } from "../../stores/actions/actionBeasiswa";
 import { setDataPayment } from "../../stores/actions/actionPayment";
-import { setNilaiKHS, setYearnSmt } from "../../stores/actions/actionKHS";
+import { setYearnSmt } from "../../stores/actions/actionKHS";
 import { setNilaiTranskrip } from "../../stores/actions/actionTranskrip";
 
 export default function AuthScreen({ navigation, route }) {

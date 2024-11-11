@@ -21,8 +21,8 @@ export default function TranskripScreen({ navigation }) {
 
   const ips = totalSks ? (totalKualitas / totalSks).toFixed(2) : 0;
 
-  if (!dataTranskrip.length){
-    return <Text>No data available</Text>; // Menampilkan pesan jika data tidak ada
+  if (!dataTranskrip || !dataTranskrip.length){
+    return <Text>No data available</Text>;
   }
 
   return (

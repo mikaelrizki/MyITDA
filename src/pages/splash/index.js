@@ -24,8 +24,6 @@ export default function SplashScreen({ navigation }) {
         dataAuth.dataLogin.password
       );
       const dataMhsAll = await adapter.getDataMahasiswa();
-
-      const dataKHS = await adapter.getDataKHS(dataAuth.dataLogin.nim);
       const dataTranskrip = await adapter.getDataTranskrip(
         dataAuth.dataLogin.nim
       );
@@ -51,8 +49,6 @@ export default function SplashScreen({ navigation }) {
         });
       } else {
         dispatch(resetDataAuth());
-        dispatch(resetNilaiKHS());
-        dispatch(resetNilaiTranskrip());
         navigation.replace("Auth", { dataMhsAll });
       }
     };

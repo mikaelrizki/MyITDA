@@ -104,26 +104,18 @@ export default {
           params: { nim },
         }
       );
-
-      console.log("YEAR ADAPTER:", nim);
       console.log("[API] getYearnSMT", response.data["data"]);
-
       const dataYear = response.data["data"];
-
-      // Struktur data menjadi array list
       const structuredData = [];
-
       dataYear.forEach((item) => {
         const yearEntry = structuredData.find(
           (entry) => entry.year === item.kd_ta
         );
         if (yearEntry) {
-          // Jika tahun sudah ada di list, tambahkan semester jika belum ada
           if (!yearEntry.semesters.includes(item.kd_smt)) {
             yearEntry.semesters.push(item.kd_smt);
           }
         } else {
-          // Jika tahun belum ada di list, buat entry baru
           structuredData.push({
             year: item.kd_ta,
             semesters: [item.kd_smt],
@@ -131,13 +123,7 @@ export default {
         }
       });
 
-      // Urutkan data berdasarkan `year` dari terkecil ke terbesar
       structuredData.sort((a, b) => a.year - b.year);
-
-      console.log(
-        "[Structured Data] List format per Semester (Sorted):",
-        structuredData
-      );
       return structuredData;
     } catch (error) {
       console.error("[API] GetDataYear error", error);

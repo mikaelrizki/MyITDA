@@ -5,8 +5,8 @@ import { COLORS, SIZES } from "../../styles";
 import ICONS from "../../assets/icons";
 import TableRow from "../TableRow";
 import Chart from "../Chart";
-import TableKhs from "../TableKhs";
 import TableTranskrip from "../TableTranskrip";
+import { useSelector } from "react-redux";
 
 export default function TableContainer({
   title,
@@ -14,6 +14,109 @@ export default function TableContainer({
   rightIcon,
   transkrip,
 }) {
+  const dataTranskrip = useSelector(
+    (state) => state.dataTranskrip.dataTranskrip
+  );
+  const dataYearnSmt = useSelector((state) => state.dataKHS.dataYearnSmt);
+  if (!dataTranskrip || dataTranskrip.length === 0) {
+    return <Text>No Data Available</Text>;
+  }
+
+  const getSemesterName = (kdSmt, tahun) => {
+    const semesterNames = ["GASAL", "GENAP"];
+    const semesterType = kdSmt % 2 === 1 ? semesterNames[0] : semesterNames[1];
+    const startYear = parseInt(tahun, 10);
+    const endYear = startYear + 1;
+    return `${semesterType} ${startYear}/${endYear}`;
+  };
+
+  const processTranscriptData = (dataTranskrip) => {
+    if (!dataTranskrip || !Array.isArray(dataTranskrip)) {
+      console.error("Invalid dataTranskrip:", dataTranskrip);
+      return [];
+    }
+    const semesterData = {};
+    dataTranskrip.forEach((entry) => {
+      const year = entry.kd_ta;
+      const semester = entry.kd_smt;
+      const semesterKey = `${year}-${semester}`;
+      if (!semesterData[semesterKey]) {
+        semesterData[semesterKey] = {
+          totalCredits: 0,
+          totalPoints: 0,
+        };
+      }
+      const sks = parseInt(entry.sks_mk, 10);
+      const grade = parseFloat(entry.bobot_nilai);
+      semesterData[semesterKey].totalCredits += sks;
+      semesterData[semesterKey].totalPoints += sks * grade;
+    });
+    return Object.keys(semesterData)
+      .map((semesterKey) => {
+        const [year, kdSmt] = semesterKey.split("-");
+        const semesterTitle = getSemesterName(parseInt(kdSmt, 10), year);
+        return {
+          semester: semesterTitle,
+          sks: semesterData[semesterKey].totalCredits,
+          ip: (
+            semesterData[semesterKey].totalPoints /
+            semesterData[semesterKey].totalCredits
+          ).toFixed(2),
+        };
+      })
+      .sort((a, b) => a.kd_ta - b.kd_ta || a.kd_smt - b.kd_smt)
+      .map(({ kd_ta, kd_smt, ...rest }) => rest);
+  };
+
+  const sortTranscriptData = (transcriptData) => {
+    return transcriptData.sort((a, b) => {
+      const [aSemesterType, aYearRange] = a.semester.split(" ");
+      const [bSemesterType, bYearRange] = b.semester.split(" ");
+
+      const aStartYear = parseInt(aYearRange.split("/")[0], 10);
+      const bStartYear = parseInt(bYearRange.split("/")[0], 10);
+
+      if (aStartYear !== bStartYear) {
+        return aStartYear - bStartYear;
+      }
+      return aSemesterType === "GASAL" ? -1 : 1;
+    });
+  };
+
+  const processDataTahun = (dataYearnSmt) => {
+    const result = [];
+    if (Array.isArray(dataYearnSmt)) {
+      dataYearnSmt.forEach((item) => {
+        const { year, semesters } = item;
+
+        if (Array.isArray(semesters)) {
+          semesters.forEach((semester) => {
+            const title = `${semester === "1" ? "GASAL" : "GENAP"} ${year}/${
+              parseInt(year) + 1
+            }`;
+            result.push({ id: `${year}-${semester}`, title });
+          });
+        }
+      });
+    }
+    result.sort((a, b) => {
+      const [yearA, semesterA] = a.id.split("-").map(Number);
+      const [yearB, semesterB] = b.id.split("-").map(Number);
+      if (yearA === yearB) {
+        return semesterA - semesterB;
+      }
+      return yearA - yearB;
+    });
+
+    return result;
+  };
+
+  const data = processTranscriptData(dataTranskrip);
+  const databaru = sortTranscriptData(data);
+  const dataYear = processDataTahun(dataYearnSmt);
+  const dataLabels = dataYear.map((item) => item.id);
+  const dataIP = databaru.map((item) => item.ip);
+
   return (
     <View style={LOKAL_STYLES.tableCons}>
       <View style={LOKAL_STYLES.titleCons}>
@@ -38,50 +141,18 @@ export default function TableContainer({
             case "table":
               return (
                 <>
-                  <TableRow
-                    semester={"Gasal 2021/2022"}
-                    sks={"24"}
-                    ip={2.789}
-                  />
-                  <TableRow
-                    semester={"Genap 2021/2022"}
-                    sks={"20"}
-                    ip={3.876}
-                  />
-                  <TableRow
-                    semester={"Gasal 2022/2023"}
-                    sks={"24"}
-                    ip={3.789}
-                  />
-                  <TableRow
-                    semester={"Genap 2022/2023"}
-                    sks={"21"}
-                    ip={2.876}
-                  />
-                  <TableRow
-                    semester={"Gasal 2023/2024"}
-                    sks={"24"}
-                    ip={3.789}
-                  />
-                  <TableRow semester={"Genap 2023/2024"} sks={"20"} ip={2.1} />
+                  {databaru.map((item, index) => (
+                    <TableRow
+                      key={index}
+                      semester={item.semester}
+                      sks={item.sks}
+                      ip={item.ip}
+                    />
+                  ))}
                 </>
               );
             case "chart":
-              return (
-                <Chart
-                  labels={[
-                    "2021-1",
-                    "2021-2",
-                    "2022-1",
-                    "2022-2",
-                    "2023-1",
-                    "2023-2",
-                    "2024-1",
-                    "2024-2",
-                  ]}
-                  ip={[2.789, 3.876, 3.789, 2.876, 3.789, 2.1]}
-                />
-              );
+              return <Chart labels={dataLabels} ip={dataIP} />;
             case "transkrip":
               return <TableTranskrip judul={transkrip} />;
             default:

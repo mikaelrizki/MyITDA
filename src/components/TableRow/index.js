@@ -11,7 +11,7 @@ export default function TableRow({ semester, sks, ip }) {
         <Text fontsize={SIZES.mediumText}>{semester}</Text>
       </View>
       <View style={LOKAL_STYLES.progressContainer}>
-        <ProgressBar ip={ip.toFixed(2)} />
+        <ProgressBar ip={ip} />
         <View style={LOKAL_STYLES.sksContainer}>
           <View style={LOKAL_STYLES.sksBadge}>
             <Text color={COLORS.white} fontsize={SIZES.extraSmallText}>{sks} sks</Text>

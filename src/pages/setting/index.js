@@ -10,7 +10,7 @@ import { resetDataAuth } from "../../stores/actions/actionAuth";
 import { useDispatch } from "react-redux";
 import { resetDataPayment } from "../../stores/actions/actionPayment";
 import { resetDataBeasiswa } from "../../stores/actions/actionBeasiswa";
-import { resetNilaiKHS } from "../../stores/actions/actionKHS";
+import { resetNilaiKHS, resetYearnSmt } from "../../stores/actions/actionKHS";
 import { resetNilaiTranskrip } from "../../stores/actions/actionTranskrip";
 
 export default function SettingScreen({ navigation }) {
@@ -142,8 +142,9 @@ export default function SettingScreen({ navigation }) {
           dispatch(resetDataAuth());
           dispatch(resetDataPayment());
           dispatch(resetDataBeasiswa());
-          dispatch(resetNilaiKHS())
-          dispatch(resetNilaiTranskrip())
+          dispatch(resetNilaiKHS());
+          dispatch(resetNilaiTranskrip());
+          dispatch(resetYearnSmt());
         }}
       >
         <Text bold fontsize={SIZES.mediumText} color={COLORS.white}>
