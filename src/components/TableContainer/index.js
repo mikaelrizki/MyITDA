@@ -82,8 +82,6 @@ export default function TableContainer({
                   ip={[2.789, 3.876, 3.789, 2.876, 3.789, 2.1]}
                 />
               );
-            case "khs":
-              return <TableKhs judul={title} />;
             case "transkrip":
               return <TableTranskrip judul={transkrip} />;
             default:

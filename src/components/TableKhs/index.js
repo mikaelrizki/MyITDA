@@ -6,7 +6,6 @@ import { useSelector } from "react-redux";
 
 export default function TableKhs() {
   const khsData = useSelector((state) => state.dataKHS.dataKHS);
-  console.log("[Table KHS : ", khsData);
 
   const totalSks =
     khsData.reduce((total, item) => total + parseInt(item.sks), 0) || 0;
@@ -18,8 +17,8 @@ export default function TableKhs() {
 
   const ips = totalSks ? (totalKualitas / totalSks).toFixed(2) : 0;
 
-  if (!khsData || khsData.length === 0) {
-    return <Text>No data available</Text>; // Menampilkan pesan jika data tidak ada
+  if (!khsData.length) {
+    return <Text>No data available</Text>; 
   }
 
   return (
@@ -69,9 +68,9 @@ export default function TableKhs() {
       </View>
 
       {khsData.map((item, index) => (
-        <React.Fragment key={index}>
+        <>
           {/* Data per Mata Kuliah */}
-          <View style={LOKAL_STYLES.itemTableRow}>
+          <View key={index} style={LOKAL_STYLES.itemTableRow}>
             <Text
               color={COLORS.black}
               fontsize={SIZES.smallText}
@@ -124,7 +123,7 @@ export default function TableKhs() {
               UAS: {item.uas}
             </Text>
           </View>
-        </React.Fragment>
+        </>
       ))}
 
       {/* TOTAL SELURUHNYA */}
@@ -171,6 +170,7 @@ const LOKAL_STYLES = {
     flexDirection: "row",
     gap: 15,
     paddingHorizontal: 5,
+    paddingBottom: 10
   },
   bottomTableRow: {
     flexDirection: "row",

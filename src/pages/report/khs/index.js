@@ -87,7 +87,7 @@ export default function KhsScreen({ navigation }) {
               <TouchableOpacity
                 onPress={() => handlePress(item.id)}
                 style={[
-                  { opacity: selectedData === item.id ? 1 : 2 }, // Set opacity based on selectedData state
+                  { opacity: selectedData === item.id ? 1 : 2 },
                 ]}
               >
                 <View style={LOKAL_STYLES.tableCons}>

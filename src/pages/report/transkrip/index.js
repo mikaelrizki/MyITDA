@@ -5,9 +5,26 @@ import Text from "../../../components/Text";
 import { COLORS, SIZES, STYLES } from "../../../styles";
 import IMAGES from "../../../assets/images";
 import SecondAppBar from "../../../components/SecondAppBar";
+import { useSelector } from "react-redux";
 
-export default function TranskripScreen({ navigation, dataTranskrip }) {
-  console.log("TRANSKRIP DATA : ", dataTranskrip)
+export default function TranskripScreen({ navigation }) {
+
+  const dataTranskrip = useSelector((state)=> state.dataTranskrip.dataTranskrip || []);
+
+  const totalSks =
+    dataTranskrip.reduce((total, item) => total + parseInt(item.sks_mk), 0) || 0;
+  const totalKualitas =
+    dataTranskrip.reduce(
+      (total, item) => total + parseInt(item.bobot_nilai) * parseInt(item.sks_mk),
+      0
+    ) || 0;
+
+  const ips = totalSks ? (totalKualitas / totalSks).toFixed(2) : 0;
+
+  if (!dataTranskrip.length){
+    return <Text>No data available</Text>; // Menampilkan pesan jika data tidak ada
+  }
+
   return (
     <ScrollView showsHorizontalScrollIndicator={false} style={{ flex: 1 }}>
       <ImageBackground source={IMAGES.bgDefault} style={(flex = 1)}>
@@ -25,7 +42,7 @@ export default function TranskripScreen({ navigation, dataTranskrip }) {
                     color={COLORS.primary}
                     fontsize={SIZES.extraSmallText}
                   >
-                    120
+                    {totalSks}
                   </Text>
                 </View>
               </View>
@@ -42,7 +59,7 @@ export default function TranskripScreen({ navigation, dataTranskrip }) {
                     color={COLORS.primary}
                     fontsize={SIZES.extraSmallText}
                   >
-                    54.0
+                    {totalKualitas}
                   </Text>
                 </View>
               </View>
@@ -60,7 +77,7 @@ export default function TranskripScreen({ navigation, dataTranskrip }) {
                   color={COLORS.primary}
                   fontsize={SIZES.extraSmallText}
                 >
-                  36.2
+                  {ips}
                 </Text>
               </View>
             </View>

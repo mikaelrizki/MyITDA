@@ -37,9 +37,6 @@ export default function AuthScreen({ navigation, route }) {
     const dataBeasiswa = await adapter.getDataBeasiswa(dataLogin.nim);
     const dataPayment = await adapter.getDataPayment(dataLogin.nim);
     const dataYearnSmt = await adapter.getDataYearnSmt(dataLogin.nim);
-
-    console.log("[AUTH] year : ", dataYearnSmt);
-
     const dataTranskrip = await adapter.getDataTranskrip(dataLogin.nim);
     if (isAuth && mhsAvail) {
       const dataMhs = dataMhsAll.filter(

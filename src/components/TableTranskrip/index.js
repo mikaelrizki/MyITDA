@@ -3,17 +3,37 @@ import React from "react";
 import { COLORS, SIZES } from "../../styles";
 import Text from "../Text";
 import SksBadge from "../SksBadge";
+import { useSelector } from "react-redux";
 
 export default function TableTranskrip({ judul }) {
-    let displayedJudul;
+  let displayedJudul;
 
   if (judul == "wajib") {
     displayedJudul = "Total WAJIB";
-  } else if(judul == "pilihan") {
+  } else if (judul == "pilihan") {
     displayedJudul = "Total PILIHAN";
-  }else {
-    displayedJudul = "tidak ada judul"
+  } else {
+    displayedJudul = "tidak ada judul";
   }
+
+  const dataTranskrip = useSelector(
+    (state) => state.dataTranskrip.dataTranskrip
+  );
+
+  const filteredData = dataTranskrip.filter((item) => {
+    return judul === "wajib" ? item.jenis_mk === "W" : item.jenis_mk === "P";
+  });
+
+  const totalSKS = filteredData.reduce(
+    (sum, item) => sum + parseInt(item.sks_mk, 10),
+    0
+  );
+  const totalKualitas = filteredData.reduce(
+    (sum, item) =>
+      sum + parseInt(item.bobot_nilai, 10) * parseInt(item.sks_mk, 10),
+    0
+  );
+
   return (
     <>
       <View style={LOKAL_STYLES.tableRow}>
@@ -23,7 +43,7 @@ export default function TableTranskrip({ judul }) {
           fontsize={SIZES.smallText}
           style={{ width: "12%" }}
         >
-          KODE
+          SEM PKT
         </Text>
         <Text
           bold
@@ -59,80 +79,45 @@ export default function TableTranskrip({ judul }) {
         </Text>
       </View>
 
-      <View style={LOKAL_STYLES.itemTableRow}>
-        <Text
-          color={COLORS.black}
-          fontsize={SIZES.smallText}
-          style={{ width: "12%" }}
-        >
-          IF001
-        </Text>
-        <Text
-          color={COLORS.black}
-          fontsize={SIZES.smallText}
-          style={{ flex: 1 }}
-        >
-          LOGIKA MATEMATIKA
-        </Text>
-        <Text
-          color={COLORS.black}
-          fontsize={SIZES.smallText}
-          style={{ width: "10%" }}
-        >
-          3
-        </Text>
-        <Text
-          color={COLORS.black}
-          fontsize={SIZES.smallText}
-          style={{ width: "10%" }}
-        >
-          A
-        </Text>
-        <Text
-          color={COLORS.black}
-          fontsize={SIZES.smallText}
-          style={{ width: "20%" }}
-        >
-          12
-        </Text>
-      </View>
-      <View style={LOKAL_STYLES.itemTableRow}>
-        <Text
-          color={COLORS.black}
-          fontsize={SIZES.smallText}
-          style={{ width: "12%" }}
-        >
-          IF002
-        </Text>
-        <Text
-          color={COLORS.black}
-          fontsize={SIZES.smallText}
-          style={{ flex: 1 }}
-        >
-          SISTEM PAKAR
-        </Text>
-        <Text
-          color={COLORS.black}
-          fontsize={SIZES.smallText}
-          style={{ width: "10%" }}
-        >
-          3
-        </Text>
-        <Text
-          color={COLORS.black}
-          fontsize={SIZES.smallText}
-          style={{ width: "10%" }}
-        >
-          B
-        </Text>
-        <Text
-          color={COLORS.black}
-          fontsize={SIZES.smallText}
-          style={{ width: "20%" }}
-        >
-          9
-        </Text>
-      </View>
+      {filteredData.map((item, index) => (
+        <View key={index} style={LOKAL_STYLES.itemTableRow}>
+          <Text
+            color={COLORS.black}
+            fontsize={SIZES.smallText}
+            style={{ width: "12%" }}
+          >
+            {item.semester_paket}
+          </Text>
+          <Text
+            color={COLORS.black}
+            fontsize={SIZES.smallText}
+            style={{ flex: 1 }}
+          >
+            {item.nm_mk}
+          </Text>
+          <Text
+            color={COLORS.black}
+            fontsize={SIZES.smallText}
+            style={{ width: "10%" }}
+          >
+            {item.sks_mk}
+          </Text>
+          <Text
+            color={COLORS.black}
+            fontsize={SIZES.smallText}
+            style={{ width: "10%" }}
+          >
+            {item.nilai}
+          </Text>
+          <Text
+            color={COLORS.black}
+            fontsize={SIZES.smallText}
+            style={{ width: "20%" }}
+          >
+            {parseInt(item.bobot_nilai, 0) * parseInt(item.sks_mk, 10)}
+          </Text>
+        </View>
+      ))}
 
       {/* TOTAL SELURUHNYA */}
       <View style={LOKAL_STYLES.itemTableRow}>
@@ -144,10 +129,10 @@ export default function TableTranskrip({ judul }) {
           </View>
         </View>
         <View style={LOKAL_STYLES.BottomTableRow}>
-          <SksBadge value={"6"} />
+          <SksBadge value={totalSKS.toString()}/>
         </View>
         <View style={LOKAL_STYLES.BottomTableRow}>
-          <SksBadge value={"21"} />
+          <SksBadge value={totalKualitas.toString()} />
         </View>
       </View>
     </>
@@ -167,7 +152,7 @@ const LOKAL_STYLES = StyleSheet.create({
     flexDirection: "row",
     gap: 15,
     paddingHorizontal: 5,
-    borderBottomWidth: 2,
+    borderBottomWidth: 1,
   },
   BottomTableRow: {
     width: "25%",
