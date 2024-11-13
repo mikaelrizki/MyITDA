@@ -67,6 +67,7 @@ export default function KhsScreen({ navigation }) {
     }
   };
   const data = processDataTahun(dataYearnSmt);
+  console.log("[KHS PAGE]", data);
   return (
     <ScrollView>
       <ImageBackground source={IMAGES.bgDefault} style={{ flex: 1 }}>

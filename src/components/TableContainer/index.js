@@ -32,7 +32,6 @@ export default function TableContainer({
 
   const processTranscriptData = (dataTranskrip) => {
     if (!dataTranskrip || !Array.isArray(dataTranskrip)) {
-      console.error("Invalid dataTranskrip:", dataTranskrip);
       return [];
     }
     const semesterData = {};
