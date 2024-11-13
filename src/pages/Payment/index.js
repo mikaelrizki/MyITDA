@@ -23,9 +23,12 @@ export default function Payment({ navigation }) {
   );
 
   let jumlahArrayPayment, jumlahArrayBeasiswa;
+  let dataKosong = false;
 
   if (dataPayment?.data?.length > 0) {
     jumlahArrayPayment = dataPayment.data.length - 1;
+  } else {
+    dataKosong = true;
   }
 
   if (dataBeasiswa?.data?.length > 0) {
@@ -115,19 +118,23 @@ export default function Payment({ navigation }) {
         beasiswa={statusBeasiswa}
         jenis_beasiswa={jenis_beasiswa}
         isMasaPembayaran={isMasaPembayaran}
+        dataKosong={dataKosong}
       />
 
-      <ButtonPembayaran
-        title="Lihat Riwayat Pembayaran"
-        navigation={() => navigation.navigate("Riwayat")}
-        rightIcon={
-          <Image
-            source={ICONS.logoRiwayat}
-            style={{ width: 32, height: 32 }}
-            resizeMode="contain"
-          />
-        }
-      />
+      {!dataKosong && (
+        <ButtonPembayaran
+          title="Lihat Riwayat Pembayaran"
+          navigation={() => navigation.navigate("Riwayat")}
+          rightIcon={
+            <Image
+              source={ICONS.logoRiwayat}
+              style={{ width: 32, height: 32 }}
+              resizeMode="contain"
+            />
+          }
+        />
+      )}
+      
       <ButtonPembayaran
         title="Lihat Tutorial Pembayaran"
         navigation={toggleModal}
