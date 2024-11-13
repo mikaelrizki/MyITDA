@@ -17,6 +17,7 @@ export default function PaymentInfo({
   beasiswa,
   jenis_beasiswa,
   isMasaPembayaran,
+  dataKosong,
 }) {
   const [tanggal, waktu] = tgl_bayar ? tgl_bayar.split(" ") : ["-", "-"];
 
@@ -39,12 +40,25 @@ export default function PaymentInfo({
         </Text>
       </View>
     );
+  } else if (dataKosong) {
+    return (
+      <View style={LOCAL_STYLE.frame}>
+        <Image
+          source={IMAGES.logoKosong}
+          style={{ height: 100, alignSelf: "center", marginBottom: 30 }}
+          resizeMode="contain"
+        />
+        <Text bold center fontsize={SIZES.mediumText} color={COLORS.black}>
+          Anda Belum Memiliki Tagihan
+        </Text>
+      </View>
+    );
   } else {
     return (
       <View style={LOCAL_STYLE.frame}>
         <Image
           source={
-           status_bayar === "B" && !beasiswa
+            status_bayar === "B" && !beasiswa
               ? IMAGES.logoBelumLunas
               : IMAGES.logoLunas
           }
@@ -59,7 +73,7 @@ export default function PaymentInfo({
           />
         )}
 
-        {(total_denda > 0 && !beasiswa) && (
+        {total_denda > 0 && !beasiswa && (
           <RowPayment
             dataKey="Denda"
             dataValue={formatRupiah(total_denda)}
@@ -85,12 +99,12 @@ export default function PaymentInfo({
           dataValue={renderSemester(kd_ta, kd_smt)}
           color={COLORS.black}
         />
-        {(!beasiswa && status_bayar === "L") && (
+        {!beasiswa && status_bayar === "L" && (
           <Text bold center color={COLORS.black}>
             Tangal Pembayaran
           </Text>
         )}
-        {(!beasiswa && status_bayar === "B") && (
+        {!beasiswa && status_bayar === "B" && (
           <Text bold center color={COLORS.black}>
             Batas Akhir Pembayaran
           </Text>
@@ -103,14 +117,14 @@ export default function PaymentInfo({
                 status_bayar === "L" ? COLORS.success : COLORS.danger,
             },
           ]}>
-          {(!beasiswa && status_bayar === "L") && (
+          {!beasiswa && status_bayar === "L" && (
             <Text bold center color={COLORS.white}>
               {formatTanggalIndonesia(tanggal)} {"\n"}
               {waktu} {"\n"}
               {metode_pembayaran}
             </Text>
           )}
-          {(!beasiswa && status_bayar === "B") && (
+          {!beasiswa && status_bayar === "B" && (
             <Text bold center color={COLORS.white}>
               {formatTanggalIndonesia(tgl_akhir_bayar)}
             </Text>

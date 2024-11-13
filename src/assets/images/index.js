@@ -5,6 +5,7 @@ const IMAGES = {
   logoBelumLunas: require("./logoBelumLunas.png"),
   logoLunas: require("./logoLunas.png"),
   logoTidakAda: require("./logoTidakAda.png"),
+  logoKosong: require("./logoKosong.png"),
   profilePic: require("./profilePicture.png"),
   bgKTM: require("./bgKTM.png"),
   picKTM: require("./picKTM.png"),
