@@ -11,6 +11,8 @@ import {
   resetNilaiTranskrip,
   setNilaiTranskrip,
 } from "../../stores/actions/actionTranskrip";
+import { resetDataPayment, setDataPayment } from "../../stores/actions/actionPayment";
+import { resetDataBeasiswa, setDataBeasiswa } from "../../stores/actions/actionBeasiswa";
 
 export default function SplashScreen({ navigation }) {
   const dispatch = useDispatch();
@@ -28,6 +30,8 @@ export default function SplashScreen({ navigation }) {
         dataAuth.dataLogin.nim
       );
       const dataYear = await adapter.getDataYearnSmt(dataAuth.dataLogin.nim);
+      const dataPayment = await adapter.getDataPayment(dataAuth.dataLogin.nim);
+      const dataBeasiswa = await adapter.getDataBeasiswa(dataAuth.dataLogin.nim);
 
       const loginAllowed =
         dataAuth.loginDate &&
@@ -44,11 +48,15 @@ export default function SplashScreen({ navigation }) {
         });
         dispatch(setNilaiTranskrip(dataTranskrip));
         dispatch(setYearnSmt(dataYear));
+        dispatch(setDataPayment(dataPayment));
+        dispatch(setDataBeasiswa(dataBeasiswa));
         navigation.replace("Main", {
           dataMhs,
         });
       } else {
         dispatch(resetDataAuth());
+        dispatch(resetDataPayment());
+        dispatch(resetDataBeasiswa());
         navigation.replace("Auth", { dataMhsAll });
       }
     };
