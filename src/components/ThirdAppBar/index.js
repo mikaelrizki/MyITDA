@@ -71,7 +71,7 @@ export default function ThirdAppBar({ navigation }) {
           elevation: 4,
         }}
         onPress={() => {
-          navigation.navigate("Auth");
+          navigation.replace("Auth");
           dispatch(resetDataAuth());
         }}
       >

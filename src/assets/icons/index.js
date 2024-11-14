@@ -31,6 +31,9 @@ const ICONS = {
   changePasswordIcon: require("./changePassIcon.png"),
   loadingBar: require("./loadingBar.gif"),
   iconLogout: require("./logoutIcon.png"),
+  calendarAdmin: require("./calendarAdmin.png"),
+  uploadFile: require("./uploadFileIcon.png"),
+  pdfFile: require('./pdfFile.png'),
 };
 
 export default ICONS;

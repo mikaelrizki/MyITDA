@@ -138,7 +138,7 @@ export default function SettingScreen({ navigation }) {
           elevation: 4,
         }}
         onPress={() => {
-          navigation.navigate("Auth");
+          navigation.replace("Auth");
           dispatch(resetDataAuth());
           dispatch(resetDataPayment());
           dispatch(resetDataBeasiswa());

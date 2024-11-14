@@ -20,6 +20,8 @@ export const COLORS = {
   softBlue: "#BFE2F8",
   lightBlue: "#7DAFCF",
   red: "#D22020",
+  softRed: "#E7D2D8",
+  babyBlue: "#E3F4FF",
 };
 
 export const SIZES = {

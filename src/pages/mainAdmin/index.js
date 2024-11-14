@@ -1,4 +1,4 @@
-import { ImageBackground, View } from "react-native";
+import { Dimensions, ImageBackground, View } from "react-native";
 import Text from "../../components/Text";
 import ListAnnouncementScreen from "./listAnnouncement";
 import CreateAnnouncementScreen from "./createAnnouncement";
@@ -7,6 +7,7 @@ import { COLORS, SIZES } from "../../styles";
 import IMAGES from "../../assets/images";
 import { useState } from "react";
 import ThirdAppBar from "../../components/ThirdAppBar";
+import DatePicker from "react-native-neat-date-picker";
 
 export default function MainAdminScreen({ navigation }) {
   const [index, setIndex] = useState(0);
@@ -18,8 +19,40 @@ export default function MainAdminScreen({ navigation }) {
   const generateListAnnouncement = () => (
     <ListAnnouncementScreen navigation={navigation} />
   );
+  
+  const [showDatePickerRange, setShowDatePickerRange] = useState(false);
+  
+  const [startDate, setStartDate] = useState("");
+  const [endDate, setEndDate] = useState("");
+  
+  const openDatePickerRange = () => {
+    setShowDatePickerRange(true);
+  };
+  
+  const onCancel = () => {
+    setShowDatePickerRange(false);
+  };
+  
+  const onConfirm = (output) => {
+    setShowDatePickerRange(false);
+    const [yearStart, monthStart, dayStart] = output.startDateString.split("-");
+    const [yearEnd, monthEnd, dayEnd] = output.endDateString.split("-");
+    setStartDate(`${dayStart}/${monthStart}/${yearStart}`);
+    setEndDate(`${dayEnd}/${monthEnd}/${yearEnd}`);
+  };
+  
+  const handleDataDate = (index) => {
+    setIndex(index);
+    if (index == 0) {
+      setStartDate("");
+      setEndDate("");
+    }
+  }
   const generateCreateAnnouncement = () => (
-    <CreateAnnouncementScreen navigation={navigation} />
+    <CreateAnnouncementScreen navigation={navigation}
+    openDatePickerRange={openDatePickerRange}
+    startDate={startDate}
+    endDate={endDate} />
   );
 
   function renderTabBar(props) {
@@ -28,6 +61,7 @@ export default function MainAdminScreen({ navigation }) {
         {...props}
         style={{
           width: SIZES.width - 40,
+          height: 50,
           top: 15,
           borderRadius: 10,
           alignSelf: "center",
@@ -38,17 +72,21 @@ export default function MainAdminScreen({ navigation }) {
         }}
         indicatorStyle={{ backgroundColor: COLORS.transparent }}
         pressColor="transparent"
+        tabStyle={{ padding: 0 }}
         renderLabel={({ route, focused }) => (
           <View
             style={{
-              backgroundColor: focused ? COLORS.primary : COLORS.white,
-              justifyContent: "center",
+              backgroundColor: !focused ? COLORS.primary : COLORS.white,
+              height: 40,
+              width: SIZES.width / 2.4,
+              borderRadius: 8,
               alignItems: "center",
+              justifyContent: "center",
             }}
           >
             <Text
               bold
-              color={focused ? COLORS.white : COLORS.primary}
+              color={!focused ? COLORS.white : COLORS.primary}
               fontsize={SIZES.mediumText}
               padVertical={0}
             >
@@ -61,11 +99,11 @@ export default function MainAdminScreen({ navigation }) {
       />
     );
   }
+
+  console.log(index);
   return (
     <ImageBackground source={IMAGES.bgDefault} style={{ flex: 1 }}>
-      <ThirdAppBar
-        navigation={navigation}
-      />
+      <ThirdAppBar navigation={navigation} />
       <TabView
         navigationState={{ index, routes }}
         renderScene={SceneMap({
@@ -73,8 +111,31 @@ export default function MainAdminScreen({ navigation }) {
           createAnnouncement: generateCreateAnnouncement,
         })}
         renderTabBar={renderTabBar}
-        onIndexChange={setIndex}
+        onIndexChange={handleDataDate}
         style={{ flex: 1, width: SIZES.full }}
+      />
+      <DatePicker
+        isVisible={showDatePickerRange}
+        mode={"range"}
+        onCancel={onCancel}
+        onConfirm={onConfirm}
+        colorOptions={{
+          headerColor: COLORS.primary,
+          dateTextColor: COLORS.black,
+          weekDaysColor: COLORS.primary,
+          selectedDateBackgroundColor: COLORS.primary,
+          confirmButtonColor: COLORS.primary,
+        }}
+        modalStyles={{
+          flex: 1,
+          justifyContent: "center",
+          alignItems: "center",
+          padding: 20,
+          margin: 0,
+          position: "absolute",
+          width: Dimensions.get("window").width,
+          height: Dimensions.get("window").height,
+        }}
       />
     </ImageBackground>
   );
