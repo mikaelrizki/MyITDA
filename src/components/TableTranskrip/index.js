@@ -9,28 +9,23 @@ export default function TableTranskrip({ judul }) {
   let displayedJudul;
 
   if (judul == "wajib") {
-    displayedJudul = "Total WAJIB";
+    displayedJudul = "Total SKS WAJIB";
   } else if (judul == "pilihan") {
-    displayedJudul = "Total PILIHAN";
+    displayedJudul = "Total SKS PILIHAN";
   } else {
     displayedJudul = "tidak ada judul";
   }
 
   const dataTranskrip = useSelector(
-    (state) => state.dataTranskrip.dataTranskrip
+    (state) => state.dataTranskrip?.dataTranskrip || null
   );
 
   const filteredData = dataTranskrip.filter((item) => {
-    return judul === "wajib" ? item.jenis_mk === "W" : item.jenis_mk === "P";
+    return judul === "wajib" ? item?.jenis_mk === "W" : item?.jenis_mk === "P";
   });
 
   const totalSKS = filteredData.reduce(
-    (sum, item) => sum + parseInt(item.sks_mk, 10),
-    0
-  );
-  const totalKualitas = filteredData.reduce(
-    (sum, item) =>
-      sum + parseInt(item.bobot_nilai, 10) * parseInt(item.sks_mk, 10),
+    (sum, item) => sum + parseInt(item?.sks_mk || 0, 10),
     0
   );
 
@@ -69,14 +64,6 @@ export default function TableTranskrip({ judul }) {
         >
           NILAI
         </Text>
-        <Text
-          bold
-          color={COLORS.black}
-          fontsize={SIZES.smallText}
-          style={{ width: "20%" }}
-        >
-          KUALITAS
-        </Text>
       </View>
 
       {filteredData.map((item, index) => (
@@ -98,23 +85,16 @@ export default function TableTranskrip({ judul }) {
           <Text
             color={COLORS.black}
             fontsize={SIZES.smallText}
-            style={{ width: "10%" }}
+            style={{ width: "12%" }}
           >
             {item.sks_mk}
           </Text>
           <Text
             color={COLORS.black}
             fontsize={SIZES.smallText}
-            style={{ width: "10%" }}
+            style={{ width: "7%" }}
           >
             {item.nilai}
-          </Text>
-          <Text
-            color={COLORS.black}
-            fontsize={SIZES.smallText}
-            style={{ width: "20%" }}
-          >
-            {parseInt(item.bobot_nilai, 0) * parseInt(item.sks_mk, 10)}
           </Text>
         </View>
       ))}
@@ -129,10 +109,7 @@ export default function TableTranskrip({ judul }) {
           </View>
         </View>
         <View style={LOKAL_STYLES.BottomTableRow}>
-          <SksBadge value={totalSKS.toString()}/>
-        </View>
-        <View style={LOKAL_STYLES.BottomTableRow}>
-          <SksBadge value={totalKualitas.toString()} />
+          <SksBadge value={totalSKS.toString()} />
         </View>
       </View>
     </>
@@ -161,7 +138,7 @@ const LOKAL_STYLES = StyleSheet.create({
   sksContainer: {
     alignItems: "center",
     paddingVertical: 5,
-    width: "40%",
+    width: "70%",
     resizeMode: "contain",
   },
   sksBadge: {

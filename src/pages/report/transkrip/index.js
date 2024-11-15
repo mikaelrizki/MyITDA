@@ -8,94 +8,80 @@ import SecondAppBar from "../../../components/SecondAppBar";
 import { useSelector } from "react-redux";
 
 export default function TranskripScreen({ navigation }) {
-
-  const dataTranskrip = useSelector((state)=> state.dataTranskrip.dataTranskrip || []);
+  const dataTranskrip = useSelector(
+    (state) => state.dataTranskrip.dataTranskrip || []
+  );
 
   const totalSks =
-    dataTranskrip.reduce((total, item) => total + parseInt(item.sks_mk), 0) || 0;
+    dataTranskrip.reduce((total, item) => total + parseInt(item.sks_mk), 0) ||
+    0;
   const totalKualitas =
     dataTranskrip.reduce(
-      (total, item) => total + parseInt(item.bobot_nilai) * parseInt(item.sks_mk),
+      (total, item) =>
+        total + parseInt(item.bobot_nilai) * parseInt(item.sks_mk),
       0
     ) || 0;
 
   const ips = totalSks ? (totalKualitas / totalSks).toFixed(2) : 0;
 
-  if (!dataTranskrip || !dataTranskrip.length){
+  if (!dataTranskrip || !dataTranskrip.length) {
     return <Text>No data available</Text>;
   }
 
   return (
-    <ScrollView showsHorizontalScrollIndicator={false} style={{ flex: 1 }}>
-      <ImageBackground source={IMAGES.bgDefault} style={(flex = 1)}>
-        <SecondAppBar label={"Transkrip"} navigation={navigation} />
-        <View style={STYLES.container}>
-          <View style={LOKAL_STYLES.content}>
-            <View style={LOKAL_STYLES.infoContainerSks}>
-              <Text color={COLORS.white} bold fontsize={SIZES.smallText}>
-                Total Sks
-              </Text>
-              <View style={LOKAL_STYLES.sksContainer}>
-                <View style={LOKAL_STYLES.sksBadge}>
-                  <Text
-                    bold
-                    color={COLORS.primary}
-                    fontsize={SIZES.extraSmallText}
-                  >
-                    {totalSks}
-                  </Text>
-                </View>
-              </View>
-            </View>
-
-            <View style={LOKAL_STYLES.infoContainerKualitas}>
-              <Text color={COLORS.white} bold fontsize={SIZES.smallText}>
-                Total Angka Kualitas
-              </Text>
-              <View style={LOKAL_STYLES.sksContainer}>
-                <View style={LOKAL_STYLES.sksBadge}>
-                  <Text
-                    bold
-                    color={COLORS.primary}
-                    fontsize={SIZES.extraSmallText}
-                  >
-                    {totalKualitas}
-                  </Text>
-                </View>
-              </View>
-            </View>
-          </View>
-
-          <View style={LOKAL_STYLES.infoContainerIpk}>
-            <Text color={COLORS.white} bold fontsize={SIZES.smallText}>
-              Indeks Prestasi Kumulatif
-            </Text>
-            <View style={LOKAL_STYLES.sksContainer}>
-              <View style={LOKAL_STYLES.sksBadge}>
-                <Text
-                  bold
-                  color={COLORS.primary}
-                  fontsize={SIZES.extraSmallText}
-                >
-                  {ips}
+    <View style={{ backgroundColor: COLORS.secondary }}>
+      <SecondAppBar label={"Transkrip"} navigation={navigation} />
+      <ScrollView showsHorizontalScrollIndicator={false}>
+        <ImageBackground source={IMAGES.bgDefault} style={(flex = 1)}>
+          <View style={STYLES.containerTabView}>
+            <View style={LOKAL_STYLES.content}>
+              <View style={LOKAL_STYLES.infoContainerSks}>
+                <Text color={COLORS.white} bold fontsize={SIZES.smallText}>
+                  Total Sks
                 </Text>
+                <View style={LOKAL_STYLES.sksContainer}>
+                  <View style={LOKAL_STYLES.sksBadge}>
+                    <Text
+                      bold
+                      color={COLORS.primary}
+                      fontsize={SIZES.extraSmallText}
+                    >
+                      {totalSks}
+                    </Text>
+                  </View>
+                </View>
+              </View>
+              <View style={LOKAL_STYLES.infoContainerIpk}>
+                <Text color={COLORS.white} bold fontsize={SIZES.smallText}>
+                  Indeks Prestasi Kumulatif
+                </Text>
+                <View style={LOKAL_STYLES.sksContainer}>
+                  <View style={LOKAL_STYLES.sksBadge}>
+                    <Text
+                      bold
+                      color={COLORS.primary}
+                      fontsize={SIZES.extraSmallText}
+                    >
+                      {ips}
+                    </Text>
+                  </View>
+                </View>
               </View>
             </View>
+            <TableContainer
+              title={"MATAKULIAH WAJIB"}
+              displayOption={"transkrip"}
+              transkrip={"wajib"}
+            />
+            <TableContainer
+              title={"MATAKULIAH PILIHAN"}
+              displayOption={"transkrip"}
+              transkrip={"pilihan"}
+            />
           </View>
-
-          <TableContainer
-            title={"MATAKULIAH WAJIB"}
-            displayOption={"transkrip"}
-            transkrip={"wajib"}
-          />
-          <TableContainer
-            title={"MATAKULIAH PILIHAN"}
-            displayOption={"transkrip"}
-            transkrip={"pilihan"}
-          />
-        </View>
-      </ImageBackground>
-    </ScrollView>
+        </ImageBackground>
+      </ScrollView>
+    </View>
   );
 }
 
@@ -106,7 +92,7 @@ const LOKAL_STYLES = StyleSheet.create({
   content: {
     flexDirection: "row",
     justifyContent: "space-between",
-    padding: 15,
+    paddingVertical: SIZES.padding,
     flex: 1,
   },
   infoContainerSks: {
@@ -115,14 +101,7 @@ const LOKAL_STYLES = StyleSheet.create({
     flexDirection: "row",
     borderRadius: 5,
     alignItems: "center",
-    marginRight: "2%",
-  },
-  infoContainerKualitas: {
-    paddingHorizontal: SIZES.padding,
-    backgroundColor: COLORS.primary,
-    flexDirection: "row",
-    borderRadius: 5,
-    alignItems: "center",
+    marginLeft: 0,
   },
   infoContainerIpk: {
     paddingHorizontal: SIZES.padding,
@@ -130,17 +109,16 @@ const LOKAL_STYLES = StyleSheet.create({
     flexDirection: "row",
     borderRadius: 5,
     alignItems: "center",
-    marginLeft: "5%",
+    marginLeft: "1%",
   },
   sksContainer: {
     alignItems: "center",
-    paddingVertical: 4,
+    paddingVertical: 5,
     paddingHorizontal: SIZES.padding,
   },
   sksBadge: {
     backgroundColor: COLORS.white,
-    paddingHorizontal: 4,
+    paddingHorizontal: 5,
     borderRadius: SIZES.radius,
-    alignSelf: "flex-end",
   },
 });

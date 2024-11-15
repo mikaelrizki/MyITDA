@@ -32,7 +32,7 @@ export default function ReportScreen({ navigation }) {
       />
       <ScrollView
         showsVerticalScrollIndicator={false}
-        style={{ marginBottom: 100, marginTop: 10 }}
+        style={{ marginBottom: "25%", marginTop: "5%" }}
       >
         <View
           style={{

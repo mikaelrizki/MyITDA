@@ -1,6 +1,6 @@
 import { View, ImageBackground, StyleSheet, FlatList } from "react-native";
 import IMAGES from "../../../assets/images";
-import { SIZES} from "../../../styles";
+import { SIZES } from "../../../styles";
 import DetailRiwayat from "../../../components/DetailRiwayat";
 import SecondAppBar from "../../../components/SecondAppBar";
 import { useSelector } from "react-redux";
@@ -8,9 +8,7 @@ import { useSelector } from "react-redux";
 export default function Riwayat({ navigation }) {
   const dataPayment = useSelector((state) => state.dataPayment.dataPayment);
   return (
-    <ImageBackground
-      source={IMAGES.bgDefault}
-      style={{ flex: 1}}>
+    <ImageBackground source={IMAGES.bgDefault} style={{ flex: 1 }}>
       <SecondAppBar label={"Riwayat Pembayaran"} navigation={navigation} />
       <View
         style={{
@@ -19,7 +17,8 @@ export default function Riwayat({ navigation }) {
           flexdirection: "column",
           alignItems: "center",
           paddingHorizontal: SIZES.padding2,
-        }}>
+        }}
+      >
         <FlatList
           data={dataPayment.data}
           renderItem={({ item }) => <DetailRiwayat data={item} />}

@@ -104,7 +104,6 @@ export default {
           params: { nim },
         }
       );
-      console.log("[API] getYearnSMT", response.data["data"]);
       const dataYear = response.data["data"];
       const structuredData = [];
       dataYear.forEach((item) => {
@@ -124,6 +123,7 @@ export default {
       });
 
       structuredData.sort((a, b) => a.year - b.year);
+      console.log("[API] getYearnSMT", structuredData);
       return structuredData;
     } catch (error) {
       console.error("[API] GetDataYear error", error);

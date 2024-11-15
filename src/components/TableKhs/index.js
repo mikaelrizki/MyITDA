@@ -11,7 +11,8 @@ export default function TableKhs() {
     khsData?.reduce((total, item) => total + parseInt(item.sks), 0) || 0;
   const totalKualitas =
     khsData?.reduce(
-      (total, item) => total + parseInt(item.bobot_nilai) * parseInt(item.sks),
+      (total, item) =>
+        total + parseInt(item?.bobot_nilai || 0) * parseInt(item.sks),
       0
     ) || 0;
 
@@ -24,14 +25,14 @@ export default function TableKhs() {
   }
 
   return (
-    <>
+    <View>
       {/* Header */}
       <View style={LOKAL_STYLES.tableRow}>
         <Text
           bold
           color={COLORS.black}
           fontsize={SIZES.smallText}
-          style={{ width: "12%" }}
+          style={{ width: "17%" }}
         >
           KODE
         </Text>
@@ -55,107 +56,84 @@ export default function TableKhs() {
           bold
           color={COLORS.black}
           fontsize={SIZES.smallText}
-          style={{ width: "10%" }}
+          style={{ width: "12%" }}
         >
           NILAI
         </Text>
-        <Text
-          bold
-          color={COLORS.black}
-          fontsize={SIZES.smallText}
-          style={{ width: "20%" }}
-        >
-          KUALITAS
-        </Text>
       </View>
 
-      {khsData.map((item, index) => (
+      {khsData?.map((item, index) => (
         <View key={index}>
           {/* Data per Mata Kuliah */}
           <View style={LOKAL_STYLES.itemTableRow}>
             <Text
               color={COLORS.black}
               fontsize={SIZES.smallText}
-              style={{ width: "12%" }}
+              style={{ width: "17%" }}
             >
-              {item.kd_mk}
+              {item?.kd_mk}
             </Text>
             <Text
               color={COLORS.black}
               fontsize={SIZES.smallText}
               style={{ flex: 1 }}
             >
-              {item.nm_mk}
+              {item?.nm_mk}
             </Text>
             <Text
               color={COLORS.black}
               fontsize={SIZES.smallText}
               style={{ width: "10%" }}
             >
-              {item.sks}
+              {item?.sks || 0}
             </Text>
             <Text
               color={COLORS.black}
               fontsize={SIZES.smallText}
-              style={{ width: "10%" }}
+              style={{ width: "9%" }}
             >
-              {item.nilai}
-            </Text>
-            <Text
-              color={COLORS.black}
-              fontsize={SIZES.smallText}
-              style={{ width: "20%" }}
-            >
-              {item.bobot_nilai}
+              {item?.nilai || "E"}
             </Text>
           </View>
 
           {/* Bottom Section (Presensi, Tugas, UTS, UAS) */}
           <View style={LOKAL_STYLES.bottomTableRow}>
             <Text color={COLORS.black} fontsize={SIZES.smallText}>
-              Presensi: {item.presensi}
+              Presensi: {item?.presensi || 0}
             </Text>
             <Text color={COLORS.black} fontsize={SIZES.smallText}>
-              Tugas: {item.tugas}
+              Tugas: {item?.tugas || 0}
             </Text>
             <Text color={COLORS.black} fontsize={SIZES.smallText}>
-              UTS: {item.uts}
+              UTS: {item?.uts || 0}
             </Text>
             <Text color={COLORS.black} fontsize={SIZES.smallText}>
-              UAS: {item.uas}
+              UAS: {item?.uas || 0}
             </Text>
           </View>
         </View>
       ))}
 
       {/* TOTAL SELURUHNYA */}
-      <View style={LOKAL_STYLES.itemTableRow}>
+      <View style={LOKAL_STYLES.itemTableTotal}>
         <Text
           color={COLORS.black}
           fontsize={SIZES.smallText}
-          style={{ width: "8%" }}
+          style={{ width: "25%", paddingLeft: SIZES.padding }}
         >
-          SKS
+          Total SKS
         </Text>
         <SksBadge value={totalSks.toString()} />
         <Text
           color={COLORS.black}
           fontsize={SIZES.smallText}
-          style={{ width: "18%" }}
+          style={{ width: "40%", paddingLeft: SIZES.padding2 }}
         >
-          KUALITAS
-        </Text>
-        <SksBadge value={totalKualitas.toString()} />
-        <Text
-          color={COLORS.black}
-          fontsize={SIZES.smallText}
-          style={{ width: "6%" }}
-        >
-          IPS
+          Indeks Prestasi Semester
         </Text>
         <SksBadge value={ips} />
       </View>
-    </>
+    </View>
   );
 }
 
@@ -173,6 +151,11 @@ const LOKAL_STYLES = {
     gap: 15,
     paddingHorizontal: 5,
     paddingBottom: 10,
+  },
+  itemTableTotal: {
+    flexDirection: "row",
+    gap: 10,
+    paddingHorizontal: 15,
   },
   bottomTableRow: {
     flexDirection: "row",

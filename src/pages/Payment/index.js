@@ -134,7 +134,7 @@ export default function Payment({ navigation }) {
           }
         />
       )}
-      
+
       <ButtonPembayaran
         title="Lihat Tutorial Pembayaran"
         navigation={toggleModal}
@@ -164,7 +164,8 @@ export default function Payment({ navigation }) {
             <View style={[style, { backgroundColor: "rgba(0,0,0,0.7)" }]} />
           </TouchableWithoutFeedback>
         )}
-        animationConfigs={{ duration: 150 }}>
+        animationConfigs={{ duration: 150 }}
+      >
         <Tutorial />
       </BottomSheetModal>
     </View>

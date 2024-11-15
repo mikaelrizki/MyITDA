@@ -15,9 +15,11 @@ export default function TableContainer({
   transkrip,
 }) {
   const dataTranskrip = useSelector(
-    (state) => state.dataTranskrip.dataTranskrip
+    (state) => state.dataTranskrip?.dataTranskrip || null
   );
-  const dataYearnSmt = useSelector((state) => state.dataKHS.dataYearnSmt);
+  const dataYearnSmt = useSelector(
+    (state) => state.dataKHS?.dataYearnSmt || null
+  );
   if (!dataTranskrip || dataTranskrip.length === 0) {
     return <Text>No Data Available</Text>;
   }
@@ -113,8 +115,8 @@ export default function TableContainer({
   const data = processTranscriptData(dataTranskrip);
   const databaru = sortTranscriptData(data);
   const dataYear = processDataTahun(dataYearnSmt);
-  const dataLabels = dataYear.map((item) => item.id);
-  const dataIP = databaru.map((item) => item.ip);
+  const dataLabels = dataYear?.map((item) => item?.id || null);
+  const dataIP = databaru?.map((item) => item?.ip || 0);
 
   return (
     <View style={LOKAL_STYLES.tableCons}>
@@ -143,9 +145,9 @@ export default function TableContainer({
                   {databaru.map((item, index) => (
                     <TableRow
                       key={index}
-                      semester={item.semester}
-                      sks={item.sks}
-                      ip={item.ip}
+                      semester={item?.semester}
+                      sks={item?.sks || 0}
+                      ip={item?.ip}
                     />
                   ))}
                 </>
@@ -172,7 +174,7 @@ const LOKAL_STYLES = StyleSheet.create({
     backgroundColor: COLORS.secondary,
     justifyContent: "center",
     alignItems: "center",
-    marginTop: 24,
+    marginTop: 5,
     overflow: "hidden",
   },
   titleCons: {

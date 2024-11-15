@@ -6,7 +6,7 @@ import {
   View,
 } from "react-native";
 import React, { useState } from "react";
-import { COLORS, SIZES } from "../../../styles";
+import { COLORS, SIZES, STYLES } from "../../../styles";
 import IMAGES from "../../../assets/images";
 import ICONS from "../../../assets/icons";
 import SecondAppBar from "../../../components/SecondAppBar";
@@ -20,8 +20,10 @@ import { setNilaiKHS } from "../../../stores/actions/actionKHS";
 export default function KhsScreen({ navigation }) {
   const [selectedData, setSelectedData] = useState(null);
   const dispatch = useDispatch();
-  const dataAuth = useSelector((state) => state.dataAuth);
-  const dataYearnSmt = useSelector((state) => state.dataKHS.dataYearnSmt);
+  const dataAuth = useSelector((state) => state.dataAuth || null);
+  const dataYearnSmt = useSelector(
+    (state) => state.dataKHS?.dataYearnSmt || null
+  );
 
   const processDataTahun = (dataYearnSmt) => {
     const result = [];
@@ -69,49 +71,52 @@ export default function KhsScreen({ navigation }) {
   const data = processDataTahun(dataYearnSmt);
   console.log("[KHS PAGE]", data);
   return (
-    <ScrollView>
-      <ImageBackground source={IMAGES.bgDefault} style={{ flex: 1 }}>
-        <SecondAppBar label={"KHS/ Hasil Studi"} navigation={navigation} />
-        <View style={LOKAL_STYLES.container}>
-          <FlatList
-            data={data}
-            keyExtractor={(item) => item.id}
-            renderItem={({ item }) => (
-              <TouchableOpacity
-                onPress={() => handlePress(item.id)}
-                style={[
-                  { opacity: selectedData === item.id ? 1 : 2 },
-                ]}
-              >
-                <View style={LOKAL_STYLES.tableCons}>
-                  <View style={LOKAL_STYLES.titleCons}>
-                    <Image
-                      source={ICONS.bookmark}
-                      style={{ width: 27, height: 27 }}
-                      resizeMode="contain"
-                    />
-                    <Text
-                      fontsize={SIZES.mediumText}
-                      color={COLORS.white}
-                      paddingHorizontal={SIZES.padding2}
-                    >
-                      {item.title}
-                    </Text>
-                    <Image source={ICONS.down} style={LOKAL_STYLES.inputIcon} />
-                  </View>
-
-                  {selectedData === item.id && (
-                    <View style={LOKAL_STYLES.container}>
-                      <TableKhs />
+    <View style={{ backgroundColor: COLORS.secondary }}>
+      <SecondAppBar label={"KHS/ Hasil Studi"} navigation={navigation} />
+      <ScrollView showsHorizontalScrollIndicator={false}>
+        <ImageBackground source={IMAGES.bgDefault} style={{ flex: 1 }}>
+          <View style={STYLES.containerTabView}>
+            <FlatList
+              data={data}
+              keyExtractor={(item) => item?.id}
+              renderItem={({ item }) => (
+                <TouchableOpacity
+                  onPress={() => handlePress(item?.id)}
+                  style={[{ opacity: selectedData === item.id ? 1 : 2 }]}
+                >
+                  <View style={LOKAL_STYLES.tableCons}>
+                    <View style={LOKAL_STYLES.titleCons}>
+                      <Image
+                        source={ICONS.bookmark}
+                        style={{ width: 27, height: 27 }}
+                        resizeMode="contain"
+                      />
+                      <Text
+                        fontsize={SIZES.mediumText}
+                        color={COLORS.white}
+                        paddingHorizontal={SIZES.padding2}
+                      >
+                        {item?.title || null}
+                      </Text>
+                      <Image
+                        source={ICONS.down}
+                        style={LOKAL_STYLES.inputIcon}
+                      />
                     </View>
-                  )}
-                </View>
-              </TouchableOpacity>
-            )}
-          />
-        </View>
-      </ImageBackground>
-    </ScrollView>
+
+                    {selectedData === item?.id && (
+                      <View style={LOKAL_STYLES.container}>
+                        <TableKhs />
+                      </View>
+                    )}
+                  </View>
+                </TouchableOpacity>
+              )}
+            />
+          </View>
+        </ImageBackground>
+      </ScrollView>
+    </View>
   );
 }
 
