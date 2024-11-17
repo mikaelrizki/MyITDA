@@ -52,7 +52,7 @@ export default function TableTranskrip({ judul }) {
           bold
           color={COLORS.black}
           fontsize={SIZES.smallText}
-          style={{ width: "10%" }}
+          style={{ width: "8%" }}
         >
           SKS
         </Text>
@@ -60,7 +60,7 @@ export default function TableTranskrip({ judul }) {
           bold
           color={COLORS.black}
           fontsize={SIZES.smallText}
-          style={{ width: "10%" }}
+          style={{ width: "12%" }}
         >
           NILAI
         </Text>
@@ -85,14 +85,14 @@ export default function TableTranskrip({ judul }) {
           <Text
             color={COLORS.black}
             fontsize={SIZES.smallText}
-            style={{ width: "12%" }}
+            style={{ width: "10%" }}
           >
             {item.sks_mk}
           </Text>
           <Text
             color={COLORS.black}
             fontsize={SIZES.smallText}
-            style={{ width: "7%" }}
+            style={{ width: "8%" }}
           >
             {item.nilai}
           </Text>

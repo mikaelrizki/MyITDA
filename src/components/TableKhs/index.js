@@ -20,8 +20,8 @@ export default function TableKhs() {
 
   const ips = totalSks ? (totalKualitas / totalSks).toFixed(2) : 0;
 
-  if (!khsData.length) {
-    return <Text>No data available</Text>;
+  if (!khsData || khsData.length === 0) {
+    return;
   }
 
   return (

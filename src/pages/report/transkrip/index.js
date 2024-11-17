@@ -25,7 +25,19 @@ export default function TranskripScreen({ navigation }) {
   const ips = totalSks ? (totalKualitas / totalSks).toFixed(2) : 0;
 
   if (!dataTranskrip || !dataTranskrip.length) {
-    return <Text>No data available</Text>;
+    return (
+      <View style={{ flex: 1, backgroundColor: COLORS.secondary }}>
+        <SecondAppBar label={"Transkrip"} navigation={navigation} />
+        <ImageBackground
+          source={IMAGES.bgDefault}
+          style={{ flex: 1, justifyContent: "center", alignItems: "center" }}
+        >
+          <Text color={COLORS.primary} fontsize={SIZES.mediumText} bold>
+            Maaf, Data Transkrip Anda Tidak Tersedia
+          </Text>
+        </ImageBackground>
+      </View>
+    );
   }
 
   return (
@@ -114,7 +126,7 @@ const LOKAL_STYLES = StyleSheet.create({
   sksContainer: {
     alignItems: "center",
     paddingVertical: 5,
-    paddingHorizontal: SIZES.padding,
+    paddingLeft: SIZES.padding2,
   },
   sksBadge: {
     backgroundColor: COLORS.white,

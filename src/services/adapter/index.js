@@ -106,6 +106,7 @@ export default {
       );
       const dataYear = response.data["data"];
       const structuredData = [];
+  
       dataYear.forEach((item) => {
         const yearEntry = structuredData.find(
           (entry) => entry.year === item.kd_ta
@@ -121,12 +122,44 @@ export default {
           });
         }
       });
-
+  
       structuredData.sort((a, b) => a.year - b.year);
+  
+      const loginDate = new Date();
+      const currentMonth = loginDate.getMonth() + 1; 
+  
+      if (structuredData.length > 0) {
+        const lastYearData = structuredData[structuredData.length - 1];
+  
+        if (currentMonth >= 7 && currentMonth <= 12) {
+          structuredData.push({
+            year: (parseInt(lastYearData.year) + 1).toString(),
+            semesters: ["1"],
+          });
+        } else if (currentMonth >= 1 && currentMonth <= 6) {
+          if (!lastYearData.semesters.includes("2")) {
+            lastYearData.semesters.push("2");
+          }
+        }
+      } else {
+        const currentYear = loginDate.getFullYear().toString();
+        if (currentMonth >= 7 && currentMonth <= 12) {
+          structuredData.push({
+            year: currentYear,
+            semesters: ["1"],
+          });
+        } else if (currentMonth >= 1 && currentMonth <= 6) {
+          structuredData.push({
+            year: (currentYear + 1).toString(),
+            semesters: ["2"],
+          });
+        }
+      }
+  
       console.log("[API] getYearnSMT", structuredData);
       return structuredData;
     } catch (error) {
       console.error("[API] GetDataYear error", error);
     }
-  },
+  },  
 };

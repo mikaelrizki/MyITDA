@@ -33,9 +33,9 @@ export default function KhsScreen({ navigation }) {
 
         if (Array.isArray(semesters)) {
           semesters.forEach((semester) => {
-            const title = `${semester === "1" ? "GASAL" : "GENAP"} ${year}/${
-              parseInt(year) + 1
-            }`;
+            const title = `${
+              semester === "1" ? "GASAL" : semester === "2" ? "GENAP" : "PENDEK"
+            } ${year}/${parseInt(year) + 1}`;
             result.push({ id: `${year}-${semester}`, title });
           });
         }
@@ -70,11 +70,28 @@ export default function KhsScreen({ navigation }) {
   };
   const data = processDataTahun(dataYearnSmt);
   console.log("[KHS PAGE]", data);
+
+  if (!data || !data.length) {
+    return (
+      <View style={{ flex: 1, backgroundColor: COLORS.secondary }}>
+        <SecondAppBar label={"KHS/ Hasil Studi"} navigation={navigation} />
+        <ImageBackground
+          source={IMAGES.bgDefault}
+          style={{ flex: 1, justifyContent: "center", alignItems: "center" }}
+        >
+          <Text color={COLORS.primary} fontsize={SIZES.mediumText} bold>
+            Maaf, Data KHS Anda Tidak Tersedia
+          </Text>
+        </ImageBackground>
+      </View>
+    );
+  }
+
   return (
-    <View style={{ backgroundColor: COLORS.secondary }}>
+    <View style={{ flex: 1, backgroundColor: COLORS.secondary }}>
       <SecondAppBar label={"KHS/ Hasil Studi"} navigation={navigation} />
-      <ScrollView showsHorizontalScrollIndicator={false}>
-        <ImageBackground source={IMAGES.bgDefault} style={{ flex: 1 }}>
+      <ImageBackground source={IMAGES.bgDefault} style={{ flex: 1 }}>
+        <ScrollView showsHorizontalScrollIndicator={false}>
           <View style={STYLES.containerTabView}>
             <FlatList
               data={data}
@@ -82,6 +99,7 @@ export default function KhsScreen({ navigation }) {
               renderItem={({ item }) => (
                 <TouchableOpacity
                   onPress={() => handlePress(item?.id)}
+                  activeOpacity={1}
                   style={[{ opacity: selectedData === item.id ? 1 : 2 }]}
                 >
                   <View style={LOKAL_STYLES.tableCons}>
@@ -99,7 +117,7 @@ export default function KhsScreen({ navigation }) {
                         {item?.title || null}
                       </Text>
                       <Image
-                        source={ICONS.down}
+                        source={ICONS.arrowDown}
                         style={LOKAL_STYLES.inputIcon}
                       />
                     </View>
@@ -114,8 +132,8 @@ export default function KhsScreen({ navigation }) {
               )}
             />
           </View>
-        </ImageBackground>
-      </ScrollView>
+        </ScrollView>
+      </ImageBackground>
     </View>
   );
 }

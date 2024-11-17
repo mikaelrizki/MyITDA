@@ -20,13 +20,19 @@ export default function TableContainer({
   const dataYearnSmt = useSelector(
     (state) => state.dataKHS?.dataYearnSmt || null
   );
+
   if (!dataTranskrip || dataTranskrip.length === 0) {
-    return <Text>No Data Available</Text>;
+    return;
   }
 
   const getSemesterName = (kdSmt, tahun) => {
-    const semesterNames = ["GASAL", "GENAP"];
-    const semesterType = kdSmt % 2 === 1 ? semesterNames[0] : semesterNames[1];
+    const semesterNames = ["GASAL", "GENAP", "PENDEK"];
+    const semesterType =
+      kdSmt === 1
+        ? semesterNames[0]
+        : kdSmt === 2
+        ? semesterNames[1]
+        : semesterNames[2];
     const startYear = parseInt(tahun, 10);
     const endYear = startYear + 1;
     return `${semesterType} ${startYear}/${endYear}`;
@@ -108,6 +114,10 @@ export default function TableContainer({
       }
       return yearA - yearB;
     });
+
+    if (result.length > 0) {
+      result.pop();
+    }
 
     return result;
   };

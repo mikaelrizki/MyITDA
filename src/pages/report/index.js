@@ -7,7 +7,7 @@ import SectionTitleBig from "../../components/SectionTitleBig";
 
 export default function ReportScreen({ navigation }) {
   return (
-    <View style={{ flex: 1, padding: SIZES.padding2 }}>
+    <View style={{ flex: 1, paddingHorizontal: SIZES.padding2, marginVertical: "3%"}}>
       <SectionTitleBig title={"Data Akademik"} />
       <ButtonNilai
         value="KHS/ Hasil Studi"
