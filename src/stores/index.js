@@ -9,6 +9,7 @@ const persistConfig = {
   blacklist: [],
   whitelist: [
     'dataAuth',
+    'dataMahasiswa',
   ],
 };
 

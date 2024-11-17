@@ -13,6 +13,7 @@ import { setDataBeasiswa } from "../../stores/actions/actionBeasiswa";
 import { setDataPayment } from "../../stores/actions/actionPayment";
 import { setYearnSmt } from "../../stores/actions/actionKHS";
 import { setNilaiTranskrip } from "../../stores/actions/actionTranskrip";
+import { setDataMahasiswa } from "../../stores/actions/actionMahasiswa";
 
 export default function AuthScreen({ navigation, route }) {
   const dispatch = useDispatch();
@@ -39,15 +40,14 @@ export default function AuthScreen({ navigation, route }) {
     const dataYearnSmt = await adapter.getDataYearnSmt(dataLogin.nim);
     const dataTranskrip = await adapter.getDataTranskrip(dataLogin.nim);
     if (isAuth && mhsAvail) {
-      const dataMhs = dataMhsAll.filter(
-        (item) => item.nim == dataLogin.nim
-      );
+      const dataMhs = dataMhsAll.filter((item) => item.nim == dataLogin.nim);
       dispatch(setDataAuth(dataLogin));
+      dispatch(setDataMahasiswa(dataMhs));
       dispatch(setDataBeasiswa(dataBeasiswa));
       dispatch(setDataPayment(dataPayment));
       dispatch(setNilaiTranskrip(dataTranskrip));
       dispatch(setYearnSmt(dataYearnSmt));
-      navigation.replace("Main", { dataMhs });
+      navigation.replace("Main");
     } else {
       setErrorNim(true);
       setErrorPassword(true);

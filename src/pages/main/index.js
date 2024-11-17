@@ -9,6 +9,7 @@ import Text from "../../components/Text";
 import Home from "../home";
 import Payment from "../payment";
 import ReportScreen from "../report";
+import { useSelector } from "react-redux";
 
 export default function MainScreen({ navigation, route }) {
   const [index, setIndex] = useState(0);
@@ -18,7 +19,7 @@ export default function MainScreen({ navigation, route }) {
     { key: "payment", title: "Payment" },
   ]);
 
-  const { dataMhs } = route.params;
+  const dataMhs = useSelector((state) => state.dataMahasiswa.dataMahasiswaSelected[0]);
 
   const generateHome = () => <Home data={dataMhs}/>;
 
@@ -71,11 +72,11 @@ export default function MainScreen({ navigation, route }) {
   return (
     <ImageBackground source={IMAGES.bgDefault} style={{ flex: 1 }}>
       <AppBar
-        username={dataMhs[0].nama}
+        username={dataMhs.nama}
         bgColorBell={COLORS.softBlue}
         bellIcon={ICONS.iconBellBlue}
         navigation={navigation}
-        profilePicture={"https://mahasiswa.itda.ac.id/perpus/img/" + dataMhs[0].path_foto}
+        profilePicture={"https://mahasiswa.itda.ac.id/perpus/img/" + dataMhs.path_foto}
       />
       <TabView
         navigationState={{ index, routes }}

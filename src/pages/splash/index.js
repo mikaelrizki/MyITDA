@@ -11,53 +11,58 @@ import {
   resetNilaiTranskrip,
   setNilaiTranskrip,
 } from "../../stores/actions/actionTranskrip";
-import { resetDataPayment, setDataPayment } from "../../stores/actions/actionPayment";
-import { resetDataBeasiswa, setDataBeasiswa } from "../../stores/actions/actionBeasiswa";
+import {
+  resetDataPayment,
+  setDataPayment,
+} from "../../stores/actions/actionPayment";
+import {
+  resetDataMahasiswa,
+  setDataMahasiswa,
+} from "./../../stores/actions/actionMahasiswa/index";
+import {
+  resetDataBeasiswa,
+  setDataBeasiswa,
+} from "../../stores/actions/actionBeasiswa";
 
 export default function SplashScreen({ navigation }) {
   const dispatch = useDispatch();
   const dataAuth = useSelector((state) => state.dataAuth);
+  const dataMahasiswa = useSelector((state) => state.dataMahasiswa);
   console.log("[Redux] DataLogin Selector", dataAuth);
+  console.log("[Redux] DataMahasiswa Selector", dataMahasiswa);
 
   useEffect(() => {
     const fetchData = async () => {
-      const isAuth = await adapter.getAuth(
-        dataAuth.dataLogin.nim,
-        dataAuth.dataLogin.password
-      );
+      const nim = dataAuth.dataLogin.nim;
+      const password = dataAuth.dataLogin.password;
+
+      const isAuth = await adapter.getAuth(nim, password);
       const dataMhsAll = await adapter.getDataMahasiswa();
-      const dataTranskrip = await adapter.getDataTranskrip(
-        dataAuth.dataLogin.nim
-      );
-      const dataYear = await adapter.getDataYearnSmt(dataAuth.dataLogin.nim);
-      const dataPayment = await adapter.getDataPayment(dataAuth.dataLogin.nim);
-      const dataBeasiswa = await adapter.getDataBeasiswa(dataAuth.dataLogin.nim);
+
+      const dataTranskrip = await adapter.getDataTranskrip(nim);
+      const dataYear = await adapter.getDataYearnSmt(nim);
+      const dataPayment = await adapter.getDataPayment(nim);
+      const dataBeasiswa = await adapter.getDataBeasiswa(nim);
 
       const loginAllowed =
         dataAuth.loginDate &&
         new Date() - new Date(dataAuth.loginDate) < 86400000;
-      const mhsAvail = dataMhsAll.find(
-        (item) => item.nim === dataAuth.dataLogin.nim
-      );
+      const mhsAvail = dataMhsAll.find((item) => item.nim === nim);
       if (loginAllowed && isAuth && mhsAvail) {
-        const dataMhs = dataMhsAll.filter(
-          (item) => item.nim == dataAuth.dataLogin.nim
-        );
-        navigation.replace("Main", {
-          dataMhs,
-        });
+        const dataMhs = dataMhsAll.filter((item) => item.nim == nim);
+        console.log("DATA MHS SELECTED", dataMhs);
+        dispatch(setDataMahasiswa(dataMhs));
         dispatch(setNilaiTranskrip(dataTranskrip));
         dispatch(setYearnSmt(dataYear));
         dispatch(setDataPayment(dataPayment));
         dispatch(setDataBeasiswa(dataBeasiswa));
-        navigation.replace("Main", {
-          dataMhs,
-        });
+        navigation.replace("Main");
       } else {
         dispatch(resetDataAuth());
+        dispatch(resetDataMahasiswa());
         dispatch(resetDataPayment());
         dispatch(resetDataBeasiswa());
-        navigation.replace("Auth", { dataMhsAll });
+        navigation.replace("Auth", dataMhsAll);
       }
     };
 

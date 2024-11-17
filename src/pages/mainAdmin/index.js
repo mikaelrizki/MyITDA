@@ -100,7 +100,6 @@ export default function MainAdminScreen({ navigation }) {
     );
   }
 
-  console.log(index);
   return (
     <ImageBackground source={IMAGES.bgDefault} style={{ flex: 1 }}>
       <ThirdAppBar navigation={navigation} />

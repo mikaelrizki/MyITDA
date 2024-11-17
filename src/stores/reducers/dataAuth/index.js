@@ -3,7 +3,7 @@ const initialState = {
   loginDate: null,
 };
 
-export default function dataAuth (state = initialState, action) {
+export default function dataAuth(state = initialState, action) {
   switch (action.type) {
     case "@APP/AUTH/SET_DATA":
       return {
@@ -15,4 +15,4 @@ export default function dataAuth (state = initialState, action) {
     default:
       return state;
   }
-};
+}
