@@ -24,7 +24,7 @@ export default function TableTranskrip({ judul }) {
     return judul === "wajib" ? item?.jenis_mk === "W" : item?.jenis_mk === "P";
   });
 
-  const totalSKS = filteredData.reduce(
+  const totalSKS = filteredData?.reduce(
     (sum, item) => sum + parseInt(item?.sks_mk || 0, 10),
     0
   );
@@ -100,7 +100,7 @@ export default function TableTranskrip({ judul }) {
       ))}
 
       {/* TOTAL SELURUHNYA */}
-      <View style={LOKAL_STYLES.itemTableRow}>
+      <View style={LOKAL_STYLES.itemTableRowTotal}>
         <View style={LOKAL_STYLES.sksContainer}>
           <View style={LOKAL_STYLES.sksBadge}>
             <Text color={COLORS.white} fontsize={SIZES.smallText}>
@@ -130,6 +130,11 @@ const LOKAL_STYLES = StyleSheet.create({
     gap: 15,
     paddingHorizontal: 5,
     borderBottomWidth: 1,
+  },
+  itemTableRowTotal: {
+    flexDirection: "row",
+    gap: 15,
+    paddingHorizontal: 5,
   },
   BottomTableRow: {
     width: "25%",
