@@ -38,18 +38,18 @@ export default function SplashScreen({ navigation }) {
 
       const isAuth = await adapter.getAuth(nim, password);
       const dataMhsAll = await adapter.getDataMahasiswa();
-
       const dataTranskrip = await adapter.getDataTranskrip(nim);
       const dataYear = await adapter.getDataYearnSmt(nim);
       const dataPayment = await adapter.getDataPayment(nim);
       const dataBeasiswa = await adapter.getDataBeasiswa(nim);
+      const dataMhs = await adapter.getDataMhsbyNIM(nim);
 
       const loginAllowed =
         dataAuth.loginDate &&
         new Date() - new Date(dataAuth.loginDate) < 86400000;
       const mhsAvail = dataMhsAll.find((item) => item.nim === nim);
+
       if (loginAllowed && isAuth && mhsAvail) {
-        const dataMhs = dataMhsAll.filter((item) => item.nim == nim);
         console.log("DATA MHS SELECTED", dataMhs);
         dispatch(setDataMahasiswa(dataMhs));
         dispatch(setNilaiTranskrip(dataTranskrip));
@@ -62,7 +62,9 @@ export default function SplashScreen({ navigation }) {
         dispatch(resetDataMahasiswa());
         dispatch(resetDataPayment());
         dispatch(resetDataBeasiswa());
-        navigation.replace("Auth", dataMhsAll);
+        dispatch(resetNilaiKHS());
+        dispatch(resetNilaiTranskrip());
+        navigation.replace("Auth");
       }
     };
 
@@ -88,11 +90,9 @@ export default function SplashScreen({ navigation }) {
         regular
         fontsize={SIZES.smallText}
         padVertical={0}
-        style={{ marginBottom: 120 }}
-      >
+        style={{ marginBottom: 120 }}>
         Student Portal Apps of{"\n"}Institut Teknologi Dirgantara Adisutjipto
       </Text>
-      {/* <Button onPress={() => navigation.navigate("Auth")} title='Submit'></Button> */}
     </ImageBackground>
   );
 }

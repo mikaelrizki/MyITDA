@@ -74,11 +74,10 @@ export default function KhsScreen({ navigation }) {
   if (!data || !data.length) {
     return (
       <View style={{ flex: 1, backgroundColor: COLORS.secondary }}>
-        <SecondAppBar label={"KHS/ Hasil Studi"} navigation={navigation} />
         <ImageBackground
           source={IMAGES.bgDefault}
-          style={{ flex: 1, justifyContent: "center", alignItems: "center" }}
-        >
+          style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
+          <SecondAppBar label={"KHS/ Hasil Studi"} navigation={navigation} />
           <Text color={COLORS.primary} fontsize={SIZES.mediumText} bold>
             Maaf, Data KHS Anda Tidak Tersedia
           </Text>
@@ -89,8 +88,8 @@ export default function KhsScreen({ navigation }) {
 
   return (
     <View style={{ flex: 1, backgroundColor: COLORS.secondary }}>
-      <SecondAppBar label={"KHS/ Hasil Studi"} navigation={navigation} />
       <ImageBackground source={IMAGES.bgDefault} style={{ flex: 1 }}>
+        <SecondAppBar label={"KHS/ Hasil Studi"} navigation={navigation} />
         <ScrollView showsHorizontalScrollIndicator={false}>
           <View style={STYLES.containerTabView}>
             <FlatList
@@ -100,8 +99,7 @@ export default function KhsScreen({ navigation }) {
                 <TouchableOpacity
                   onPress={() => handlePress(item?.id)}
                   activeOpacity={1}
-                  style={[{ opacity: selectedData === item.id ? 1 : 2 }]}
-                >
+                  style={[{ opacity: selectedData === item.id ? 1 : 2 }]}>
                   <View style={LOKAL_STYLES.tableCons}>
                     <View style={LOKAL_STYLES.titleCons}>
                       <Image
@@ -112,8 +110,7 @@ export default function KhsScreen({ navigation }) {
                       <Text
                         fontsize={SIZES.mediumText}
                         color={COLORS.white}
-                        paddingHorizontal={SIZES.padding2}
-                      >
+                        paddingHorizontal={SIZES.padding2}>
                         {item?.title || null}
                       </Text>
                       <Image

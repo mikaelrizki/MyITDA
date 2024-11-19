@@ -27,11 +27,10 @@ export default function TranskripScreen({ navigation }) {
   if (!dataTranskrip || !dataTranskrip.length) {
     return (
       <View style={{ flex: 1, backgroundColor: COLORS.secondary }}>
-        <SecondAppBar label={"Transkrip"} navigation={navigation} />
         <ImageBackground
           source={IMAGES.bgDefault}
-          style={{ flex: 1, justifyContent: "center", alignItems: "center" }}
-        >
+          style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
+          <SecondAppBar label={"Transkrip"} navigation={navigation} />
           <Text color={COLORS.primary} fontsize={SIZES.mediumText} bold>
             Maaf, Data Transkrip Anda Tidak Tersedia
           </Text>
@@ -41,59 +40,55 @@ export default function TranskripScreen({ navigation }) {
   }
 
   return (
-    <View style={{ backgroundColor: COLORS.secondary }}>
+    <ImageBackground source={IMAGES.bgDefault} style={(flex = 1)}>
       <SecondAppBar label={"Transkrip"} navigation={navigation} />
       <ScrollView showsHorizontalScrollIndicator={false}>
-        <ImageBackground source={IMAGES.bgDefault} style={(flex = 1)}>
-          <View style={STYLES.containerTabView}>
-            <View style={LOKAL_STYLES.content}>
-              <View style={LOKAL_STYLES.infoContainerSks}>
-                <Text color={COLORS.white} bold fontsize={SIZES.smallText}>
-                  Total Sks
-                </Text>
-                <View style={LOKAL_STYLES.sksContainer}>
-                  <View style={LOKAL_STYLES.sksBadge}>
-                    <Text
-                      bold
-                      color={COLORS.primary}
-                      fontsize={SIZES.extraSmallText}
-                    >
-                      {totalSks}
-                    </Text>
-                  </View>
-                </View>
-              </View>
-              <View style={LOKAL_STYLES.infoContainerIpk}>
-                <Text color={COLORS.white} bold fontsize={SIZES.smallText}>
-                  Indeks Prestasi Kumulatif
-                </Text>
-                <View style={LOKAL_STYLES.sksContainer}>
-                  <View style={LOKAL_STYLES.sksBadge}>
-                    <Text
-                      bold
-                      color={COLORS.primary}
-                      fontsize={SIZES.extraSmallText}
-                    >
-                      {ips}
-                    </Text>
-                  </View>
+        <View style={STYLES.containerTabView}>
+          <View style={LOKAL_STYLES.content}>
+            <View style={LOKAL_STYLES.infoContainerSks}>
+              <Text color={COLORS.white} bold fontsize={SIZES.smallText}>
+                Total Sks
+              </Text>
+              <View style={LOKAL_STYLES.sksContainer}>
+                <View style={LOKAL_STYLES.sksBadge}>
+                  <Text
+                    bold
+                    color={COLORS.primary}
+                    fontsize={SIZES.extraSmallText}>
+                    {totalSks}
+                  </Text>
                 </View>
               </View>
             </View>
-            <TableContainer
-              title={"MATAKULIAH WAJIB"}
-              displayOption={"transkrip"}
-              transkrip={"wajib"}
-            />
-            <TableContainer
-              title={"MATAKULIAH PILIHAN"}
-              displayOption={"transkrip"}
-              transkrip={"pilihan"}
-            />
+            <View style={LOKAL_STYLES.infoContainerIpk}>
+              <Text color={COLORS.white} bold fontsize={SIZES.smallText}>
+                Indeks Prestasi Kumulatif
+              </Text>
+              <View style={LOKAL_STYLES.sksContainer}>
+                <View style={LOKAL_STYLES.sksBadge}>
+                  <Text
+                    bold
+                    color={COLORS.primary}
+                    fontsize={SIZES.extraSmallText}>
+                    {ips}
+                  </Text>
+                </View>
+              </View>
+            </View>
           </View>
-        </ImageBackground>
+          <TableContainer
+            title={"MATAKULIAH WAJIB"}
+            displayOption={"transkrip"}
+            transkrip={"wajib"}
+          />
+          <TableContainer
+            title={"MATAKULIAH PILIHAN"}
+            displayOption={"transkrip"}
+            transkrip={"pilihan"}
+          />
+        </View>
       </ScrollView>
-    </View>
+    </ImageBackground>
   );
 }
 

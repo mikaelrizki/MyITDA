@@ -7,15 +7,17 @@ import ICONS from "../../assets/icons";
 import ItemSetting from "../../components/ItemSetting";
 import { useState } from "react";
 import { resetDataAuth } from "../../stores/actions/actionAuth";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { resetDataPayment } from "../../stores/actions/actionPayment";
 import { resetDataBeasiswa } from "../../stores/actions/actionBeasiswa";
 import { resetNilaiKHS, resetYearnSmt } from "../../stores/actions/actionKHS";
 import { resetNilaiTranskrip } from "../../stores/actions/actionTranskrip";
+import { resetDataMahasiswa } from "../../stores/actions/actionMahasiswa";
 
 export default function SettingScreen({ navigation }) {
   const [showNotif, setShowNotif] = useState(true);
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
+  const dataMahasiswa = useSelector((state) => state.dataMahasiswa.dataMahasiswaSelected[0]);
   return (
     <View
       style={{
@@ -49,8 +51,8 @@ export default function SettingScreen({ navigation }) {
         >
           <Image source={IMAGES.bgPic} style={{ width: 194, height: 194 }} />
           <Image
-            source={IMAGES.profilePic}
-            style={{ position: "absolute", width: 137, height: 137 }}
+            source={{ uri: "https://mahasiswa.itda.ac.id/perpus/img/" + dataMahasiswa.path_foto }}
+            style={{ position: "absolute", width: 133, height: 133, borderRadius: 100, }}
           />
         </View>
       </View>
@@ -85,7 +87,7 @@ export default function SettingScreen({ navigation }) {
             },
           ]}
         >
-          <ItemSetting icon={ICONS.usernameIcon} value={"Melisa Wijaya"} />
+          <ItemSetting icon={ICONS.usernameIcon} value={dataMahasiswa.nama} />
           <View
             style={{
               borderWidth: 0.5,
@@ -93,7 +95,7 @@ export default function SettingScreen({ navigation }) {
               marginHorizontal: 20,
             }}
           />
-          <ItemSetting icon={ICONS.nimIcon} value={"71210714"} />
+          <ItemSetting icon={ICONS.nimIcon} value={dataMahasiswa.nim} />
         </View>
 
         <TouchableOpacity
@@ -142,6 +144,7 @@ export default function SettingScreen({ navigation }) {
           dispatch(resetDataAuth());
           dispatch(resetDataPayment());
           dispatch(resetDataBeasiswa());
+          dispatch(resetDataMahasiswa());
           dispatch(resetNilaiKHS());
           dispatch(resetNilaiTranskrip());
           dispatch(resetYearnSmt());

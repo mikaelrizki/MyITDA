@@ -8,52 +8,80 @@ import { formatTanggalIndonesia } from "../../services/utils/formatter";
 import { useSelector } from "react-redux";
 
 export default function Home({ navigation }) {
-  const dataMahasiswa = useSelector((state) => state.dataMahasiswa.dataMahasiswaSelected[0]);
-  const namaFakultas = dataMahasiswa.nm_fak.replace("Fakultas ", "");
-  const alamat = dataMahasiswa.alamat_mhs.replace(/\r?\n|\r/g, "");
+  const dataMahasiswa = useSelector(
+    (state) => state.dataMahasiswa.dataMahasiswaSelected[0] || null
+  );
+  const namaFakultas =
+    dataMahasiswa !== undefined
+      ? dataMahasiswa?.nm_fak.replace("Fakultas ", "")
+      : null;
+  const alamat =
+    dataMahasiswa !== undefined
+      ? dataMahasiswa?.alamat_mhs.replace(/\r?\n|\r/g, "")
+      : null;
+  const profilePic =
+    dataMahasiswa !== undefined
+      ? "https://mahasiswa.itda.ac.id/perpus/img/" + dataMahasiswa?.path_foto
+      : null;
+  const nama = dataMahasiswa !== undefined ? dataMahasiswa?.nama : null;
+  const nim = dataMahasiswa !== undefined ? dataMahasiswa?.nim : null;
+  const gol_darah =
+    dataMahasiswa !== undefined ? dataMahasiswa?.gol_darah : null;
+  const email_mhs =
+    dataMahasiswa !== undefined ? dataMahasiswa?.email_mhs : null;
+  const jurusan = dataMahasiswa !== undefined ? dataMahasiswa?.nm_prodi : null;
+  const jenis_kelamin =
+    dataMahasiswa !== undefined ? dataMahasiswa?.jenis_kelamin : null;
+  const tgl_lahir =
+    dataMahasiswa !== undefined ? dataMahasiswa?.tgl_lahir : null;
+  const agama = dataMahasiswa !== undefined ? dataMahasiswa?.agama : null;
+  const hp_mhs = dataMahasiswa !== undefined ? dataMahasiswa?.hp_mhs : null;
+  const status_mhs =
+    dataMahasiswa !== undefined ? dataMahasiswa?.status_mhs : null;
+  const ipk = dataMahasiswa !== undefined ? dataMahasiswa?.ipk : null;
+  const sks_kum = dataMahasiswa !== undefined ? dataMahasiswa?.sks_kum : null;
+  const nm_dosen_dpa =
+    dataMahasiswa !== undefined ? dataMahasiswa?.nm_dosen_dpa : null;
+  const tmp_lahir =
+    dataMahasiswa !== undefined ? dataMahasiswa?.tmp_lahir : null;
+
   return (
     <ScrollView
       style={[STYLES.containerTabView, { marginTop: 15 }]}
-      showsVerticalScrollIndicator={false}
-    >
+      showsVerticalScrollIndicator={false}>
       <SectionTitle title={"Kartu Tanda Mahasiswa"} first />
 
       <ItemKTM
-        profilePic={
-          "https://mahasiswa.itda.ac.id/perpus/img/" + dataMahasiswa.path_foto
-        }
-        nama={dataMahasiswa.nama}
-        nim={dataMahasiswa.nim}
+        profilePic={profilePic}
+        nama={nama}
+        nim={nim}
         fakultas={namaFakultas}
-        jurusan={dataMahasiswa.nm_prodi}
-        jenisKelamin={dataMahasiswa.jenis_kelamin}
+        jurusan={jurusan}
+        jenisKelamin={jenis_kelamin}
       />
 
       <SectionTitle title={"Biodata"} />
 
       <View style={LOCAL_STYLE.containerStyle}>
-        <ItemDataInfoMhs
-          dataKey={"Tempat Lahir"}
-          dataValue={dataMahasiswa.tmp_lahir}
-        />
+        <ItemDataInfoMhs dataKey={"Tempat Lahir"} dataValue={tmp_lahir} />
         <ItemDataInfoMhs
           dataKey={"Tanggal Lahir"}
-          dataValue={formatTanggalIndonesia(dataMahasiswa.tgl_lahir)}
+          dataValue={formatTanggalIndonesia(tgl_lahir)}
         />
-        <ItemDataInfoMhs dataKey={"Alamat"} dataValue={alamat.trim()} />
+        <ItemDataInfoMhs
+          dataKey={"Alamat"}
+          dataValue={alamat ? alamat.trim() : null}
+        />
         <ItemDataInfoMhs
           dataKey={"Jenis Kelamin"}
-          dataValue={dataMahasiswa.jenis_kelamin === "L" ? "Laki-Laki" : "Perempuan"}
+          dataValue={jenis_kelamin === "L" ? "Laki-Laki" : "Perempuan"}
         />
-        <ItemDataInfoMhs dataKey={"Agama"} dataValue={dataMahasiswa.agama} />
-        <ItemDataInfoMhs
-          dataKey={"Golongan Darah"}
-          dataValue={dataMahasiswa.gol_darah}
-        />
-        <ItemDataInfoMhs dataKey={"Telepon"} dataValue={dataMahasiswa.hp_mhs} />
+        <ItemDataInfoMhs dataKey={"Agama"} dataValue={agama} />
+        <ItemDataInfoMhs dataKey={"Golongan Darah"} dataValue={gol_darah} />
+        <ItemDataInfoMhs dataKey={"Telepon"} dataValue={hp_mhs} />
         <ItemDataInfoMhs
           dataKey={"Email"}
-          dataValue={dataMahasiswa.email_mhs}
+          dataValue={email_mhs}
           capitalize={false}
         />
       </View>
@@ -63,20 +91,11 @@ export default function Home({ navigation }) {
       <View style={LOCAL_STYLE.containerStyle}>
         <ItemDataInfoMhs
           dataKey={"Status Mahasiswa"}
-          dataValue={dataMahasiswa.status_mhs === "A" ? "Aktif" : "Tidak Aktif"}
+          dataValue={status_mhs === "A" ? "Aktif" : "Tidak Aktif"}
         />
-        <ItemDataInfoMhs
-          dataKey={"IP Kumulatif"}
-          dataValue={dataMahasiswa.ipk || "-"}
-        />
-        <ItemDataInfoMhs
-          dataKey={"Total SKS"}
-          dataValue={dataMahasiswa.sks_kum || "-"}
-        />
-        <ItemDataInfoMhs
-          dataKey={"Dosen Wali"}
-          dataValue={dataMahasiswa.nm_dosen_dpa}
-        />
+        <ItemDataInfoMhs dataKey={"IP Kumulatif"} dataValue={ipk || "-"} />
+        <ItemDataInfoMhs dataKey={"Total SKS"} dataValue={sks_kum || "-"} />
+        <ItemDataInfoMhs dataKey={"Dosen Wali"} dataValue={nm_dosen_dpa} />
       </View>
     </ScrollView>
   );

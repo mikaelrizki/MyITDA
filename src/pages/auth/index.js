@@ -28,19 +28,18 @@ export default function AuthScreen({ navigation, route }) {
   const [errorNim, setErrorNim] = useState(false);
   const [errorPassword, setErrorPassword] = useState(false);
 
-  const { dataMahasiswaAll } = route.params || {};
-
   const handleLogin = async () => {
     setShowLoadingBar(true);
     const isAuth = await adapter.getAuth(dataLogin.nim, dataLogin.password);
-    const dataMhsAll = dataMahasiswaAll || (await adapter.getDataMahasiswa());
+    const dataMhsAll = await adapter.getDataMahasiswa();
     const mhsAvail = dataMhsAll.find((item) => item.nim === dataLogin.nim);
     const dataBeasiswa = await adapter.getDataBeasiswa(dataLogin.nim);
     const dataPayment = await adapter.getDataPayment(dataLogin.nim);
     const dataYearnSmt = await adapter.getDataYearnSmt(dataLogin.nim);
     const dataTranskrip = await adapter.getDataTranskrip(dataLogin.nim);
+    const dataMhs = await adapter.getDataMhsbyNIM(dataLogin.nim);
+    
     if (isAuth && mhsAvail) {
-      const dataMhs = dataMhsAll.filter((item) => item.nim == dataLogin.nim);
       dispatch(setDataAuth(dataLogin));
       dispatch(setDataMahasiswa(dataMhs));
       dispatch(setDataBeasiswa(dataBeasiswa));

@@ -19,9 +19,17 @@ export default function MainScreen({ navigation, route }) {
     { key: "payment", title: "Payment" },
   ]);
 
-  const dataMhs = useSelector((state) => state.dataMahasiswa.dataMahasiswaSelected[0]);
+  const dataMhs = useSelector(
+    (state) => state.dataMahasiswa.dataMahasiswaSelected[0]
+  );
 
-  const generateHome = () => <Home data={dataMhs}/>;
+  const nama = dataMhs !== undefined ? dataMhs.nama : null;
+  const profilePic =
+    dataMhs !== undefined
+      ? "https://mahasiswa.itda.ac.id/perpus/img/" + dataMhs.path_foto
+      : null;
+
+  const generateHome = () => <Home />;
 
   const generateReport = () => <ReportScreen navigation={navigation} />;
 
@@ -53,14 +61,12 @@ export default function MainScreen({ navigation, route }) {
               borderRadius: SIZES.bigRadius,
               justifyContent: "center",
               alignItems: "center",
-            }}
-          >
+            }}>
             <Text
               bold
               color={focused ? COLORS.primary : COLORS.white}
               fontsize={SIZES.LargeText}
-              padVertical={0}
-            >
+              padVertical={0}>
               A
             </Text>
           </View>
@@ -72,11 +78,11 @@ export default function MainScreen({ navigation, route }) {
   return (
     <ImageBackground source={IMAGES.bgDefault} style={{ flex: 1 }}>
       <AppBar
-        username={dataMhs.nama}
+        username={nama}
         bgColorBell={COLORS.softBlue}
         bellIcon={ICONS.iconBellBlue}
         navigation={navigation}
-        profilePicture={"https://mahasiswa.itda.ac.id/perpus/img/" + dataMhs.path_foto}
+        profilePicture={profilePic}
       />
       <TabView
         navigationState={{ index, routes }}

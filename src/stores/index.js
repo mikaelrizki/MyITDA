@@ -10,6 +10,8 @@ const persistConfig = {
   whitelist: [
     'dataAuth',
     'dataMahasiswa',
+    'dataBeasiswa',
+    'dataPayment',
   ],
 };
 

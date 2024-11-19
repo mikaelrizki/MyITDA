@@ -36,6 +36,18 @@ export default {
     }
   },
 
+  async getDataMhsbyNIM(nim) {
+    try {
+      const response = await axios.get(
+        `https://perpustakaan.itda.ac.id/api/json_one_mhs.php?nim=${nim}`
+      );
+      console.log("[API] getDataMhsbyNIM", response.data);
+      return response.data["data"];
+    } catch (error) {
+      console.error("[API] GetDataBeasiswa error", error);
+    }
+  },
+
   async getDataBeasiswa(nim) {
     try {
       const response = await axios.get(
