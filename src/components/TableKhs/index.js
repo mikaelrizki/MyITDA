@@ -1,27 +1,39 @@
 import React from "react";
-import { View, Text } from "react-native";
+import { View } from "react-native";
 import { COLORS, SIZES } from "../../styles";
 import SksBadge from "../SksBadge";
 import { useSelector } from "react-redux";
+import Text from "../Text";
 
-export default function TableKhs() {
-  const khsData = useSelector((state) => state.dataKHS.dataKHS);
+export default function TableKhs(dataYear) {
+  const AllDataKHS = useSelector((state) => state.dataKHS?.dataKHS);
+  const tableData = AllDataKHS[dataYear.data] || [];
 
-  const totalSks =
-    khsData?.reduce((total, item) => total + parseInt(item.sks), 0) || 0;
-  const totalKualitas =
-    khsData?.reduce(
-      (total, item) =>
-        total + parseInt(item?.bobot_nilai || 0) * parseInt(item.sks),
+  const calculateTotals = (data) => {
+    if (!data || data.length === 0) return { totalSks: 0, totalKualitas: 0 };
+    const totalSks = data?.reduce(
+      (total, item) => total + (parseInt(item.sks) || 0),
       0
-    ) || 0;
+    );
+    const totalKualitas = data?.reduce(
+      (total, item) =>
+        total + parseInt(item?.bobot_nilai || 0) * parseInt(item?.sks || 0),
+      0
+    );
+    return { totalSks, totalKualitas };
+  };
 
-  console.log("[TABLE KHS]", khsData);
+  const { totalSks, totalKualitas } = calculateTotals(tableData);
+  const ips = totalSks ? (totalKualitas / totalSks).toFixed(2) : "0.00";
 
-  const ips = totalSks ? (totalKualitas / totalSks).toFixed(2) : 0;
-
-  if (!khsData || khsData.length === 0) {
-    return;
+  if (!tableData || tableData.length === 0) {
+    return (
+      <View style={LOKAL_STYLES.emptyContainer}>
+        <Text color={COLORS.primary} fontsize={SIZES.smallText}>
+          Data KHS tidak tersedia.
+        </Text>
+      </View>
+    );
   }
 
   return (
@@ -62,7 +74,7 @@ export default function TableKhs() {
         </Text>
       </View>
 
-      {khsData?.map((item, index) => (
+      {tableData?.map((item, index) => (
         <View key={index}>
           {/* Data per Mata Kuliah */}
           <View style={LOKAL_STYLES.itemTableRow}>
@@ -150,7 +162,6 @@ const LOKAL_STYLES = {
     flexDirection: "row",
     gap: 15,
     paddingHorizontal: 5,
-    paddingBottom: 10,
   },
   itemTableTotal: {
     flexDirection: "row",
@@ -160,9 +171,13 @@ const LOKAL_STYLES = {
   bottomTableRow: {
     flexDirection: "row",
     justifyContent: "space-between",
-    gap: 15,
     paddingHorizontal: 5,
     backgroundColor: COLORS.lightGray,
     borderBottomWidth: 2,
+  },
+  emptyContainer: {
+    justifyContent: "center",
+    alignItems: "center",
+    padding: SIZES.padding,
   },
 };

@@ -13,17 +13,14 @@ import SecondAppBar from "../../../components/SecondAppBar";
 import { useDispatch, useSelector } from "react-redux";
 import { ScrollView, TouchableOpacity } from "react-native-gesture-handler";
 import Text from "../../../components/Text";
-import adapter from "../../../services/adapter";
 import TableKhs from "../../../components/TableKhs";
-import { setNilaiKHS } from "../../../stores/actions/actionKHS";
 
 export default function KhsScreen({ navigation }) {
   const [selectedData, setSelectedData] = useState(null);
-  const dispatch = useDispatch();
-  const dataAuth = useSelector((state) => state.dataAuth || null);
   const dataYearnSmt = useSelector(
-    (state) => state.dataKHS?.dataYearnSmt || null
+    (state) => state.dataKHS?.dataYearnSmt || []
   );
+  const allDataKHS = useSelector((state) => state.dataKHS || {});
 
   const processDataTahun = (dataYearnSmt) => {
     const result = [];
@@ -41,44 +38,20 @@ export default function KhsScreen({ navigation }) {
         }
       });
     }
-    result.sort((a, b) => {
-      const [yearA, semesterA] = a.id.split("-").map(Number);
-      const [yearB, semesterB] = b.id.split("-").map(Number);
-      if (yearA === yearB) {
-        return semesterA - semesterB;
-      }
-      return yearA - yearB;
-    });
-
+    result.sort((a, b) => a.id.localeCompare(b.id));
     return result;
   };
 
-  const handlePress = async (id) => {
-    try {
-      setSelectedData(id);
-      const [year, sem] = id.split("-");
-
-      const dataKHS = await adapter.getDataKHS(
-        dataAuth.dataLogin.nim,
-        year,
-        sem
-      );
-      dispatch(setNilaiKHS(dataKHS));
-    } catch (error) {
-      console.error("Error fetching data KHS:", error);
-    }
-  };
   const data = processDataTahun(dataYearnSmt);
   console.log("[KHS PAGE]", data);
+  console.log("[KHS PAGE]", JSON.stringify(allDataKHS, null, 2));
 
   if (!data || !data.length) {
     return (
       <View style={{ flex: 1, backgroundColor: COLORS.secondary }}>
-        <ImageBackground
-          source={IMAGES.bgDefault}
-          style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
+        <ImageBackground source={IMAGES.bgDefault} style={{ flex: 1 }}>
           <SecondAppBar label={"KHS/ Hasil Studi"} navigation={navigation} />
-          <Text color={COLORS.primary} fontsize={SIZES.mediumText} bold>
+          <Text color={COLORS.primary} fontsize={SIZES.mediumText} bold center>
             Maaf, Data KHS Anda Tidak Tersedia
           </Text>
         </ImageBackground>
@@ -97,9 +70,10 @@ export default function KhsScreen({ navigation }) {
               keyExtractor={(item) => item?.id}
               renderItem={({ item }) => (
                 <TouchableOpacity
-                  onPress={() => handlePress(item?.id)}
+                  onPress={() => setSelectedData(item?.id)}
                   activeOpacity={1}
-                  style={[{ opacity: selectedData === item.id ? 1 : 2 }]}>
+                  style={[{ opacity: selectedData === item.id ? 1 : 2 }]}
+                >
                   <View style={LOKAL_STYLES.tableCons}>
                     <View style={LOKAL_STYLES.titleCons}>
                       <Image
@@ -110,7 +84,8 @@ export default function KhsScreen({ navigation }) {
                       <Text
                         fontsize={SIZES.mediumText}
                         color={COLORS.white}
-                        paddingHorizontal={SIZES.padding2}>
+                        paddingHorizontal={SIZES.padding2}
+                      >
                         {item?.title || null}
                       </Text>
                       <Image
@@ -121,7 +96,7 @@ export default function KhsScreen({ navigation }) {
 
                     {selectedData === item?.id && (
                       <View style={LOKAL_STYLES.container}>
-                        <TableKhs />
+                        <TableKhs data={item?.id} />
                       </View>
                     )}
                   </View>

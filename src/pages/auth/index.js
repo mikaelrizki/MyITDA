@@ -11,7 +11,7 @@ import { setDataAuth } from "../../stores/actions/actionAuth";
 import adapter from "../../services/adapter";
 import { setDataBeasiswa } from "../../stores/actions/actionBeasiswa";
 import { setDataPayment } from "../../stores/actions/actionPayment";
-import { setYearnSmt } from "../../stores/actions/actionKHS";
+import { setNilaiKHS, setYearnSmt } from "../../stores/actions/actionKHS";
 import { setNilaiTranskrip } from "../../stores/actions/actionTranskrip";
 import { setDataMahasiswa } from "../../stores/actions/actionMahasiswa";
 
@@ -38,14 +38,33 @@ export default function AuthScreen({ navigation, route }) {
     const dataYearnSmt = await adapter.getDataYearnSmt(dataLogin.nim);
     const dataTranskrip = await adapter.getDataTranskrip(dataLogin.nim);
     const dataMhs = await adapter.getDataMhsbyNIM(dataLogin.nim);
-    
+
+    const allDataKHS = {};
     if (isAuth && mhsAvail) {
       dispatch(setDataAuth(dataLogin));
       dispatch(setDataMahasiswa(dataMhs));
       dispatch(setDataBeasiswa(dataBeasiswa));
       dispatch(setDataPayment(dataPayment));
       dispatch(setNilaiTranskrip(dataTranskrip));
+
+      if (Array.isArray(dataYearnSmt)) {
+        for (const item of dataYearnSmt) {
+          const { year, semesters } = item;
+          if (Array.isArray(semesters)) {
+            for (const sem of semesters) {
+              const dataKHS = await adapter.getDataKHS(
+                dataLogin.nim,
+                year,
+                sem
+              );
+              allDataKHS[`${year}-${sem}`] = dataKHS;
+            }
+          }
+        }
+      }
+      console.log("[AUTH]", allDataKHS);
       dispatch(setYearnSmt(dataYearnSmt));
+      dispatch(setNilaiKHS(allDataKHS));
       navigation.replace("Main");
     } else {
       setErrorNim(true);

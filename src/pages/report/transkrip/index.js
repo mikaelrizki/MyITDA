@@ -9,14 +9,14 @@ import { useSelector } from "react-redux";
 
 export default function TranskripScreen({ navigation }) {
   const dataTranskrip = useSelector(
-    (state) => state.dataTranskrip.dataTranskrip || []
+    (state) => state.dataTranskrip?.dataTranskrip || []
   );
 
   const totalSks =
-    dataTranskrip.reduce((total, item) => total + parseInt(item.sks_mk), 0) ||
+    dataTranskrip?.reduce((total, item) => total + parseInt(item.sks_mk), 0) ||
     0;
   const totalKualitas =
-    dataTranskrip.reduce(
+    dataTranskrip?.reduce(
       (total, item) =>
         total + parseInt(item.bobot_nilai) * parseInt(item.sks_mk),
       0
@@ -29,9 +29,9 @@ export default function TranskripScreen({ navigation }) {
       <View style={{ flex: 1, backgroundColor: COLORS.secondary }}>
         <ImageBackground
           source={IMAGES.bgDefault}
-          style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
+          style={{ flex: 1}}>
           <SecondAppBar label={"Transkrip"} navigation={navigation} />
-          <Text color={COLORS.primary} fontsize={SIZES.mediumText} bold>
+          <Text color={COLORS.primary} fontsize={SIZES.mediumText} bold center>
             Maaf, Data Transkrip Anda Tidak Tersedia
           </Text>
         </ImageBackground>
