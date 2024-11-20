@@ -119,7 +119,7 @@ export default {
       const dataYear = response.data["data"];
       const structuredData = [];
   
-      dataYear.forEach((item) => {
+      dataYear?.forEach((item) => {
         const yearEntry = structuredData.find(
           (entry) => entry.year === item.kd_ta
         );

@@ -62,7 +62,6 @@ export default function KhsScreen({ navigation }) {
   return (
       <ImageBackground source={IMAGES.bgDefault} style={{ flex: 1, padding: SIZES.padding2}}>
         <SecondAppBar label={"KHS/ Hasil Studi"} navigation={navigation} />
-          <View >
             <FlatList
               data={data}
               keyExtractor={(item) => item?.id}
@@ -102,7 +101,6 @@ export default function KhsScreen({ navigation }) {
                 </TouchableOpacity>
               )}
             />
-          </View>
       </ImageBackground>
   );
 }
