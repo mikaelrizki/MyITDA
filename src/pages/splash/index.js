@@ -6,7 +6,7 @@ import { SIZES, STYLES } from "../../styles";
 import { useDispatch, useSelector } from "react-redux";
 import { resetDataAuth } from "../../stores/actions/actionAuth";
 import adapter from "../../services/adapter";
-import { resetNilaiKHS, setYearnSmt } from "../../stores/actions/actionKHS";
+import { resetNilaiKHS, setNilaiKHS, setYearnSmt } from "../../stores/actions/actionKHS";
 import {
   resetNilaiTranskrip,
   setNilaiTranskrip,
@@ -43,6 +43,7 @@ export default function SplashScreen({ navigation }) {
       const dataPayment = await adapter.getDataPayment(nim);
       const dataBeasiswa = await adapter.getDataBeasiswa(nim);
       const dataMhs = await adapter.getDataMhsbyNIM(nim);
+      const allDataKHS = {};
 
       const loginAllowed =
         dataAuth.loginDate &&
@@ -56,6 +57,24 @@ export default function SplashScreen({ navigation }) {
         dispatch(setYearnSmt(dataYear));
         dispatch(setDataPayment(dataPayment));
         dispatch(setDataBeasiswa(dataBeasiswa));
+
+        if (Array.isArray(dataYear)) {
+          for (const item of dataYear) {
+            const { year, semesters } = item;
+            if (Array.isArray(semesters)) {
+              for (const sem of semesters) {
+                const dataKHS = await adapter.getDataKHS(
+                  nim,
+                  year,
+                  sem
+                );
+                allDataKHS[`${year}-${sem}`] = dataKHS;
+              }
+            }
+          }
+        }
+
+        dispatch(setNilaiKHS(allDataKHS));
         navigation.replace("Main");
       } else {
         dispatch(resetDataAuth());
