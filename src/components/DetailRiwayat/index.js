@@ -25,7 +25,8 @@ export default function DetailRiwayat({ isDenda, data }) {
   const tgl_bayar = data.tgl_bayar;
   const status_bayar = data.status_bayar;
   const metode_pembayaran = data.metode_pembayaran;
-  const [tanggal, waktu] = tgl_bayar.split(" ");
+  const [tanggal, waktu] = tgl_bayar ? tgl_bayar.split(" ") : ["-", "-"];
+  
 
   const beasiswa = dataBeasiswa.data.length > 0 ? true : false;
   let jenisBeasiswa;

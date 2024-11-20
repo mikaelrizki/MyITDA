@@ -17,22 +17,23 @@ import { resetDataMahasiswa } from "../../stores/actions/actionMahasiswa";
 export default function SettingScreen({ navigation }) {
   const [showNotif, setShowNotif] = useState(true);
   const dispatch = useDispatch();
-  const dataMahasiswa = useSelector((state) => state.dataMahasiswa.dataMahasiswaSelected[0]);
+  const dataMahasiswa = useSelector(
+    (state) => state.dataMahasiswa.dataMahasiswaSelected[0]
+  );
+  const [imageError, setImageError] = useState(false);
   return (
     <View
       style={{
         flex: 1,
         backgroundColor: "white",
         alignItems: "center",
-      }}
-    >
+      }}>
       <View
         style={{
           justifyContent: "center",
           alignItems: "center",
           position: "absolute",
-        }}
-      >
+        }}>
         <Image
           source={IMAGES.bgSetting}
           style={{
@@ -47,12 +48,27 @@ export default function SettingScreen({ navigation }) {
             justifyContent: "center",
             alignItems: "center",
             position: "absolute",
-          }}
-        >
+          }}>
           <Image source={IMAGES.bgPic} style={{ width: 194, height: 194 }} />
           <Image
-            source={{ uri: "https://mahasiswa.itda.ac.id/perpus/img/" + dataMahasiswa.path_foto }}
-            style={{ position: "absolute", width: 133, height: 133, borderRadius: 100, }}
+            source={
+              imageError && dataMahasiswa.jenis_kelamin === "L"
+                ? IMAGES.manProfile
+                : imageError && dataMahasiswa.jenis_kelamin === "P"
+                ? IMAGES.womanProfile
+                : {
+                    uri:
+                      "https://mahasiswa.itda.ac.id/perpus/img/" +
+                      dataMahasiswa.path_foto,
+                  }
+            }
+            style={{
+              position: "absolute",
+              width: 133,
+              height: 133,
+              borderRadius: 100,
+            }}
+            onError={() => setImageError(true)}
           />
         </View>
       </View>
@@ -72,8 +88,7 @@ export default function SettingScreen({ navigation }) {
           height: "40%",
           top: SIZES.height / 2.9,
           justifyContent: "space-around",
-        }}
-      >
+        }}>
         <View
           style={[
             SHADOWS.shadowBox,
@@ -85,8 +100,7 @@ export default function SettingScreen({ navigation }) {
               shadowColor: COLORS.primary,
               justifyContent: "space-evenly",
             },
-          ]}
-        >
+          ]}>
           <ItemSetting icon={ICONS.usernameIcon} value={dataMahasiswa.nama} />
           <View
             style={{
@@ -110,8 +124,7 @@ export default function SettingScreen({ navigation }) {
           onPress={() => {
             setShowNotif(!showNotif);
             console.log(showNotif);
-          }}
-        >
+          }}>
           <Image
             source={
               showNotif ? ICONS.notificationSwitch : ICONS.notificationSwitchOff
@@ -148,8 +161,7 @@ export default function SettingScreen({ navigation }) {
           dispatch(resetNilaiKHS());
           dispatch(resetNilaiTranskrip());
           dispatch(resetYearnSmt());
-        }}
-      >
+        }}>
         <Text bold fontsize={SIZES.mediumText} color={COLORS.white}>
           Keluar
         </Text>

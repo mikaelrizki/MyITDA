@@ -24,6 +24,7 @@ export default function MainScreen({ navigation, route }) {
   );
 
   const nama = dataMhs !== undefined ? dataMhs.nama : null;
+  const jenisKelamin = dataMhs !== undefined ? dataMhs.jenis_kelamin : null;
   const profilePic =
     dataMhs !== undefined
       ? "https://mahasiswa.itda.ac.id/perpus/img/" + dataMhs.path_foto
@@ -83,6 +84,7 @@ export default function MainScreen({ navigation, route }) {
         bellIcon={ICONS.iconBellBlue}
         navigation={navigation}
         profilePicture={profilePic}
+        jenisKelamin={jenisKelamin}
       />
       <TabView
         navigationState={{ index, routes }}
