@@ -60,14 +60,13 @@ export default function KhsScreen({ navigation }) {
   }
 
   return (
-    <View style={{ flex: 1, backgroundColor: COLORS.secondary }}>
-      <ImageBackground source={IMAGES.bgDefault} style={{ flex: 1 }}>
+      <ImageBackground source={IMAGES.bgDefault} style={{ flex: 1, padding: SIZES.padding2}}>
         <SecondAppBar label={"KHS/ Hasil Studi"} navigation={navigation} />
-        <ScrollView showsHorizontalScrollIndicator={false}>
-          <View style={STYLES.containerTabView}>
+          <View >
             <FlatList
               data={data}
               keyExtractor={(item) => item?.id}
+              showsVerticalScrollIndicator={false}
               renderItem={({ item }) => (
                 <TouchableOpacity
                   onPress={() => setSelectedData(item?.id)}
@@ -104,9 +103,7 @@ export default function KhsScreen({ navigation }) {
               )}
             />
           </View>
-        </ScrollView>
       </ImageBackground>
-    </View>
   );
 }
 
