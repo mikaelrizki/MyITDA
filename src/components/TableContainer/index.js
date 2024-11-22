@@ -125,8 +125,10 @@ export default function TableContainer({
   const data = processTranscriptData(dataTranskrip);
   const databaru = sortTranscriptData(data);
   const dataYear = processDataTahun(dataYearnSmt);
-  const dataLabels = dataYear?.map((item) => item?.id || null);
   const dataIP = databaru?.map((item) => item?.ip || 0);
+  const dataLabels =
+    dataYear.length > 0 ? dataYear?.map((item, index) => index + 1) : [];
+  const dataSem = dataYear?.map((item) => item?.id || null);
 
   return (
     <View style={LOKAL_STYLES.tableCons}>
@@ -163,7 +165,7 @@ export default function TableContainer({
                 </>
               );
             case "chart":
-              return <Chart labels={dataLabels} ip={dataIP} />;
+              return <Chart labels={dataLabels} ip={dataIP} sem={dataSem} />;
             case "transkrip":
               return <TableTranskrip judul={transkrip} />;
             default:

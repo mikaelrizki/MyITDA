@@ -1,9 +1,9 @@
-import { Dimensions, StyleSheet,} from "react-native";
-import React from "react";
+import { Dimensions, StyleSheet } from "react-native";
+import React, { useState } from "react";
 import { LineChart } from "react-native-chart-kit";
 import { COLORS, SIZES } from "../../styles";
 
-export default function Chart({ labels, ip }) {
+export default function Chart({ labels, ip, sem }) {
   const screenWidth = Dimensions.get("window").width;
   const chartConfig = {
     backgroundColor: COLORS.secondary,
@@ -13,22 +13,19 @@ export default function Chart({ labels, ip }) {
     color: (opacity = 1) => `rgba(0, 0, 0, ${opacity})`,
     labelColor: (opacity = 1) => `rgba(0, 0, 0, ${opacity})`,
     style: {
-      borderRadius: 16,
+      borderRadius: 10,
     },
     propsForBackgroundLines: {
       stroke: "#cccccc",
-      strokeDasharray: "",
     },
     propsForVerticalLabels: {
       fontSize: SIZES.extraSmallText,
+      fontWeight: "bold"
     },
     propsForHorizontalLabels: {
       fontSize: SIZES.extraSmallText,
+      fontWeight: "bold"
     },
-  };
-
-  handleDataPointClick = () => {
-    console.log("harus e keluar ip dan semester");
   };
 
   return (
@@ -43,18 +40,17 @@ export default function Chart({ labels, ip }) {
           },
         ],
       }}
-      width={screenWidth * 0.83}
+      width={screenWidth * 0.9}
       height={300}
       fromZero={true}
       withShadow={false}
       yAxisSuffix=""
-      yAxisInterval={0.5}
-      segments={8}
+      yAxisInterval={1}
+      segments={4}
       yAxisMax={4.0}
       chartConfig={chartConfig}
       bezier={false}
       style={LOKAL_STYLES.chartStyle}
-      onDataPointClick={() => this.handleDataPointClick()}
     />
   );
 }
