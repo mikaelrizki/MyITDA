@@ -118,7 +118,7 @@ export default {
       );
       const dataYear = response.data["data"];
       const structuredData = [];
-  
+
       dataYear?.forEach((item) => {
         const yearEntry = structuredData.find(
           (entry) => entry.year === item.kd_ta
@@ -134,15 +134,15 @@ export default {
           });
         }
       });
-  
+
       structuredData.sort((a, b) => a.year - b.year);
-  
+
       const loginDate = new Date();
-      const currentMonth = loginDate.getMonth() + 1; 
-  
+      const currentMonth = loginDate.getMonth() + 1;
+
       if (structuredData.length > 0) {
         const lastYearData = structuredData[structuredData.length - 1];
-  
+
         if (currentMonth >= 7 && currentMonth <= 12) {
           structuredData.push({
             year: (parseInt(lastYearData.year) + 1).toString(),
@@ -167,11 +167,11 @@ export default {
           });
         }
       }
-  
+
       console.log("[API] getYearnSMT", structuredData);
       return structuredData;
     } catch (error) {
       console.error("[API] GetDataYear error", error);
     }
-  },  
+  },
 };

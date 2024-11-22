@@ -6,7 +6,11 @@ import { SIZES, STYLES } from "../../styles";
 import { useDispatch, useSelector } from "react-redux";
 import { resetDataAuth } from "../../stores/actions/actionAuth";
 import adapter from "../../services/adapter";
-import { resetNilaiKHS, setNilaiKHS, setYearnSmt } from "../../stores/actions/actionKHS";
+import {
+  resetNilaiKHS,
+  setNilaiKHS,
+  setYearnSmt,
+} from "../../stores/actions/actionKHS";
 import {
   resetNilaiTranskrip,
   setNilaiTranskrip,
@@ -63,11 +67,7 @@ export default function SplashScreen({ navigation }) {
             const { year, semesters } = item;
             if (Array.isArray(semesters)) {
               for (const sem of semesters) {
-                const dataKHS = await adapter.getDataKHS(
-                  nim,
-                  year,
-                  sem
-                );
+                const dataKHS = await adapter.getDataKHS(nim, year, sem);
                 allDataKHS[`${year}-${sem}`] = dataKHS;
               }
             }
@@ -109,7 +109,8 @@ export default function SplashScreen({ navigation }) {
         regular
         fontsize={SIZES.smallText}
         padVertical={0}
-        style={{ marginBottom: 120 }}>
+        style={{ marginBottom: 120 }}
+      >
         Student Portal Apps of{"\n"}Institut Teknologi Dirgantara Adisutjipto
       </Text>
     </ImageBackground>

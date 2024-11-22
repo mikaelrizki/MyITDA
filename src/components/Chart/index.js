@@ -20,11 +20,11 @@ export default function Chart({ labels, ip, sem }) {
     },
     propsForVerticalLabels: {
       fontSize: SIZES.extraSmallText,
-      fontWeight: "bold"
+      fontWeight: "bold",
     },
     propsForHorizontalLabels: {
       fontSize: SIZES.extraSmallText,
-      fontWeight: "bold"
+      fontWeight: "bold",
     },
   };
 

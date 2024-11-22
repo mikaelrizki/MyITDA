@@ -27,13 +27,15 @@ export default function SettingScreen({ navigation }) {
         flex: 1,
         backgroundColor: "white",
         alignItems: "center",
-      }}>
+      }}
+    >
       <View
         style={{
           justifyContent: "center",
           alignItems: "center",
           position: "absolute",
-        }}>
+        }}
+      >
         <Image
           source={IMAGES.bgSetting}
           style={{
@@ -48,7 +50,8 @@ export default function SettingScreen({ navigation }) {
             justifyContent: "center",
             alignItems: "center",
             position: "absolute",
-          }}>
+          }}
+        >
           <Image source={IMAGES.bgPic} style={{ width: 194, height: 194 }} />
           <Image
             source={
@@ -88,7 +91,8 @@ export default function SettingScreen({ navigation }) {
           height: "40%",
           top: SIZES.height / 2.9,
           justifyContent: "space-around",
-        }}>
+        }}
+      >
         <View
           style={[
             SHADOWS.shadowBox,
@@ -100,7 +104,8 @@ export default function SettingScreen({ navigation }) {
               shadowColor: COLORS.primary,
               justifyContent: "space-evenly",
             },
-          ]}>
+          ]}
+        >
           <ItemSetting icon={ICONS.usernameIcon} value={dataMahasiswa.nama} />
           <View
             style={{
@@ -124,7 +129,8 @@ export default function SettingScreen({ navigation }) {
           onPress={() => {
             setShowNotif(!showNotif);
             console.log(showNotif);
-          }}>
+          }}
+        >
           <Image
             source={
               showNotif ? ICONS.notificationSwitch : ICONS.notificationSwitchOff
@@ -161,7 +167,8 @@ export default function SettingScreen({ navigation }) {
           dispatch(resetNilaiKHS());
           dispatch(resetNilaiTranskrip());
           dispatch(resetYearnSmt());
-        }}>
+        }}
+      >
         <Text bold fontsize={SIZES.mediumText} color={COLORS.white}>
           Keluar
         </Text>

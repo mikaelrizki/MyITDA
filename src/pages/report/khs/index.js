@@ -60,48 +60,53 @@ export default function KhsScreen({ navigation }) {
   }
 
   return (
-      <ImageBackground source={IMAGES.bgDefault} style={{ flex: 1, padding: SIZES.padding2}}>
-        <SecondAppBar label={"KHS/ Hasil Studi"} navigation={navigation} />
-            <FlatList
-              data={data}
-              keyExtractor={(item) => item?.id}
-              showsVerticalScrollIndicator={false}
-              renderItem={({ item }) => (
-                <TouchableOpacity
-                  onPress={() => setSelectedData(item?.id)}
-                  activeOpacity={1}
-                  style={[{ opacity: selectedData === item.id ? 1 : 2 }]}
+    <ImageBackground
+      source={IMAGES.bgDefault}
+      style={{ flex: 1, padding: SIZES.padding2 }}
+    >
+      <SecondAppBar label={"KHS/ Hasil Studi"} navigation={navigation} />
+      <FlatList
+        data={data}
+        keyExtractor={(item) => item?.id}
+        showsVerticalScrollIndicator={false}
+        renderItem={({ item }) => (
+          <TouchableOpacity
+            onPress={() => setSelectedData(item?.id)}
+            activeOpacity={1}
+            style={[{ opacity: selectedData === item.id ? 1 : 2 }]}
+          >
+            <View style={LOKAL_STYLES.tableCons}>
+              <View style={LOKAL_STYLES.titleCons}>
+                <Image
+                  source={ICONS.bookmark}
+                  style={{ width: 27, height: 27 }}
+                  resizeMode="contain"
+                />
+                <Text
+                  fontsize={SIZES.mediumText}
+                  color={COLORS.white}
+                  paddingHorizontal={SIZES.padding2}
                 >
-                  <View style={LOKAL_STYLES.tableCons}>
-                    <View style={LOKAL_STYLES.titleCons}>
-                      <Image
-                        source={ICONS.bookmark}
-                        style={{ width: 27, height: 27 }}
-                        resizeMode="contain"
-                      />
-                      <Text
-                        fontsize={SIZES.mediumText}
-                        color={COLORS.white}
-                        paddingHorizontal={SIZES.padding2}
-                      >
-                        {item?.title || null}
-                      </Text>
-                      <Image
-                        source={ICONS.arrowDown}
-                        style={LOKAL_STYLES.inputIcon}
-                      />
-                    </View>
+                  {item?.title || null}
+                </Text>
+                <Image
+                  source={
+                    selectedData === item?.id ? ICONS.arrowUp : ICONS.arrowDown
+                  }
+                  style={LOKAL_STYLES.inputIcon}
+                />
+              </View>
 
-                    {selectedData === item?.id && (
-                      <View style={LOKAL_STYLES.container}>
-                        <TableKhs data={item?.id} />
-                      </View>
-                    )}
-                  </View>
-                </TouchableOpacity>
+              {selectedData === item?.id && (
+                <View style={LOKAL_STYLES.container}>
+                  <TableKhs data={item?.id} />
+                </View>
               )}
-            />
-      </ImageBackground>
+            </View>
+          </TouchableOpacity>
+        )}
+      />
+    </ImageBackground>
   );
 }
 

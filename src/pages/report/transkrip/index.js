@@ -69,7 +69,7 @@ export default function TranskripScreen({ navigation }) {
           </View>
         </View>
       </View>
-      <ScrollView showsHorizontalScrollIndicator={false}>
+      <ScrollView showsVerticalScrollIndicator={false}>
         <TableContainer
           title={"MATAKULIAH WAJIB"}
           displayOption={"transkrip"}
