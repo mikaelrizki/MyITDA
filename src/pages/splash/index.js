@@ -39,23 +39,21 @@ export default function SplashScreen({ navigation }) {
     const fetchData = async () => {
       const nim = dataAuth.dataLogin.nim;
       const password = dataAuth.dataLogin.password;
-
       const isAuth = await adapter.getAuth(nim, password);
-      const dataMhsAll = await adapter.getDataMahasiswa();
-      const dataTranskrip = await adapter.getDataTranskrip(nim);
-      const dataYear = await adapter.getDataYearnSmt(nim);
-      const dataPayment = await adapter.getDataPayment(nim);
-      const dataBeasiswa = await adapter.getDataBeasiswa(nim);
-      const dataMhs = await adapter.getDataMhsbyNIM(nim);
-      const allDataKHS = {};
 
       const loginAllowed =
         dataAuth.loginDate &&
         new Date() - new Date(dataAuth.loginDate) < 86400000;
-      const mhsAvail = dataMhsAll.find((item) => item.nim === nim);
 
-      if (loginAllowed && isAuth && mhsAvail) {
+      if (loginAllowed && isAuth) {
+        const dataTranskrip = await adapter.getDataTranskrip(nim);
+        const dataYear = await adapter.getDataYearnSmt(nim);
+        const dataPayment = await adapter.getDataPayment(nim);
+        const dataBeasiswa = await adapter.getDataBeasiswa(nim);
+        const dataMhs = await adapter.getDataMhsbyNIM(nim);
         console.log("DATA MHS SELECTED", dataMhs);
+        let allDataKHS = {};
+
         dispatch(setDataMahasiswa(dataMhs));
         dispatch(setNilaiTranskrip(dataTranskrip));
         dispatch(setYearnSmt(dataYear));
@@ -73,7 +71,6 @@ export default function SplashScreen({ navigation }) {
             }
           }
         }
-
         dispatch(setNilaiKHS(allDataKHS));
         navigation.replace("Main");
       } else {
@@ -83,6 +80,7 @@ export default function SplashScreen({ navigation }) {
         dispatch(resetDataBeasiswa());
         dispatch(resetNilaiKHS());
         dispatch(resetNilaiTranskrip());
+        console.log("LOGIN EXPIRED");
         navigation.replace("Auth");
       }
     };

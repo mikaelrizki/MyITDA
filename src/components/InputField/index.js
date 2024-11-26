@@ -3,8 +3,9 @@ import { COLORS, SIZES } from "../../styles";
 
 export default function InputField({
   placeholder,
-  keyboardType = "text",
+  keyboardType = "default",
   isPassword = false,
+  value,
   error,
   rightIcon,
   leftIcon,
@@ -29,6 +30,7 @@ export default function InputField({
         placeholder={placeholder}
         placeholderTextColor={error ? COLORS.warning : COLORS.primary}
         fontFamily={'semiBold'}
+        value={value}
         style={{
           flex: 1,
           color: error ? COLORS.warning : COLORS.primary,
