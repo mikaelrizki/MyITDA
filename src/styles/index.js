@@ -22,6 +22,7 @@ export const COLORS = {
   red: "#D22020",
   softRed: "#E7D2D8",
   babyBlue: "#E3F4FF",
+  softGray: "#F6F6F6",
 };
 
 export const SIZES = {

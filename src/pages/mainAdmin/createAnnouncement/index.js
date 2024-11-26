@@ -1,9 +1,4 @@
-import {
-  Image,
-  ScrollView,
-  TouchableOpacity,
-  View,
-} from "react-native";
+import { Image, ScrollView, TouchableOpacity, View } from "react-native";
 import { COLORS, SIZES } from "../../../styles";
 import Text from "../../../components/Text";
 import ICONS from "../../../assets/icons";
@@ -11,18 +6,22 @@ import InputFieldAdmin from "../../../components/InputFieldAdmin";
 import { useState } from "react";
 import * as DocumentPicker from "expo-document-picker";
 
-export default function CreateAnnouncementScreen({ navigation, openDatePickerRange, startDate, endDate}) {
+export default function CreateAnnouncementScreen({
+  openDatePickerRange,
+  startDate,
+  endDate,
+}) {
   const [selectedDocument, setSelectedDocument] = useState(null);
   const [documentName, setDocumentName] = useState(null);
   const [documentType, setDocumentType] = useState(null);
 
   const pickDocument = async () => {
     const result = await DocumentPicker.getDocumentAsync({
-      type: ["application/pdf", "image/*"],
+      type: ["application/pdf", "image/jpg", "image/jpeg"],
     });
 
     if (result.canceled === false) {
-      if (result.assets[0].size <= 5 * 1024 * 1024) {
+      if (result.assets[0].size <= 10 * 1024 * 1024) {
         setDocumentName(result.assets[0].name);
         setSelectedDocument(result.assets[0].uri);
         if (result.assets[0].mimeType === "application/pdf") {
@@ -32,10 +31,12 @@ export default function CreateAnnouncementScreen({ navigation, openDatePickerRan
         }
       } else {
         alert(
-          "File yang dipilih terlalu besar. Silakan pilih file yang ukurannya kurang dari 5 MB."
+          "File yang dipilih terlalu besar. Silakan pilih file yang ukurannya kurang dari 10 MB."
         );
       }
     }
+
+    console.log(result.assets[0].uri);
   };
 
   const submitForm = async () => {
@@ -57,7 +58,7 @@ export default function CreateAnnouncementScreen({ navigation, openDatePickerRan
         calendar={false}
         style={{ marginTop: 0 }}
       />
-      <View style={{ marginTop: 10}}>
+      <View style={{ marginTop: 10 }}>
         <Text semiBold fontsize={SIZES.mediumText}>
           Tanggal Pengumuman
         </Text>
