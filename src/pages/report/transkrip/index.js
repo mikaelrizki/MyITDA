@@ -105,19 +105,18 @@ const LOKAL_STYLES = StyleSheet.create({
   content: {
     flexDirection: "row",
     justifyContent: "space-evenly",
-    marginVertical: "3%",
+    marginVertical: "2%",
     paddingHorizontal: SIZES.padding2,
   },
   infoContainerSks: {
-    paddingHorizontal: SIZES.padding,
+    paddingHorizontal: 8,
     backgroundColor: COLORS.primary,
     flexDirection: "row",
     borderRadius: 5,
     alignItems: "center",
-    marginLeft: 0,
   },
   infoContainerIpk: {
-    paddingHorizontal: SIZES.padding,
+    paddingHorizontal: 8,
     backgroundColor: COLORS.primary,
     flexDirection: "row",
     borderRadius: 5,
@@ -127,7 +126,7 @@ const LOKAL_STYLES = StyleSheet.create({
   sksContainer: {
     alignItems: "center",
     paddingVertical: 5,
-    paddingLeft: SIZES.padding2,
+    paddingLeft: 5,
   },
   sksBadge: {
     backgroundColor: COLORS.white,

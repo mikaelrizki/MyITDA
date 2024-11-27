@@ -1,5 +1,4 @@
 import { Dimensions, StyleSheet } from "react-native";
-import React, { useState } from "react";
 import { LineChart } from "react-native-chart-kit";
 import { COLORS, SIZES } from "../../styles";
 

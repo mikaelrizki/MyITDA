@@ -17,7 +17,6 @@ import TableKhs from "../../../components/TableKhs";
 
 export default function KhsScreen({ navigation }) {
   const [selectedData, setSelectedData] = useState(null);
-  const [isState, setIsState] = useState(false);
   const dataYearnSmt = useSelector(
     (state) => state.dataKHS?.dataYearnSmt || []
   );
@@ -67,6 +66,10 @@ export default function KhsScreen({ navigation }) {
     );
   }
 
+  const handlePress = (id) => {
+    setSelectedData((prev) => (prev === id ? null : id));
+  };
+
   return (
     <ImageBackground source={IMAGES.bgDefault} style={{ flex: 1 }}>
       <SecondAppBar label={"KHS/ Hasil Studi"} navigation={navigation} />
@@ -77,15 +80,7 @@ export default function KhsScreen({ navigation }) {
         style={{ paddingHorizontal: SIZES.padding2 }}
         renderItem={({ item }) => (
           <TouchableOpacity
-            // onPress={() => setSelectedData(item?.id)}
-            onPress={() => {
-              if (selectedData === item.id) {
-                setIsState(!isState);
-              } else {
-                setSelectedData(item.id);
-                setIsState(true);
-              }
-            }}
+            onPress={() => handlePress(item.id)}
             activeOpacity={1}
             style={[{ opacity: selectedData === item.id ? 1 : 2 }]}
           >
@@ -105,15 +100,13 @@ export default function KhsScreen({ navigation }) {
                 </Text>
                 <Image
                   source={
-                    selectedData === item?.id && isState
-                      ? ICONS.arrowUp
-                      : ICONS.arrowDown
+                    selectedData === item?.id ? ICONS.arrowUp : ICONS.arrowDown
                   }
                   style={LOKAL_STYLES.inputIcon}
                 />
               </View>
 
-              {selectedData === item?.id && isState && (
+              {selectedData === item?.id && (
                 <View style={LOKAL_STYLES.container}>
                   <TableKhs data={item?.id} />
                 </View>
@@ -137,7 +130,6 @@ const LOKAL_STYLES = StyleSheet.create({
     borderRadius: SIZES.radius,
     borderColor: COLORS.primary,
     backgroundColor: COLORS.secondary,
-    justifyContent: "center",
     alignItems: "center",
     marginTop: 24,
     overflow: "hidden",
@@ -158,8 +150,17 @@ const LOKAL_STYLES = StyleSheet.create({
   },
   inputIcon: {
     flex: 1,
-    marginLeft: "32%",
-    height: 35,
+    // paddingLeft: 200,
+    marginLeft: "22%",
+    // justifyContent: "center",
+    // marginLeft: 10,
+    // marginRight: "2%",
+    // paddingRight:5,
+    // alignItems: "flex-end",
+    // alignSelf: "",
+    // alignContent: "space-around",
+    // width: "20%",
+    height: 30,
     resizeMode: "contain",
   },
 });
