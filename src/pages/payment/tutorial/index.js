@@ -16,7 +16,7 @@ export default function Tutorial({ isVisible, onClose }) {
             <Text bold center fontsize={SIZES.LargeText} color={COLORS.black}>Cara Pembayaran SPP</Text>
               <View style={{ marginTop: 5, }}>
                 <View>
-                  <Text bold color={COLORS.primary} fontsize={SIZES.mediumText}>BANK BNI (Transfer VA)</Text>
+                  <Text bold color={COLORS.primary} fontsize={SIZES.mediumText}>Bank BNI (Transfer VA)</Text>
                 </View>
                    <View style={LOCAL_STYLE.bulletItem}>
                       <View style={LOCAL_STYLE.bulletPoint}></View>
@@ -33,7 +33,7 @@ export default function Tutorial({ isVisible, onClose }) {
               </View>     
               <View style={{ marginTop: 5, }}>
                 <View>
-                  <Text bold color={COLORS.primary} fontsize={SIZES.mediumText}>BANK Mandiri (Transfer VA)</Text>
+                  <Text bold color={COLORS.primary} fontsize={SIZES.mediumText}>Bank Mandiri (Transfer VA)</Text>
                 </View>
                    <View style={LOCAL_STYLE.bulletItem}>
                       <View style={LOCAL_STYLE.bulletPoint}></View>
@@ -50,7 +50,7 @@ export default function Tutorial({ isVisible, onClose }) {
               </View>     
               <View style={{ marginTop: 5, }}>
                 <View>
-                  <Text bold color={COLORS.primary} fontsize={SIZES.mediumText}>BANK Lain (Transfer VA)</Text>
+                  <Text bold color={COLORS.primary} fontsize={SIZES.mediumText}>Bank Lain (Transfer Bank Lain)</Text>
                 </View>
                    <View style={LOCAL_STYLE.bulletItem}>
                       <View style={LOCAL_STYLE.bulletPoint}></View>
