@@ -93,6 +93,7 @@ export default function AppBar({
               borderWidth: 3,
               borderColor: COLORS.primary,
               borderRadius: 25,
+              backgroundColor: COLORS.white,
             }}
             onError={() => setImageError(true)}
           />
