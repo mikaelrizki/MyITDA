@@ -106,7 +106,7 @@ export default function SettingScreen({ navigation }) {
             },
           ]}
         >
-          <ItemSetting icon={ICONS.usernameIcon} value={dataMahasiswa.nama} />
+          <ItemSetting icon={ICONS.usernameIcon} value={"Nathanaeliano Michaelafidef Kiki Meme"} />
           <View
             style={{
               borderWidth: 0.5,
