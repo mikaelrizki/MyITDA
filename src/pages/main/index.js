@@ -1,15 +1,17 @@
-import { ImageBackground, View } from "react-native";
+import { ImageBackground } from "react-native";
 import IMAGES from "../../assets/images";
 import { COLORS, SIZES } from "../../styles";
 import AppBar from "../../components/AppBar";
 import ICONS from "../../assets/icons";
 import { useState } from "react";
 import { SceneMap, TabBar, TabView } from "react-native-tab-view";
-import Text from "../../components/Text";
 import Home from "../home";
 import Payment from "../payment";
 import ReportScreen from "../report";
 import { useSelector } from "react-redux";
+import HomeMenu from "../../assets/icons/homeMenu";
+import ReportMenu from "../../assets/icons/reportMenu";
+import PaymentMenu from "../../assets/icons/paymentMenu";
 
 export default function MainScreen({ navigation, route }) {
   const [index, setIndex] = useState(0);
@@ -51,27 +53,18 @@ export default function MainScreen({ navigation, route }) {
         }}
         indicatorStyle={{ backgroundColor: COLORS.transparent }}
         pressColor="transparent"
-        renderLabel={({ route, focused, color }) => (
-          <View
-            style={{
-              width: 35,
-              height: 35,
-              marginLeft: route.title === "Home" ? 28 : 0,
-              marginRight: route.title === "Payment" ? 28 : 0,
-              backgroundColor: focused ? COLORS.white : COLORS.primary,
-              borderRadius: SIZES.bigRadius,
-              justifyContent: "center",
-              alignItems: "center",
-            }}>
-            <Text
-              bold
-              color={focused ? COLORS.primary : COLORS.white}
-              fontsize={SIZES.LargeText}
-              padVertical={0}>
-              A
-            </Text>
-          </View>
-        )}
+        renderLabel={({ route, focused }) =>
+          route.title === "Home" ? <HomeMenu
+            circleColor={focused ? COLORS.white : COLORS.primary}
+            pathColor={focused ? COLORS.primary : COLORS.white}
+          /> : route.title === "Report" ? <ReportMenu 
+            circleColor={focused ? COLORS.white : COLORS.primary}
+            pathColor={focused ? COLORS.primary : COLORS.white}
+          /> : <PaymentMenu 
+            circleColor={focused ? COLORS.white : COLORS.primary}
+            pathColor={focused ? COLORS.primary : COLORS.white}
+          />
+        }
       />
     );
   }
