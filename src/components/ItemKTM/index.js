@@ -1,6 +1,6 @@
 import { Image, ImageBackground, View } from "react-native";
 import IMAGES from "../../assets/images";
-import { SIZES } from "../../styles";
+import { COLORS, SIZES } from "../../styles";
 import ItemDataInfoKTM from "../ItemDataInfoKTM";
 import { useState } from "react";
 import QRCode from "react-native-qrcode-svg";
@@ -22,14 +22,14 @@ export default function ItemKTM({
           width: SIZES.full,
           height: undefined,
           aspectRatio: 320 / 164,
-          // justifyContent: 'center'
+          justifyContent: 'center'
         }}
         resizeMode="cover"
       >
         <View
           style={{
-            marginTop: 62,
-            // marginTop: 35,
+            // marginTop: 62,
+            marginTop: 35,
             flexDirection: "row",
             paddingHorizontal: SIZES.padding,
           }}
@@ -59,7 +59,7 @@ export default function ItemKTM({
                 width: "100%",
                 height: "100%",
                 borderRadius: 5,
-                backgroundColor: "gray",
+                backgroundColor: COLORS.white,
               }}
               onError={() => setImageError(true)}
             />
