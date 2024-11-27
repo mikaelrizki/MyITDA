@@ -40,17 +40,18 @@ export default function SplashScreen({ navigation }) {
       const nim = dataAuth.dataLogin.nim;
       const password = dataAuth.dataLogin.password;
       const isAuth = await adapter.getAuth(nim, password);
+      const dataMhs = await adapter.getDataMhsbyNIM(nim);
+      const mhsAvail = dataMhs?.length > 0;
 
       const loginAllowed =
         dataAuth.loginDate &&
         new Date() - new Date(dataAuth.loginDate) < 86400000;
 
-      if (loginAllowed && isAuth) {
+      if (loginAllowed && isAuth && mhsAvail) {
         const dataTranskrip = await adapter.getDataTranskrip(nim);
         const dataYear = await adapter.getDataYearnSmt(nim);
         const dataPayment = await adapter.getDataPayment(nim);
         const dataBeasiswa = await adapter.getDataBeasiswa(nim);
-        const dataMhs = await adapter.getDataMhsbyNIM(nim);
         console.log("DATA MHS SELECTED", dataMhs);
         let allDataKHS = {};
 
