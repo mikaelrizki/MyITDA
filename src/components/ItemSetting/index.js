@@ -3,7 +3,8 @@ import { SIZES } from "../../styles";
 import Text from "../../components/Text";
 
 export default function ItemSetting({ icon, value }) {
-  const words = value.split(" ");
+
+  const words = value ? value.split(" ") : ["-", "-"];
   let formattedValue = value;
 
   if (words.length > 2) {
