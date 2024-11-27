@@ -130,6 +130,10 @@ export default function TableContainer({
     dataYear.length > 0 ? dataYear?.map((item, index) => index + 1) : [];
   const dataSem = dataYear?.map((item) => item?.id || null);
 
+  if (!databaru || !databaru.length) {
+    return [];
+  }
+
   return (
     <View style={LOKAL_STYLES.tableCons}>
       <View style={LOKAL_STYLES.titleCons}>
