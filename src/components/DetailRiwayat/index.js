@@ -51,7 +51,7 @@ export default function DetailRiwayat({ isDenda, data }) {
         <RowRiwayat
           dataKey={"Tagihan"}
           dataValue={formatRupiah(total_harga)}
-          color={COLORS.danger}
+          color={COLORS.black}
         />
       )}
       
@@ -72,7 +72,7 @@ export default function DetailRiwayat({ isDenda, data }) {
       <RowRiwayat
         dataKey={"Total Tagihan"}
         dataValue={beasiswa ? "Rp 0" : formatRupiah(total_tagihan)}
-        color={total_denda > 0 || beasiswa ? COLORS.black : COLORS.danger}
+        color={COLORS.black}
       />
       {!beasiswa && (
         <RowRiwayat
