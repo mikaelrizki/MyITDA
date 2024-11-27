@@ -26,7 +26,7 @@ export default function ReportScreen({ navigation }) {
         }}
       />
       <ButtonNilai
-        value="Daftar Nilai"
+        value="Transkrip"
         next
         backgroundColor
         color

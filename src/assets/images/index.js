@@ -15,6 +15,7 @@ const IMAGES = {
   imageDetailAnnouncement: require("./imageDetailAnnouncement.png"),
   bgSetting: require("./bgSetting.png"),
   bgPic: require("./bgPic.png"),
+  logoKosongNilai: require("./logo_seru.png"),
 };
 
 export default IMAGES;

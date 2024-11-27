@@ -1,4 +1,10 @@
-import { ImageBackground, ScrollView, StyleSheet, View } from "react-native";
+import {
+  Image,
+  ImageBackground,
+  ScrollView,
+  StyleSheet,
+  View,
+} from "react-native";
 import React from "react";
 import TableContainer from "../../../components/TableContainer";
 import Text from "../../../components/Text";
@@ -12,6 +18,26 @@ export default function TranskripScreen({ navigation }) {
     (state) => state.dataTranskrip?.dataTranskrip || []
   );
 
+  if (!dataTranskrip || !dataTranskrip.length) {
+    return (
+      <View style={{ flex: 1, backgroundColor: COLORS.secondary }}>
+        <ImageBackground source={IMAGES.bgDefault} style={{ flex: 1 }}>
+          <SecondAppBar label={"Transkrip"} navigation={navigation} />
+          <View style={STYLES.container}>
+            <Image
+              source={IMAGES.logoKosongNilai}
+              style={{ width: 150, height: 150 }}
+              resizeMode="contain"
+            />
+            <Text color={COLORS.black} fontsize={SIZES.mediumText} bold center>
+              Maaf, Data Transkrip Anda Tidak Tersedia!
+            </Text>
+          </View>
+        </ImageBackground>
+      </View>
+    );
+  }
+
   const totalSks =
     dataTranskrip?.reduce((total, item) => total + parseInt(item.sks_mk), 0) ||
     0;
@@ -24,24 +50,8 @@ export default function TranskripScreen({ navigation }) {
 
   const ips = totalSks ? (totalKualitas / totalSks).toFixed(2) : 0;
 
-  if (!dataTranskrip || !dataTranskrip.length) {
-    return (
-      <View style={{ flex: 1, backgroundColor: COLORS.secondary }}>
-        <ImageBackground source={IMAGES.bgDefault} style={{ flex: 1 }}>
-          <SecondAppBar label={"Transkrip"} navigation={navigation} />
-          <Text color={COLORS.primary} fontsize={SIZES.mediumText} bold center>
-            Maaf, Data Transkrip Anda Tidak Tersedia
-          </Text>
-        </ImageBackground>
-      </View>
-    );
-  }
-
   return (
-    <ImageBackground
-      source={IMAGES.bgDefault}
-      style={{ flex: 1, padding: SIZES.padding2 }}
-    >
+    <ImageBackground source={IMAGES.bgDefault} style={{ flex: 1 }}>
       <SecondAppBar label={"Transkrip"} navigation={navigation} />
       <View style={LOKAL_STYLES.content}>
         <View style={LOKAL_STYLES.infoContainerSks}>
@@ -69,7 +79,10 @@ export default function TranskripScreen({ navigation }) {
           </View>
         </View>
       </View>
-      <ScrollView showsVerticalScrollIndicator={false}>
+      <ScrollView
+        showsVerticalScrollIndicator={false}
+        style={{ paddingHorizontal: SIZES.padding2 }}
+      >
         <TableContainer
           title={"MATAKULIAH WAJIB"}
           displayOption={"transkrip"}
@@ -93,6 +106,7 @@ const LOKAL_STYLES = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "space-evenly",
     marginVertical: "3%",
+    paddingHorizontal: SIZES.padding2,
   },
   infoContainerSks: {
     paddingHorizontal: SIZES.padding,

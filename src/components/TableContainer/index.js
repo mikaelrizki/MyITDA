@@ -194,7 +194,7 @@ const LOKAL_STYLES = StyleSheet.create({
     paddingLeft: SIZES.padding2,
     backgroundColor: COLORS.primary,
     paddingVertical: "5",
-    borderRadius: SIZES.radius,
+    borderRadius: 9,
     flexDirection: "row",
     alignItems: "center",
   },

@@ -10,13 +10,14 @@ import { COLORS, SIZES, STYLES } from "../../../styles";
 import IMAGES from "../../../assets/images";
 import ICONS from "../../../assets/icons";
 import SecondAppBar from "../../../components/SecondAppBar";
-import { useDispatch, useSelector } from "react-redux";
-import { ScrollView, TouchableOpacity } from "react-native-gesture-handler";
+import { useSelector } from "react-redux";
+import { TouchableOpacity } from "react-native-gesture-handler";
 import Text from "../../../components/Text";
 import TableKhs from "../../../components/TableKhs";
 
 export default function KhsScreen({ navigation }) {
   const [selectedData, setSelectedData] = useState(null);
+  const [isState, setIsState] = useState(false);
   const dataYearnSmt = useSelector(
     (state) => state.dataKHS?.dataYearnSmt || []
   );
@@ -51,27 +52,40 @@ export default function KhsScreen({ navigation }) {
       <View style={{ flex: 1, backgroundColor: COLORS.secondary }}>
         <ImageBackground source={IMAGES.bgDefault} style={{ flex: 1 }}>
           <SecondAppBar label={"KHS/ Hasil Studi"} navigation={navigation} />
-          <Text color={COLORS.primary} fontsize={SIZES.mediumText} bold center>
-            Maaf, Data KHS Anda Tidak Tersedia
-          </Text>
+          <View style={STYLES.container}>
+            <Image
+              source={IMAGES.logoKosongNilai}
+              style={{ width: 150, height: 150 }}
+              resizeMode="contain"
+            />
+            <Text color={COLORS.black} fontsize={SIZES.mediumText} bold center>
+              Maaf, Data KHS Anda Tidak Tersedia!
+            </Text>
+          </View>
         </ImageBackground>
       </View>
     );
   }
 
   return (
-    <ImageBackground
-      source={IMAGES.bgDefault}
-      style={{ flex: 1, padding: SIZES.padding2 }}
-    >
+    <ImageBackground source={IMAGES.bgDefault} style={{ flex: 1 }}>
       <SecondAppBar label={"KHS/ Hasil Studi"} navigation={navigation} />
       <FlatList
         data={data}
         keyExtractor={(item) => item?.id}
         showsVerticalScrollIndicator={false}
+        style={{ paddingHorizontal: SIZES.padding2 }}
         renderItem={({ item }) => (
           <TouchableOpacity
-            onPress={() => setSelectedData(item?.id)}
+            // onPress={() => setSelectedData(item?.id)}
+            onPress={() => {
+              if (selectedData === item.id) {
+                setIsState(!isState);
+              } else {
+                setSelectedData(item.id);
+                setIsState(true);
+              }
+            }}
             activeOpacity={1}
             style={[{ opacity: selectedData === item.id ? 1 : 2 }]}
           >
@@ -91,13 +105,15 @@ export default function KhsScreen({ navigation }) {
                 </Text>
                 <Image
                   source={
-                    selectedData === item?.id ? ICONS.arrowUp : ICONS.arrowDown
+                    selectedData === item?.id && isState
+                      ? ICONS.arrowUp
+                      : ICONS.arrowDown
                   }
                   style={LOKAL_STYLES.inputIcon}
                 />
               </View>
 
-              {selectedData === item?.id && (
+              {selectedData === item?.id && isState && (
                 <View style={LOKAL_STYLES.container}>
                   <TableKhs data={item?.id} />
                 </View>
@@ -131,7 +147,7 @@ const LOKAL_STYLES = StyleSheet.create({
     paddingLeft: SIZES.padding2,
     backgroundColor: COLORS.primary,
     paddingVertical: "5",
-    borderRadius: SIZES.radius,
+    borderRadius: 9,
     flexDirection: "row",
     alignItems: "center",
   },
