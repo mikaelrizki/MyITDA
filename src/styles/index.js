@@ -14,7 +14,7 @@ export const COLORS = {
   lightWarning: "#FFEBEB",
   danger: "#FF6B6B",
   success: "#88C097",
-  darkGray: "#8C8C8C",
+  darkGray: "#4f4f4f",
   lightGray: "#D5D5D5",
   darkBlue: "#005388",
   softBlue: "#BFE2F8",
