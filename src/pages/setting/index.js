@@ -74,6 +74,7 @@ export default function SettingScreen({ navigation }) {
               width: 133,
               height: 133,
               borderRadius: 100,
+              backgroundColor: COLORS.white,
             }}
             onError={() => setImageError(true)}
           />
@@ -119,7 +120,7 @@ export default function SettingScreen({ navigation }) {
           <ItemSetting icon={ICONS.nimIcon} value={nim} />
         </View>
 
-        <TouchableOpacity
+        {/* <TouchableOpacity
           style={{
             width: "65%",
             flexDirection: "row",
@@ -141,7 +142,7 @@ export default function SettingScreen({ navigation }) {
           <Text bold fontsize={SIZES.smallText} style={{ paddingLeft: 20 }}>
             Notifikasi
           </Text>
-        </TouchableOpacity>
+        </TouchableOpacity> */}
       </View>
       <TouchableOpacity
         activeOpacity={0.87}

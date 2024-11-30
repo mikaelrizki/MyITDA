@@ -26,7 +26,7 @@ export default function ItemSetting({ icon, value }) {
       }}>
       <Image source={icon} style={{ width: 30, height: 29 }} />
       <Text bold fontsize={SIZES.smallText} style={{ paddingLeft: 20, paddingRight: 40, }}>
-        {formattedValue}
+        {formattedValue !== null ? formattedValue : "-"}
       </Text>
     </View>
   );
