@@ -51,7 +51,7 @@ export default function KhsScreen({ navigation }) {
       <View style={{ flex: 1, backgroundColor: COLORS.secondary }}>
         <ImageBackground source={IMAGES.bgDefault} style={{ flex: 1 }}>
           <SecondAppBar label={"KHS/ Hasil Studi"} navigation={navigation} />
-          <View style={STYLES.container}>
+          <View style={LOKAL_STYLES.ContainerKosong}>
             <Image
               source={IMAGES.logoKosongNilai}
               style={{ width: 150, height: 150 }}
@@ -120,10 +120,6 @@ export default function KhsScreen({ navigation }) {
 }
 
 const LOKAL_STYLES = StyleSheet.create({
-  container: {
-    flex: 1,
-    padding: SIZES.padding,
-  },
   tableCons: {
     width: SIZES.full,
     borderWidth: 1,
@@ -150,17 +146,15 @@ const LOKAL_STYLES = StyleSheet.create({
   },
   inputIcon: {
     flex: 1,
-    // paddingLeft: 200,
     marginLeft: "22%",
-    // justifyContent: "center",
-    // marginLeft: 10,
-    // marginRight: "2%",
-    // paddingRight:5,
-    // alignItems: "flex-end",
-    // alignSelf: "",
-    // alignContent: "space-around",
-    // width: "20%",
     height: 30,
     resizeMode: "contain",
+  },
+  ContainerKosong: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+    padding: SIZES.padding2,
+    marginBottom: "25%",
   },
 });

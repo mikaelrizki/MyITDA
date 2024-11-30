@@ -23,7 +23,7 @@ export default function TranskripScreen({ navigation }) {
       <View style={{ flex: 1, backgroundColor: COLORS.secondary }}>
         <ImageBackground source={IMAGES.bgDefault} style={{ flex: 1 }}>
           <SecondAppBar label={"Transkrip"} navigation={navigation} />
-          <View style={STYLES.container}>
+          <View style={LOKAL_STYLES.container}>
             <Image
               source={IMAGES.logoKosongNilai}
               style={{ width: 150, height: 150 }}
@@ -101,6 +101,10 @@ export default function TranskripScreen({ navigation }) {
 const LOKAL_STYLES = StyleSheet.create({
   container: {
     flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+    padding: SIZES.padding2,
+    marginBottom: "25%"
   },
   content: {
     flexDirection: "row",
