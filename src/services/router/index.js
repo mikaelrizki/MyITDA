@@ -1,5 +1,8 @@
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { BottomSheetModalProvider } from "@gorhom/bottom-sheet";
+import { useSelector } from "react-redux";
+import { useEffect } from "react";
+import { useNavigation } from "@react-navigation/native";
 import SplashScreen from "../../pages/splash";
 import AuthScreen from "../../pages/auth";
 import Riwayat from "../../pages/payment/riwayat";
@@ -15,6 +18,18 @@ import MainAdminScreen from "../../pages/mainAdmin";
 const Stack = createNativeStackNavigator();
 
 export default function Router() {
+  const dataAuth = useSelector((state) => state.dataAuth);
+  const navigation = useNavigation();
+
+  useEffect(() => {
+    // MIDDLEWARE AUTH: Redirect to Auth screen if dataAuth is null
+    if (!dataAuth.loginDate) {
+      navigation.reset({
+        index: 0,
+        routes: [{ name: "Auth" }],
+      });
+    }
+  }, [dataAuth, navigation]);
   return (
     <BottomSheetModalProvider>
       <Stack.Navigator
