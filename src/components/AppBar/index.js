@@ -23,11 +23,9 @@ export default function AppBar({
         alignItems: "center",
         marginTop: SBHeight,
         marginHorizontal: 20,
-      }}>
-      <TouchableOpacity
-        activeOpacity={0.7}
-        style={{ height: 47, width: 47 }}
-        onPress={() => navigation.navigate("MainAdmin")}>
+      }}
+    >
+      <View style={{ height: 47, width: 47 }}>
         <Image
           source={IMAGES.logoITDA}
           style={{
@@ -35,7 +33,7 @@ export default function AppBar({
             height: 47,
           }}
         />
-      </TouchableOpacity>
+      </View>
 
       <View
         style={{
@@ -43,7 +41,8 @@ export default function AppBar({
           height: 50,
           paddingLeft: 5,
           justifyContent: "center",
-        }}>
+        }}
+      >
         <Text regular fontsize={SIZES.smallText} padVertical={0}>
           Selamat Datang di MyITDA,
         </Text>
@@ -52,7 +51,9 @@ export default function AppBar({
           fontsize={SIZES.smallText}
           color={COLORS.darkBlue}
           padVertical={0}
-          style={{ textTransform: "capitalize" }}>
+          style={{ textTransform: "capitalize", marginRight: 20 }}
+          numberOfLines={1}
+        >
           {username}
         </Text>
       </View>
@@ -71,14 +72,16 @@ export default function AppBar({
             borderRadius: 45,
           },
         ]}
-        onPress={() => navigation.navigate("Announcement")}>
+        onPress={() => navigation.navigate("Announcement")}
+      >
         <Image source={bellIcon} style={{ width: 20, height: 21 }} />
       </TouchableOpacity>
 
       <View>
         <TouchableOpacity
           activeOpacity={0.7}
-          onPress={() => navigation.navigate("Setting")}>
+          onPress={() => navigation.navigate("Setting")}
+        >
           <Image
             source={
               imageError && jenisKelamin === "L"

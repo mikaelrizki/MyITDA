@@ -20,11 +20,7 @@ export default function ThirdAppBar({ navigation }) {
         marginHorizontal: 20,
       }}
     >
-      <TouchableOpacity
-        activeOpacity={0.7}
-        style={{ height: 47, width: 47 }}
-        onPress={() => navigation.navigate("MainAdmin")}
-      >
+      <View style={{ height: 47, width: 47 }}>
         <Image
           source={IMAGES.logoITDA}
           style={{
@@ -32,7 +28,7 @@ export default function ThirdAppBar({ navigation }) {
             height: 47,
           }}
         />
-      </TouchableOpacity>
+      </View>
 
       <View
         style={{
