@@ -1,11 +1,15 @@
-import { Image, ImageBackground, ScrollView, View } from "react-native";
+import { View } from "react-native";
 import ItemAnnouncement from "../../../components/ItemAnnouncement";
 import { SIZES } from "../../../styles";
 import { FlatList } from "react-native-gesture-handler";
 import { useEffect, useState } from "react";
 import adapter from "../../../services/adapter";
+import { Alert } from "react-native";
 
-export default function ListAnnouncementScreen({ openDetailAnnouncement, setSelectedData }) {
+export default function ListAnnouncementScreen({
+  openDetailAnnouncement,
+  setSelectedData,
+}) {
   const [data, setData] = useState([]);
 
   useEffect(() => {
@@ -65,6 +69,35 @@ export default function ListAnnouncementScreen({ openDetailAnnouncement, setSele
             onPress={() => {
               openDetailAnnouncement();
               setSelectedData(item);
+            }}
+            onAdmin
+            onPressDelete={() => {
+              Alert.alert(
+                "Konfirmasi",
+                "Apakah Anda yakin ingin menghapus pengumuman ini?",
+                [
+                  {
+                    text: "Batal",
+                    style: "cancel",
+                  },
+                  {
+                    text: "Hapus",
+                    onPress: async () => {
+                      await adapter.deleteAnnouncement(item.id);
+                      setData(
+                        data.filter(
+                          (announcement) => announcement.id !== item.id
+                        )
+                      );
+                      Alert.alert("Pemberitahuan","Pengumuman berhasil dihapus");
+                    },
+                    style: "destructive",
+                  },
+                ],
+                { cancelable: true }
+              );
+
+              console.log("Delete", item.id);
             }}
           />
         )}

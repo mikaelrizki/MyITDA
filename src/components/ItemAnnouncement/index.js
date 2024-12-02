@@ -11,6 +11,8 @@ export default function ItemAnnouncement({
   announcementFileName,
   announcementFileType,
   onPress,
+  onAdmin = false,
+  onPressDelete,
 }) {
   return (
     <TouchableOpacity
@@ -66,30 +68,67 @@ export default function ItemAnnouncement({
       <View
         style={{
           flexDirection: "row",
-          width: "47%",
-          height: 28,
-          borderColor: COLORS.lightBlue,
-          borderWidth: 0.5,
+          justifyContent: "space-between",
           alignItems: "center",
-          borderRadius: 50,
-          paddingLeft: 10,
-          paddingRight: 15,
+          width: "100%",
         }}
       >
-        <Image
-          source={announcementFileType == "pdf" ? ICONS.iconPDF : ICONS.imgFile}
-          resizeMode="center"
-          style={{ width: 19, height: 19, marginRight: 6 }}
-        />
-        <Text
-          medium
-          fontsize={SIZES.extraSmallText}
-          padVertical={0}
-          style={{ color: COLORS.lightBlue, marginRight: 8 }}
-          numberOfLines={1}
+        <View
+          style={{
+            flexDirection: "row",
+            width: "47%",
+            height: 28,
+            borderColor: COLORS.lightBlue,
+            borderWidth: 0.5,
+            alignItems: "center",
+            borderRadius: 50,
+            paddingLeft: 10,
+            paddingRight: 15,
+          }}
         >
-          {announcementFileName}
-        </Text>
+          <Image
+            source={
+              announcementFileType == "pdf" ? ICONS.iconPDF : ICONS.imgFile
+            }
+            resizeMode="center"
+            style={{
+              width: announcementFileType == "pdf" ? 19 : 14,
+              height: 19,
+              marginRight: 6,
+            }}
+          />
+          <Text
+            medium
+            fontsize={SIZES.extraSmallText}
+            padVertical={0}
+            style={{ color: COLORS.lightBlue, flex: 1 }}
+            numberOfLines={1}
+          >
+            {announcementFileName}
+          </Text>
+        </View>
+        {onAdmin && <TouchableOpacity
+          onPress={onPressDelete}
+          style={{
+            flexDirection: "row",
+            height: 28,
+            backgroundColor: COLORS.warning,
+            alignItems: "center",
+            borderRadius: 50,
+            paddingHorizontal: 15,
+            zIndex: 100,
+          }}
+        >
+          <Text
+            semiBold
+            fontsize={SIZES.extraSmallText}
+            padVertical={0}
+            color={COLORS.white}
+            numberOfLines={1}
+          >
+            Hapus
+          </Text>
+        </TouchableOpacity>}
       </View>
     </TouchableOpacity>
   );

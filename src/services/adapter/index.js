@@ -125,6 +125,18 @@ export default {
     }
   },
 
+  async deleteAnnouncement(id) {
+    try {
+      const response = await axios.get(
+        `https://perpustakaan.itda.ac.id/api/json_hapus_berita.php?id=${id}`
+      );
+      console.log("[API] DeleteAnnouncement", response.data);
+      return response.data;
+    } catch (error) {
+      console.error("[API] DeleteAnnouncement error", error);
+    }
+  },
+
   async getDataBeasiswa(nim) {
     try {
       const response = await axios.get(
