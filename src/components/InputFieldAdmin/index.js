@@ -6,14 +6,16 @@ export default function InputFieldAdmin({
   title,
   content,
   calendar,
+  styles,
   ...props
 }) {
   return (
-    <View style={{ marginTop: 10 }} {...props}>
+    <View style={[{ marginTop: 10 }, styles]}>
       <Text semiBold fontsize={SIZES.mediumText}>
         {title}
       </Text>
       <TextInput
+        selectionColor={COLORS.primary}
         keyboardType="text"
         placeholderTextColor={COLORS.primary}
         fontFamily={"semiBold"}
@@ -31,6 +33,7 @@ export default function InputFieldAdmin({
           textAlign: "auto",
           textAlignVertical: "center",
         }}
+        {...props}
       />
     </View>
   );

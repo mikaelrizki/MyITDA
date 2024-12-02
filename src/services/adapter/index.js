@@ -1,4 +1,5 @@
 import axios from "axios";
+import * as FileSystem from "expo-file-system";
 
 export default {
   async getAuth(nim, password) {
@@ -57,6 +58,70 @@ export default {
       return response.data["data"];
     } catch (error) {
       console.error("[API] GetDataPengumuman error", error);
+    }
+  },
+
+  async postPengumuman(
+    judul,
+    tgl_masuk,
+    tgl_selesai,
+    isi,
+    fileUri,
+    fileType
+  ) {
+    try {
+      console.log("[API] PostPengumuman", fileUri, fileType);
+
+      const fileInfo = await FileSystem.getInfoAsync(fileUri);
+      console.log("File info:", fileInfo);
+      if (!fileInfo.exists) {
+        console.error("File does not exist at the given URI");
+      }
+
+      const fileName = fileUri.split("/").pop();
+
+      const formData = new FormData();
+      formData.append("judul", judul);
+      formData.append("tgl_masuk", tgl_masuk);
+      formData.append("tgl_selesai", tgl_selesai);
+      formData.append("isi", isi);
+      formData.append("img", {
+        uri: fileUri,
+        type: fileType,
+        name: fileName,
+      });
+
+      console.log("[API] PostPengumuman Form Data", formData);
+
+      const response = await axios.post(
+        "https://mahasiswa.itda.ac.id/upload_berita.php",
+        formData,
+        {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        }
+      );
+
+      console.log("[API] PostPengumuman Success", response);
+
+      return response;
+    } catch (error) {
+      console.error("[API] PostPengumuman error", error);
+      if (error.response) {
+        // Server responded with a status other than 200 range
+        console.error(
+          "[API] PostPengumuman response error",
+          error.response.data
+        );
+      } else if (error.request) {
+        // Request was made but no response received
+        console.error("[API] PostPengumuman request error", error.request);
+      } else {
+        // Something happened in setting up the request
+        console.error("[API] PostPengumuman setup error", error.message);
+      }
+      return false;
     }
   },
 

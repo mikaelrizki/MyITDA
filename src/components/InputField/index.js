@@ -25,6 +25,7 @@ export default function InputField({
     >
       {leftIcon && <View style={LOCAL_STYLE.inputIcon}>{leftIcon}</View>}
       <TextInput
+        selectionColor={COLORS.primary}
         keyboardType={keyboardType}
         secureTextEntry={isPassword}
         placeholder={placeholder}

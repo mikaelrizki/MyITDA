@@ -9,6 +9,8 @@ import { useState } from "react";
 import ThirdAppBar from "../../components/ThirdAppBar";
 import DatePicker from "react-native-neat-date-picker";
 import DetailAnnouncement from "../../components/DetailAnnouncement";
+import adapter from "../../services/adapter";
+import * as FileSystem from "expo-file-system";
 
 export default function MainAdminScreen({ navigation }) {
   const [index, setIndex] = useState(0);
@@ -17,7 +19,18 @@ export default function MainAdminScreen({ navigation }) {
     { key: "createAnnouncement", title: "CreateAnnouncement" },
   ]);
 
+  const [dataSubmit, setDataSubmit] = useState({
+    judul: "",
+    tgl_masuk: "",
+    tgl_selesai: "",
+    isi: "",
+    img: "",
+    fileName: "",
+    type: "",
+  });
+
   const [showDetailAnnouncement, setShowDetailAnnouncement] = useState(false);
+  const [selectedData, setSelectedData] = useState({});
 
   const openDetailAnnouncement = () => {
     setShowDetailAnnouncement(true);
@@ -30,6 +43,7 @@ export default function MainAdminScreen({ navigation }) {
   const generateListAnnouncement = () => (
     <ListAnnouncementScreen
       openDetailAnnouncement={openDetailAnnouncement}
+      setSelectedData={setSelectedData}
     />
   );
 
@@ -38,8 +52,16 @@ export default function MainAdminScreen({ navigation }) {
   const [startDate, setStartDate] = useState("");
   const [endDate, setEndDate] = useState("");
 
-  const openDatePickerRange = () => {
+  const openDatePickerRange = (data) => {
     setShowDatePickerRange(true);
+    setDataSubmit({
+      ...dataSubmit,
+      judul: data.judul,
+      isi: data.isi,
+      img: data.img,
+      fileName: data.fileName,
+      type: data.type,
+    });
   };
 
   const onCancel = () => {
@@ -54,21 +76,54 @@ export default function MainAdminScreen({ navigation }) {
     setEndDate(`${dayEnd}/${monthEnd}/${yearEnd}`);
   };
 
-  const handleDataDate = (index) => {
-    setIndex(index);
-    if (index == 0) {
-      setStartDate("");
-      setEndDate("");
-    }
-  };
   const generateCreateAnnouncement = () => (
     <CreateAnnouncementScreen
       navigation={navigation}
-      openDatePickerRange={openDatePickerRange}
+      openDatePickerRange={(data) => openDatePickerRange(data)}
       startDate={startDate}
       endDate={endDate}
+      data={dataSubmit}
+      handleSubmit={(data) => handleSubmit(data)}
     />
   );
+
+  const handleSubmit = async (data) => {
+    const [day, month, year] = data.tgl_masuk.split("/");
+    data.tgl_masuk = `${year}-${month}-${day}`;
+
+    const [dayEnd, monthEnd, yearEnd] = data.tgl_selesai.split("/");
+    data.tgl_selesai = `${yearEnd}-${monthEnd}-${dayEnd}`;
+    
+    const fileUri = FileSystem.documentDirectory + data.fileName;
+    console.log("INI FILE URI",fileUri);
+
+    const response = await adapter.postPengumuman(
+      data.judul,
+      data.tgl_masuk,
+      data.tgl_selesai,
+      data.isi,
+      data.img,
+      data.type
+    );
+    console.log(response);
+
+    if (response) {
+      alert("Pengumuman berhasil ditambahkan");
+      setStartDate("");
+      setEndDate("");
+      setDataSubmit({
+        judul: "",
+        tgl_masuk: "",
+        tgl_selesai: "",
+        isi: "",
+        img: "",
+        fileName: "",
+        type: "",
+      });
+    } else {
+      alert("Pengumuman gagal ditambahkan");
+    }
+  };
 
   function renderTabBar(props) {
     return (
@@ -76,9 +131,8 @@ export default function MainAdminScreen({ navigation }) {
         {...props}
         style={{
           width: SIZES.width - 40,
-          height: 50,
           top: 15,
-          borderRadius: 10,
+          borderRadius: 12,
           alignSelf: "center",
           backgroundColor: COLORS.primary,
           borderColor: COLORS.primary,
@@ -93,7 +147,9 @@ export default function MainAdminScreen({ navigation }) {
             style={{
               backgroundColor: !focused ? COLORS.primary : COLORS.white,
               height: 40,
-              width: SIZES.width / 2.4,
+              marginVertical: 5,
+              marginRight: route.title === "CreateAnnouncement" ? 5 : 0,
+              width: SIZES.width / 2.3,
               borderRadius: 8,
               alignItems: "center",
               justifyContent: "center",
@@ -119,13 +175,14 @@ export default function MainAdminScreen({ navigation }) {
     <ImageBackground source={IMAGES.bgDefault} style={{ flex: 1 }}>
       <ThirdAppBar navigation={navigation} />
       <TabView
+        swipeEnabled={false}
         navigationState={{ index, routes }}
         renderScene={SceneMap({
           listAnnouncement: generateListAnnouncement,
           createAnnouncement: generateCreateAnnouncement,
         })}
         renderTabBar={renderTabBar}
-        onIndexChange={handleDataDate}
+        onIndexChange={(index) => setIndex(index)}
         style={{ flex: 1, width: SIZES.full }}
       />
       <DatePicker
@@ -154,15 +211,11 @@ export default function MainAdminScreen({ navigation }) {
       <DetailAnnouncement
         showModal={showDetailAnnouncement}
         onClosed={onClosedDetailAnnouncement}
-        title={"Informatika Registrasi Sem.Gasal 2024/2025"}
-        date={"13 Mar - 14 Apr 2024"}
-        content={
-          "Teman-teman silakan untuk melakukan registrasi Sem. Gasal 2024/2025. Registrasi kelas ini online, jadi hari ini bisa diakses hingga pukul 23.59 WIB. Kelas yang ditawarkan sudah tidak ada tambahan, kecuali ada pemberitahuan dari Prodi. Bagi yang belum mendapatkan kelas, silakan untuk di cek secara berkala atau bisa diatur jadwalnya. Terima Kasih"
-        }
-        imageFile={
-          "file:///data/user/0/host.exp.exponent/cache/DocumentPicker/731d3d08-ac79-4bd8-bfd5-da4bfe209adf.jpg"
-        }
-        fileName={"coba-coba.jpg"}
+        title={selectedData.judul}
+        date={selectedData.tgl_masuk}
+        content={selectedData.isi}
+        imageFile={`https://mahasiswa.itda.ac.id/assets/uploads/berita/${selectedData.nama_lampiran}`}
+        fileName={selectedData.nama_lampiran}
       />
     </ImageBackground>
   );
