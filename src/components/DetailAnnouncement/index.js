@@ -1,65 +1,56 @@
-import { Alert, Image, TouchableOpacity, View } from "react-native";
-import Text from "../../components/Text";
-import IMAGES from "../../assets/images";
-import { COLORS, SHADOWS, SIZES } from "../../styles";
-import SecondAppBar from "../../components/SecondAppBar";
-import ICONS from "../../assets/icons";
-import ItemSetting from "../../components/ItemSetting";
+import {
+  ActivityIndicator,
+  Alert,
+  Dimensions,
+  Image,
+  ImageBackground,
+  ScrollView,
+  View,
+} from "react-native";
+import { COLORS, SIZES } from "../../styles";
+import { TouchableOpacity } from "react-native";
 import { useState } from "react";
-import { resetDataAuth } from "../../stores/actions/actionAuth";
-import { useDispatch, useSelector } from "react-redux";
-import { resetDataPayment } from "../../stores/actions/actionPayment";
-import { resetDataBeasiswa } from "../../stores/actions/actionBeasiswa";
-import { resetNilaiKHS, resetYearnSmt } from "../../stores/actions/actionKHS";
-import { resetNilaiTranskrip } from "../../stores/actions/actionTranskrip";
-import { resetDataMahasiswa } from "../../stores/actions/actionMahasiswa";
-import * as Updates from "expo-updates";
+import ModalBox from "react-native-modalbox";
+import IMAGES from "../../assets/images";
+import Text from "../Text";
+import ICONS from "../../assets/icons";
+import * as FileSystem from "expo-file-system";
+import * as Sharing from "expo-sharing";
 
-export default function SettingScreen({ navigation }) {
-  const [showNotif, setShowNotif] = useState(true);
-  const dispatch = useDispatch();
-  const dataMahasiswa = useSelector(
-    (state) => state.dataMahasiswa.dataMahasiswaSelected[0]
-  );
-  const [imageError, setImageError] = useState(false);
-  const jenis_kelamin =
-    dataMahasiswa !== undefined ? dataMahasiswa.jenis_kelamin : null;
-  const path_foto =
-    dataMahasiswa !== undefined
-      ? "https://mahasiswa.itda.ac.id/perpus/img/" + dataMahasiswa.path_foto
-      : null;
-  const nama = dataMahasiswa !== undefined ? dataMahasiswa.nama : null;
-  const nim = dataMahasiswa !== undefined ? dataMahasiswa.nim : null;
+export default function DetailAnnouncement({
+  showModal,
+  onClosed,
+  title,
+  date,
+  content,
+  imageFile,
+  fileName,
+}) {
+  const [loading, setLoading] = useState(false);
+  const fileExtension = imageFile.split(".").pop();
 
-  const [isChecking, setIsChecking] = useState(false);
-
-  const checkForUpdate = async () => {
+  const downloadAndHandleFile = async (fileUrl) => {
+    setLoading(true);
     try {
-      setIsChecking(true);
-      const update = await Updates.checkForUpdateAsync();
+      // Get file path
+      const fileUri = `${FileSystem.documentDirectory}${fileUrl
+        .split("/")
+        .pop()}`;
 
-      if (update.isAvailable) {
-        Alert.alert(
-          "Pembaruan Tersedia",
-          "Versi aplikasi Anda sudah usang. Perbarui aplikasi sekarang?",
-          [
-            { text: "Batal", style: "cancel" },
-            {
-              text: "Perbarui",
-              onPress: async () => {
-                await Updates.fetchUpdateAsync();
-                await Updates.reloadAsync();
-              },
-            },
-          ]
-        );
-      } else {
-        Alert.alert("Tidak Ada Pembaruan", "Versi aplikasi Anda sudah yang terbaru.");
+      // Download file
+      const { uri } = await FileSystem.downloadAsync(fileUrl, fileUri);
+
+      // Open the image in the system's default viewer
+      if (!(await Sharing.isAvailableAsync())) {
+        Alert.alert("Error", "Opsi bagikan tidak tersedia di perangkat Anda.");
+        return;
       }
+      await Sharing.shareAsync(uri);
     } catch (error) {
-      Alert.alert("Error", `Gagal memeriksa pembaruan: ${error.message}`);
+      console.error("Error handling file:", error);
+      Alert.alert("Error", "Gagal menangani file. Silakan coba lagi.");
     } finally {
-      setIsChecking(false);
+      setLoading(false);
     }
   };
 
@@ -67,176 +58,152 @@ export default function SettingScreen({ navigation }) {
     <View
       style={{
         flex: 1,
-        backgroundColor: "white",
+        position: "absolute",
+        width: Dimensions.get("screen").width,
+        height: Dimensions.get("screen").height,
+        justifyContent: "center",
         alignItems: "center",
+        margin: 0,
       }}
     >
-      <View
-        style={{
-          justifyContent: "center",
-          alignItems: "center",
-          position: "absolute",
-        }}
+      <ModalBox
+        backdropOpacity={0.6}
+        swipeToClose={false}
+        isOpen={showModal}
+        onClosed={onClosed}
+        entry={"bottom"}
+        style={{ height: "70%", width: SIZES.width - 60, borderRadius: 35 }}
       >
-        <Image
-          source={IMAGES.bgSetting}
+        <ImageBackground
+          resizeMode="content"
+          source={IMAGES.bgDefault}
+          imageStyle={{ borderRadius: 35 }}
           style={{
+            flex: 1,
             width: "100%",
-            height: "undefine",
-            aspectRatio: 360 / 348,
-          }}
-          resizeMode="contain"
-        />
-        <View
-          style={{
-            justifyContent: "center",
+            height: "100%",
             alignItems: "center",
-            position: "absolute",
+            justifyContent: "center",
+            alignSelf: "center",
           }}
         >
-          <Image source={IMAGES.bgPic} style={{ width: 194, height: 194 }} />
-          <Image
-            source={
-              imageError && jenis_kelamin === "L"
-                ? IMAGES.manProfile
-                : imageError && jenis_kelamin === "P"
-                ? IMAGES.womanProfile
-                : {
-                    uri: path_foto,
-                  }
-            }
-            style={{
-              position: "absolute",
-              width: 133,
-              height: 133,
-              borderRadius: 100,
-              backgroundColor: COLORS.white,
-            }}
-            onError={() => setImageError(true)}
-          />
-        </View>
-      </View>
-      <View style={{ width: SIZES.width }}>
-        <SecondAppBar
-          label={"Profil Mahasiswa"}
-          setting
-          navigation={navigation}
-        />
-      </View>
-
-      <View
-        style={{
-          position: "absolute",
-          alignItems: "center",
-          width: "100%",
-          height: "40%",
-          top: 250,
-          justifyContent: "space-around",
-        }}
-      >
-        <View
-          style={[
-            SHADOWS.shadowBox,
-            {
-              width: "65%",
-              height: "45%",
-              backgroundColor: "white",
-              borderRadius: 20,
-              shadowColor: COLORS.primary,
-              justifyContent: "space-evenly",
-            },
-          ]}
-        >
-          <ItemSetting icon={ICONS.usernameIcon} value={nama} />
           <View
             style={{
-              borderWidth: 0.5,
-              borderColor: COLORS.lightGray,
-              marginHorizontal: 20,
+              width: "100%",
+              height: ((SIZES.width - 60) / 318) * 184,
+              justifyContent: "center",
+              alignItems: "center",
             }}
-          />
-          <ItemSetting icon={ICONS.nimIcon} value={nim} />
-        </View>
-
-        {/* <TouchableOpacity
+          >
+            <Image
+              source={IMAGES.imageDetailAnnouncement}
+              style={{
+                position: "absolute",
+                borderTopLeftRadius: 35,
+                borderTopRightRadius: 35,
+                top: 0,
+                left: 0,
+                width: "100%",
+                height: undefined,
+                aspectRatio: 318 / 184,
+              }}
+              resizeMode="cover"
+            />
+          </View>
+          <View
+            style={{
+              flex: 1,
+              width: SIZES.full,
+              flexDirection: "column",
+              paddingTop: 10,
+              paddingHorizontal: 20,
+            }}
+          >
+            <Text bold fontsize={16}>
+              {title}
+            </Text>
+            <View
+              style={{
+                flexDirection: "row",
+                alignItems: "center",
+                paddingBottom: 12,
+              }}
+            >
+              <Image
+                source={ICONS.calendarIcon}
+                style={{ width: 19, height: 19, marginRight: 10 }}
+              />
+              <Text medium fontsize={SIZES.smallText} padVertical={0}>
+                {date}
+              </Text>
+            </View>
+            <ScrollView
+              showsVerticalScrollIndicator={true}
+              overScrollMode={"never"}
+              style={{ flex: 1 }}
+            >
+              <Text
+                regular
+                fontsize={SIZES.smallText}
+                padVertical={0}
+                style={{ paddingRight: 5, marginTop: 8 }}
+              >
+                {content}
+              </Text>
+            </ScrollView>
+            <TouchableOpacity
+              onPress={() => {
+                downloadAndHandleFile(imageFile);
+              }}
+              style={{
+                marginTop: 15,
+                width: 125,
+                height: 81,
+                backgroundColor: COLORS.softGray,
+                borderRadius: 5,
+                borderColor: COLORS.lightGray,
+                borderWidth: 3,
+                marginBottom: 30,
+              }}
+            >
+              <Image
+                source={
+                  fileExtension == "pdf" ? ICONS.iconPDF : { uri: imageFile }
+                }
+                style={{
+                  width:  SIZES.full,
+                  height: fileExtension == "pdf" ? 40 : 81 - 21,
+                  borderTopLeftRadius: 3,
+                  borderTopRightRadius: 3,
+                  marginVertical: fileExtension == "pdf" ? 10 : 0,
+                  resizeMode: fileExtension == "pdf" ? "contain" : "cover",
+                }}
+              />
+              <Text
+                medium
+                numberOfLines={1}
+                fontsize={9}
+                padVertical={0}
+                style={{ marginTop: 1, marginLeft: 5 }}
+              >
+                {fileName}
+              </Text>
+            </TouchableOpacity>
+          </View>
+        </ImageBackground>
+      </ModalBox>
+      {loading && (
+        <ActivityIndicator
+          color={COLORS.white}
+          size="large"
           style={{
-            width: "65%",
-            flexDirection: "row",
-            paddingHorizontal: 20,
-            alignItems: "center",
-            backgroundColor: COLORS.secondary,
-            borderRadius: 10,
+            flex: 1,
+            width: SIZES.full,
+            zIndex: 999,
+            backgroundColor: "rgba(0,0,0,0.5)",
           }}
-          onPress={() => {
-            setShowNotif(!showNotif);
-            console.log(showNotif);
-          }}>
-          <Image
-            source={
-              showNotif ? ICONS.notificationSwitch : ICONS.notificationSwitchOff
-            }
-            style={{ width: 30, height: 29 }}
-          />
-          <Text bold fontsize={SIZES.smallText} style={{ paddingLeft: 20 }}>
-            Notifikasi
-          </Text>
-        </TouchableOpacity> */}
-      </View>
-      <TouchableOpacity
-        activeOpacity={0.87}
-        style={{
-          position: "absolute",
-          bottom: 130,
-          backgroundColor: COLORS.white,
-          width: "70%",
-          height: "7%",
-          alignItems: "center",
-          justifyContent: "center",
-          borderRadius: 50,
-          borderWidth: 2.5,
-          borderColor: COLORS.primary,
-          shadowColor: COLORS.primary,
-          shadowOpacity: 0.1,
-          shadowRadius: 8,
-          elevation: 4,
-        }}
-        onPress={checkForUpdate}
-      >
-        <Text bold fontsize={SIZES.mediumText} color={COLORS.primary}>
-          {isChecking ? "Sedang Memeriksa Pembaruan..." : `Periksa Pembaruan versi`}
-        </Text>
-      </TouchableOpacity>
-      <TouchableOpacity
-        activeOpacity={0.87}
-        style={{
-          position: "absolute",
-          bottom: 40,
-          backgroundColor: COLORS.red,
-          width: "70%",
-          height: "7%",
-          alignItems: "center",
-          justifyContent: "center",
-          borderRadius: 50,
-          shadowColor: COLORS.red,
-          shadowOpacity: 0.1,
-          shadowRadius: 8,
-          elevation: 4,
-        }}
-        onPress={() => {
-          navigation.replace("Auth");
-          dispatch(resetDataAuth());
-          dispatch(resetDataPayment());
-          dispatch(resetDataBeasiswa());
-          dispatch(resetDataMahasiswa());
-          dispatch(resetNilaiKHS());
-          dispatch(resetNilaiTranskrip());
-          dispatch(resetYearnSmt());
-        }}
-      >
-        <Text bold fontsize={SIZES.mediumText} color={COLORS.white}>
-          Keluar
-        </Text>
-      </TouchableOpacity>
+        />
+      )}
     </View>
   );
 }
