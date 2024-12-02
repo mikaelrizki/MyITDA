@@ -41,10 +41,22 @@ export default {
       const response = await axios.get(
         `https://perpustakaan.itda.ac.id/api/json_one_mhs.php?nim=${nim}`
       );
-      console.log("[API] getDataMhsbyNIM", response.data);
+      console.log("[API] GetDataMhsbyNIM", response.data);
       return response.data["data"];
     } catch (error) {
       console.error("[API] GetDataBeasiswa error", error);
+    }
+  },
+
+  async getDataPengumuman() {
+    try {
+      const response = await axios.get(
+        "https://perpustakaan.itda.ac.id/api/json_berita_mhs.php?id=all"
+      );
+      console.log("[API] GetDataPengumuman", response.data["data"]);
+      return response.data["data"];
+    } catch (error) {
+      console.error("[API] GetDataPengumuman error", error);
     }
   },
 
@@ -168,7 +180,7 @@ export default {
         }
       }
 
-      console.log("[API] getYearnSMT", structuredData);
+      console.log("[API] GetYearnSMT", structuredData);
       return structuredData;
     } catch (error) {
       console.error("[API] GetDataYear error", error);

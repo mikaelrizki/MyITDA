@@ -1,15 +1,21 @@
 import {
+  ActivityIndicator,
+  Alert,
   Dimensions,
   Image,
   ImageBackground,
   ScrollView,
   View,
 } from "react-native";
+import { COLORS, SIZES } from "../../styles";
+import { TouchableOpacity } from "react-native";
+import { useState } from "react";
 import ModalBox from "react-native-modalbox";
 import IMAGES from "../../assets/images";
-import { COLORS, SIZES } from "../../styles";
 import Text from "../Text";
 import ICONS from "../../assets/icons";
+import * as FileSystem from "expo-file-system";
+import * as Sharing from "expo-sharing";
 
 export default function DetailAnnouncement({
   showModal,
@@ -20,6 +26,33 @@ export default function DetailAnnouncement({
   imageFile,
   fileName,
 }) {
+  const [loading, setLoading] = useState(false);
+
+  const downloadAndHandleFile = async (fileUrl) => {
+    setLoading(true);
+    try {
+      // Get file path
+      const fileUri = `${FileSystem.documentDirectory}${fileUrl
+        .split("/")
+        .pop()}`;
+
+      // Download file
+      const { uri } = await FileSystem.downloadAsync(fileUrl, fileUri);
+
+      // Open the image in the system's default viewer
+      if (!(await Sharing.isAvailableAsync())) {
+        Alert.alert("Error", "Sharing is not available on this device.");
+        return;
+      }
+      await Sharing.shareAsync(uri);
+    } catch (error) {
+      console.error("Error handling file:", error);
+      Alert.alert("Error", "An error occurred while handling the file.");
+    } finally {
+      setLoading(false);
+    }
+  };
+
   return (
     <View
       style={{
@@ -34,7 +67,7 @@ export default function DetailAnnouncement({
     >
       <ModalBox
         backdropOpacity={0.6}
-        swipeToClose={true}
+        swipeToClose={false}
         isOpen={showModal}
         onClosed={onClosed}
         entry={"bottom"}
@@ -79,6 +112,7 @@ export default function DetailAnnouncement({
           <View
             style={{
               flex: 1,
+              width: SIZES.full,
               flexDirection: "column",
               paddingTop: 10,
               paddingHorizontal: 20,
@@ -102,19 +136,26 @@ export default function DetailAnnouncement({
                 {date}
               </Text>
             </View>
-            <ScrollView showsVerticalScrollIndicator={true} style={{ flex: 1 }}>
+            <ScrollView
+              showsVerticalScrollIndicator={true}
+              overScrollMode={"never"}
+              style={{ flex: 1 }}
+            >
               <Text
                 regular
                 fontsize={SIZES.smallText}
                 padVertical={0}
-                style={{ paddingRight: 5 }}
+                style={{ paddingRight: 5, marginTop: 8 }}
               >
                 {content}
               </Text>
             </ScrollView>
-            <View
+            <TouchableOpacity
+              onPress={() => {
+                downloadAndHandleFile(imageFile);
+              }}
               style={{
-                marginTop: 10,
+                marginTop: 15,
                 width: 125,
                 height: 81,
                 backgroundColor: COLORS.softGray,
@@ -141,10 +182,22 @@ export default function DetailAnnouncement({
               >
                 {fileName}
               </Text>
-            </View>
+            </TouchableOpacity>
           </View>
         </ImageBackground>
       </ModalBox>
+      {loading && (
+        <ActivityIndicator
+          color={COLORS.white}
+          size="large"
+          style={{
+            flex: 1,
+            width: SIZES.full,
+            zIndex: 999,
+            backgroundColor: "rgba(0,0,0,0.5)",
+          }}
+        />
+      )}
     </View>
   );
 }

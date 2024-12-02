@@ -8,7 +8,8 @@ export default function ItemAnnouncement({
   announcementTitle,
   announcementDate,
   announcementContent,
-  anouncementFileName,
+  announcementFileName,
+  announcementFileType,
   onPress,
 }) {
   return (
@@ -39,7 +40,13 @@ export default function ItemAnnouncement({
           width: SIZES.full,
         }}
       >
-        <Text semiBold fontsize={SIZES.smallText} padVertical={0}>
+        <Text
+          semiBold
+          fontsize={SIZES.smallText}
+          padVertical={0}
+          numberOfLines={1}
+          style={{ flex: 1, marginRight: 15 }}
+        >
           {announcementTitle}
         </Text>
         <Text medium fontsize={SIZES.extraSmallText} padVertical={0}>
@@ -51,9 +58,9 @@ export default function ItemAnnouncement({
         fontsize={SIZES.extraSmallText}
         padVertical={12}
         style={{ color: COLORS.lightBlue }}
+        numberOfLines={2}
       >
         {announcementContent}
-        {"... "}
       </Text>
 
       <View
@@ -66,21 +73,22 @@ export default function ItemAnnouncement({
           alignItems: "center",
           borderRadius: 50,
           paddingLeft: 10,
+          paddingRight: 15,
         }}
       >
         <Image
-          source={ICONS.iconPDF}
-          resizeMode="content"
-          style={{ width: 15, height: 19, marginRight: 8 }}
+          source={announcementFileType == "pdf" ? ICONS.iconPDF : ICONS.imgFile}
+          resizeMode="center"
+          style={{ width: 19, height: 19, marginRight: 6 }}
         />
         <Text
           medium
           fontsize={SIZES.extraSmallText}
           padVertical={0}
           style={{ color: COLORS.lightBlue, marginRight: 8 }}
+          numberOfLines={1}
         >
-          {anouncementFileName}
-          {"..."}
+          {announcementFileName}
         </Text>
       </View>
     </TouchableOpacity>
