@@ -181,13 +181,22 @@ export default function CreateAnnouncementScreen({
         disabled={
           tempDataSubmit.judul === "" ||
           tempDataSubmit.isi === "" ||
-          tempDataSubmit.img === ""
+          tempDataSubmit.img === "" ||
+          tempDataSubmit.tgl_masuk === "" ||
+          tempDataSubmit.tgl_selesai === ""
         }
         onPress={() => handleSubmit(tempDataSubmit)}
         style={{
           width: SIZES.full,
           height: 46,
-          backgroundColor: COLORS.primary,
+          backgroundColor:
+            tempDataSubmit.judul === "" ||
+            tempDataSubmit.isi === "" ||
+            tempDataSubmit.img === "" ||
+            tempDataSubmit.tgl_masuk === "" ||
+            tempDataSubmit.tgl_selesai === ""
+              ? COLORS.warning
+              : COLORS.primary,
           justifyContent: "center",
           alignItems: "center",
           borderRadius: 10,

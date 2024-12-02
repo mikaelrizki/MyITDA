@@ -40,12 +40,12 @@ export default function SettingScreen({ navigation }) {
 
       if (update.isAvailable) {
         Alert.alert(
-          "Update Available",
-          "A new update is available. Would you like to download and apply it?",
+          "Pembaruan Tersedia",
+          "Versi aplikasi Anda sudah usang. Perbarui aplikasi sekarang?",
           [
-            { text: "Cancel", style: "cancel" },
+            { text: "Batal", style: "cancel" },
             {
-              text: "Update",
+              text: "Perbarui",
               onPress: async () => {
                 await Updates.fetchUpdateAsync();
                 await Updates.reloadAsync();
@@ -54,10 +54,10 @@ export default function SettingScreen({ navigation }) {
           ]
         );
       } else {
-        Alert.alert("No Updates", "You are on the latest version.");
+        Alert.alert("Tidak Ada Pembaruan", "Versi aplikasi Anda sudah yang terbaru.");
       }
     } catch (error) {
-      Alert.alert("Error", `Failed to check for updates: ${error.message}`);
+      Alert.alert("Error", `Gagal memeriksa pembaruan: ${error.message}`);
     } finally {
       setIsChecking(false);
     }
