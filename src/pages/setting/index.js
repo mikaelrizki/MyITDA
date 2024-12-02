@@ -1,4 +1,4 @@
-import { Image, TouchableOpacity, View } from "react-native";
+import { Alert, Image, TouchableOpacity, View } from "react-native";
 import Text from "../../components/Text";
 import IMAGES from "../../assets/images";
 import { COLORS, SHADOWS, SIZES } from "../../styles";
@@ -13,6 +13,7 @@ import { resetDataBeasiswa } from "../../stores/actions/actionBeasiswa";
 import { resetNilaiKHS, resetYearnSmt } from "../../stores/actions/actionKHS";
 import { resetNilaiTranskrip } from "../../stores/actions/actionTranskrip";
 import { resetDataMahasiswa } from "../../stores/actions/actionMahasiswa";
+import * as Updates from "expo-updates";
 
 export default function SettingScreen({ navigation }) {
   const [showNotif, setShowNotif] = useState(true);
@@ -30,19 +31,53 @@ export default function SettingScreen({ navigation }) {
   const nama = dataMahasiswa !== undefined ? dataMahasiswa.nama : null;
   const nim = dataMahasiswa !== undefined ? dataMahasiswa.nim : null;
 
+  const [isChecking, setIsChecking] = useState(false);
+
+  const checkForUpdate = async () => {
+    try {
+      setIsChecking(true);
+      const update = await Updates.checkForUpdateAsync();
+
+      if (update.isAvailable) {
+        Alert.alert(
+          "Update Available",
+          "A new update is available. Would you like to download and apply it?",
+          [
+            { text: "Cancel", style: "cancel" },
+            {
+              text: "Update",
+              onPress: async () => {
+                await Updates.fetchUpdateAsync();
+                await Updates.reloadAsync();
+              },
+            },
+          ]
+        );
+      } else {
+        Alert.alert("No Updates", "You are on the latest version.");
+      }
+    } catch (error) {
+      Alert.alert("Error", `Failed to check for updates: ${error.message}`);
+    } finally {
+      setIsChecking(false);
+    }
+  };
+
   return (
     <View
       style={{
         flex: 1,
         backgroundColor: "white",
         alignItems: "center",
-      }}>
+      }}
+    >
       <View
         style={{
           justifyContent: "center",
           alignItems: "center",
           position: "absolute",
-        }}>
+        }}
+      >
         <Image
           source={IMAGES.bgSetting}
           style={{
@@ -57,7 +92,8 @@ export default function SettingScreen({ navigation }) {
             justifyContent: "center",
             alignItems: "center",
             position: "absolute",
-          }}>
+          }}
+        >
           <Image source={IMAGES.bgPic} style={{ width: 194, height: 194 }} />
           <Image
             source={
@@ -94,9 +130,10 @@ export default function SettingScreen({ navigation }) {
           alignItems: "center",
           width: "100%",
           height: "40%",
-          top: SIZES.height / 2.9,
+          top: 250,
           justifyContent: "space-around",
-        }}>
+        }}
+      >
         <View
           style={[
             SHADOWS.shadowBox,
@@ -108,7 +145,8 @@ export default function SettingScreen({ navigation }) {
               shadowColor: COLORS.primary,
               justifyContent: "space-evenly",
             },
-          ]}>
+          ]}
+        >
           <ItemSetting icon={ICONS.usernameIcon} value={nama} />
           <View
             style={{
@@ -148,7 +186,31 @@ export default function SettingScreen({ navigation }) {
         activeOpacity={0.87}
         style={{
           position: "absolute",
-          bottom: 30,
+          bottom: 130,
+          backgroundColor: COLORS.white,
+          width: "70%",
+          height: "7%",
+          alignItems: "center",
+          justifyContent: "center",
+          borderRadius: 50,
+          borderWidth: 2.5,
+          borderColor: COLORS.primary,
+          shadowColor: COLORS.primary,
+          shadowOpacity: 0.1,
+          shadowRadius: 8,
+          elevation: 4,
+        }}
+        onPress={checkForUpdate}
+      >
+        <Text bold fontsize={SIZES.mediumText} color={COLORS.primary}>
+          {isChecking ? "Sedang Memeriksa Pembaruan..." : `Periksa Pembaruan versi`}
+        </Text>
+      </TouchableOpacity>
+      <TouchableOpacity
+        activeOpacity={0.87}
+        style={{
+          position: "absolute",
+          bottom: 40,
           backgroundColor: COLORS.red,
           width: "70%",
           height: "7%",
@@ -169,7 +231,8 @@ export default function SettingScreen({ navigation }) {
           dispatch(resetNilaiKHS());
           dispatch(resetNilaiTranskrip());
           dispatch(resetYearnSmt());
-        }}>
+        }}
+      >
         <Text bold fontsize={SIZES.mediumText} color={COLORS.white}>
           Keluar
         </Text>
