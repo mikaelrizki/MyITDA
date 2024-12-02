@@ -82,7 +82,7 @@ export default function AnnouncementScreen({ navigation }) {
         date={selectedData.tgl_masuk}
         content={selectedData.isi}
         imageFile={`https://mahasiswa.itda.ac.id/assets/uploads/berita/${selectedData.nama_lampiran}`}
-        fileName={"coba-coba.jpg"}
+        fileName={selectedData.nama_lampiran}
       />
     </ImageBackground>
   );
