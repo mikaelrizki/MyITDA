@@ -1,4 +1,4 @@
-import { Dimensions, ImageBackground, View } from "react-native";
+import { Alert, Dimensions, ImageBackground, View } from "react-native";
 import Text from "../../components/Text";
 import ListAnnouncementScreen from "./listAnnouncement";
 import CreateAnnouncementScreen from "./createAnnouncement";
@@ -108,7 +108,7 @@ export default function MainAdminScreen({ navigation }) {
     console.log(response);
 
     if (response) {
-      alert("Pengumuman berhasil ditambahkan");
+      Alert.alert("Pemberitahuan","Pengumuman berhasil ditambahkan");
       setStartDate("");
       setEndDate("");
       setDataSubmit({
@@ -121,7 +121,7 @@ export default function MainAdminScreen({ navigation }) {
         type: "",
       });
     } else {
-      alert("Pengumuman gagal ditambahkan");
+      Alert.alert("Pemberitahuan", "Pengumuman gagal ditambahkan");
     }
   };
 
