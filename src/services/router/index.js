@@ -22,8 +22,9 @@ export default function Router() {
   const navigation = useNavigation();
 
   useEffect(() => {
+    const isSplash = navigation.getCurrentRoute().name === "Splash";
     // MIDDLEWARE AUTH: Redirect to Auth screen if dataAuth is null
-    if (!dataAuth.loginDate) {
+    if (!dataAuth.loginDate && !isSplash) {
       navigation.reset({
         index: 0,
         routes: [{ name: "Auth" }],
