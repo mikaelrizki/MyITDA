@@ -14,7 +14,13 @@ export default function AnnouncementScreen({ navigation }) {
   useEffect(() => {
     const fetchData = async () => {
       const dataPengumuman = await adapter.getDataPengumuman();
-      const reverseData = dataPengumuman.reverse();
+      const dateNow = new Date();
+      const filteredData = dataPengumuman.filter((item) => {
+        const dateMasuk = new Date(item.tgl_masuk);
+        const dateSelesai = new Date(item.tgl_selesai);
+        return dateNow >= dateMasuk && dateNow <= dateSelesai;
+      });
+      const reverseData = filteredData.reverse();
       setData(reverseData);
       console.log(dataPengumuman);
     };
