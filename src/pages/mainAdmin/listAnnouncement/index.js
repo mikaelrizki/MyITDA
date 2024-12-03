@@ -1,26 +1,20 @@
-import { View } from "react-native";
+import { RefreshControl, View } from "react-native";
 import ItemAnnouncement from "../../../components/ItemAnnouncement";
-import { SIZES } from "../../../styles";
+import { COLORS, SIZES } from "../../../styles";
 import { FlatList } from "react-native-gesture-handler";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import adapter from "../../../services/adapter";
 import { Alert } from "react-native";
+import Text from "../../../components/Text";
 
 export default function ListAnnouncementScreen({
   openDetailAnnouncement,
   setSelectedData,
+  dataPengumuman,
+  onRefresh,
+  isRefreshing,
 }) {
-  const [data, setData] = useState([]);
-
-  useEffect(() => {
-    const fetchData = async () => {
-      const dataPengumuman = await adapter.getDataPengumuman();
-      const reverseData = dataPengumuman.reverse();
-      setData(reverseData);
-      console.log(dataPengumuman);
-    };
-    fetchData();
-  }, []);
+  const data = dataPengumuman;
 
   const formatDate = (tglMasuk, tglSelesai) => {
     const months = [
@@ -60,6 +54,12 @@ export default function ListAnnouncementScreen({
     >
       <FlatList
         data={data}
+        refreshControl={
+          <RefreshControl refreshing={isRefreshing} onRefresh={onRefresh} 
+            colors={[COLORS.primary]}
+          />
+        }
+        onScrollToTop={() => console.log("Scrolled to top")}
         renderItem={({ item }) => (
           <ItemAnnouncement
             announcementTitle={item.judul}
@@ -84,12 +84,11 @@ export default function ListAnnouncementScreen({
                     text: "Hapus",
                     onPress: async () => {
                       await adapter.deleteAnnouncement(item.id);
-                      setData(
-                        data.filter(
-                          (announcement) => announcement.id !== item.id
-                        )
+                      onRefresh();
+                      Alert.alert(
+                        "Pemberitahuan",
+                        "Pengumuman berhasil dihapus"
                       );
-                      Alert.alert("Pemberitahuan","Pengumuman berhasil dihapus");
                     },
                     style: "destructive",
                   },

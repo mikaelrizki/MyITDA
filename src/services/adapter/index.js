@@ -61,23 +61,12 @@ export default {
     }
   },
 
-  async postPengumuman(
-    judul,
-    tgl_masuk,
-    tgl_selesai,
-    isi,
-    fileUri,
-    fileType
-  ) {
+  async postPengumuman(judul, tgl_masuk, tgl_selesai, isi, fileUri, fileType) {
     try {
       console.log("[API] PostPengumuman", fileUri, fileType);
 
       const fileInfo = await FileSystem.getInfoAsync(fileUri);
       console.log("File info:", fileInfo);
-      if (!fileInfo.exists) {
-        console.error("File does not exist at the given URI");
-      }
-
       const fileName = fileUri.split("/").pop();
 
       const formData = new FormData();
@@ -85,11 +74,15 @@ export default {
       formData.append("tgl_masuk", tgl_masuk);
       formData.append("tgl_selesai", tgl_selesai);
       formData.append("isi", isi);
-      formData.append("img", {
-        uri: fileUri,
-        type: fileType,
-        name: fileName,
-      });
+      if (!fileInfo.exists) {
+        console.error("File does not exist at the given URI");
+      } else {
+        formData.append("img", {
+          uri: fileUri,
+          type: fileType,
+          name: fileName,
+        });
+      }
 
       console.log("[API] PostPengumuman Form Data", formData);
 

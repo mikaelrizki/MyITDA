@@ -203,7 +203,7 @@ export default function SettingScreen({ navigation }) {
         onPress={checkForUpdate}
       >
         <Text bold fontsize={SIZES.mediumText} color={COLORS.primary}>
-          {isChecking ? "Sedang Memeriksa Pembaruan..." : `Periksa Pembaruan versi`}
+          {isChecking ? "Sedang Memeriksa Pembaruan..." : `Periksa Pembaruan Versi`}
         </Text>
       </TouchableOpacity>
       <TouchableOpacity

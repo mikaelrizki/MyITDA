@@ -5,7 +5,7 @@ import CreateAnnouncementScreen from "./createAnnouncement";
 import { SceneMap, TabBar, TabView } from "react-native-tab-view";
 import { COLORS, SIZES } from "../../styles";
 import IMAGES from "../../assets/images";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import ThirdAppBar from "../../components/ThirdAppBar";
 import DatePicker from "react-native-neat-date-picker";
 import DetailAnnouncement from "../../components/DetailAnnouncement";
@@ -18,6 +18,26 @@ export default function MainAdminScreen({ navigation }) {
     { key: "listAnnouncement", title: "ListAnnouncement" },
     { key: "createAnnouncement", title: "CreateAnnouncement" },
   ]);
+
+  const [dataPengumuman, setDataPengumuman] = useState([]);
+  const [isRefreshing, setIsRefreshing] = useState(false);
+
+  const fetchData = async () => {
+    try {
+      setIsRefreshing(true);
+      const dataPengumuman = await adapter.getDataPengumuman();
+      const reverseData = dataPengumuman.reverse();
+      setDataPengumuman(reverseData);
+    } catch (error) {
+      console.error("Error fetching data:", error);
+    } finally {
+      setIsRefreshing(false);
+    }
+  };
+
+  useEffect(() => {
+    fetchData();
+  }, []);
 
   const [dataSubmit, setDataSubmit] = useState({
     judul: "",
@@ -44,6 +64,9 @@ export default function MainAdminScreen({ navigation }) {
     <ListAnnouncementScreen
       openDetailAnnouncement={openDetailAnnouncement}
       setSelectedData={setSelectedData}
+      dataPengumuman={dataPengumuman}
+      onRefresh={fetchData}
+      isRefreshing={isRefreshing}
     />
   );
 
@@ -93,9 +116,9 @@ export default function MainAdminScreen({ navigation }) {
 
     const [dayEnd, monthEnd, yearEnd] = data.tgl_selesai.split("/");
     data.tgl_selesai = `${yearEnd}-${monthEnd}-${dayEnd}`;
-    
+
     const fileUri = FileSystem.documentDirectory + data.fileName;
-    console.log("INI FILE URI",fileUri);
+    console.log("INI FILE URI", fileUri);
 
     const response = await adapter.postPengumuman(
       data.judul,
@@ -108,7 +131,7 @@ export default function MainAdminScreen({ navigation }) {
     console.log(response);
 
     if (response) {
-      Alert.alert("Pemberitahuan","Pengumuman berhasil ditambahkan");
+      Alert.alert("Pemberitahuan", "Pengumuman berhasil ditambahkan");
       setStartDate("");
       setEndDate("");
       setDataSubmit({

@@ -181,7 +181,6 @@ export default function CreateAnnouncementScreen({
         disabled={
           tempDataSubmit.judul === "" ||
           tempDataSubmit.isi === "" ||
-          tempDataSubmit.img === "" ||
           tempDataSubmit.tgl_masuk === "" ||
           tempDataSubmit.tgl_selesai === ""
         }
@@ -192,7 +191,6 @@ export default function CreateAnnouncementScreen({
           backgroundColor:
             tempDataSubmit.judul === "" ||
             tempDataSubmit.isi === "" ||
-            tempDataSubmit.img === "" ||
             tempDataSubmit.tgl_masuk === "" ||
             tempDataSubmit.tgl_selesai === ""
               ? COLORS.warning
