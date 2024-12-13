@@ -21,7 +21,6 @@ export default function ItemAnnouncement({
       style={[
         SHADOWS.shadowBox,
         {
-          top: 15,
           width: "95%",
           height: 130,
           paddingTop: 16,

@@ -77,7 +77,7 @@ export default function AnnouncementScreen({ navigation }) {
           />
         )}
         keyExtractor={(item) => item.id.toString()}
-        style={{ flex: 1, paddingHorizontal: 20 }}
+        style={{ flex: 1, paddingHorizontal: 20, marginTop: 15 }}
         contentContainerStyle={{ paddingBottom: 30 }}
         showsVerticalScrollIndicator={false}
       />

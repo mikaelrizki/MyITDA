@@ -197,7 +197,27 @@ export default function MainAdminScreen({ navigation }) {
   return (
     <ImageBackground source={IMAGES.bgDefault} style={{ flex: 1 }}>
       <ThirdAppBar navigation={navigation} />
-      <TabView
+      <Text
+        bold
+        color={COLORS.primary}
+        fontsize={SIZES.h1}
+        padVertical={5}
+        style={{
+          marginHorizontal: 30,
+          marginTop: 20,
+          marginBottom: 15,
+        }}
+      >
+        Pengumuman
+      </Text>
+      <ListAnnouncementScreen
+        openDetailAnnouncement={openDetailAnnouncement}
+        setSelectedData={setSelectedData}
+        dataPengumuman={dataPengumuman}
+        onRefresh={fetchData}
+        isRefreshing={isRefreshing}
+      />
+      {/* <TabView
         swipeEnabled={false}
         navigationState={{ index, routes }}
         renderScene={SceneMap({
@@ -230,7 +250,7 @@ export default function MainAdminScreen({ navigation }) {
           width: Dimensions.get("screen").width,
           height: Dimensions.get("screen").height,
         }}
-      />
+      /> */}
       <DetailAnnouncement
         showModal={showDetailAnnouncement}
         onClosed={onClosedDetailAnnouncement}

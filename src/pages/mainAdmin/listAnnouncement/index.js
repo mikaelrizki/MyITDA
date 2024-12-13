@@ -1,11 +1,9 @@
-import { RefreshControl, View } from "react-native";
+import { RefreshControl, ScrollView } from "react-native";
 import ItemAnnouncement from "../../../components/ItemAnnouncement";
 import { COLORS, SIZES } from "../../../styles";
 import { FlatList } from "react-native-gesture-handler";
-import { useState } from "react";
 import adapter from "../../../services/adapter";
 import { Alert } from "react-native";
-import Text from "../../../components/Text";
 
 export default function ListAnnouncementScreen({
   openDetailAnnouncement,
@@ -45,20 +43,22 @@ export default function ListAnnouncementScreen({
   };
 
   return (
-    <View
+    <ScrollView
       style={{
         flex: 1,
         width: SIZES.full,
         paddingHorizontal: 20,
       }}
+      refreshControl={
+        <RefreshControl
+          refreshing={isRefreshing}
+          onRefresh={onRefresh}
+          colors={[COLORS.primary]}
+        />
+      }
     >
       <FlatList
         data={data}
-        refreshControl={
-          <RefreshControl refreshing={isRefreshing} onRefresh={onRefresh} 
-            colors={[COLORS.primary]}
-          />
-        }
         onScrollToTop={() => console.log("Scrolled to top")}
         renderItem={({ item }) => (
           <ItemAnnouncement
@@ -104,6 +104,6 @@ export default function ListAnnouncementScreen({
         contentContainerStyle={{ paddingBottom: 30 }}
         showsVerticalScrollIndicator={false}
       />
-    </View>
+    </ScrollView>
   );
 }
