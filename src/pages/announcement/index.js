@@ -105,16 +105,16 @@ export default function AnnouncementScreen({ navigation }) {
           contentContainerStyle={{ paddingBottom: 30 }}
           showsVerticalScrollIndicator={false}
         />
-        <DetailAnnouncement
-          showModal={showModal}
-          onClosed={onClosed}
-          title={selectedData.judul}
-          date={selectedData.tgl_masuk}
-          content={selectedData.isi}
-          imageFile={`https://mahasiswa.itda.ac.id/assets/uploads/berita/${selectedData.nama_lampiran}`}
-          fileName={selectedData.nama_lampiran}
-        />
       </ScrollView>
+      <DetailAnnouncement
+        showModal={showModal}
+        onClosed={onClosed}
+        title={selectedData.judul}
+        date={selectedData.tgl_masuk}
+        content={selectedData.isi}
+        imageFile={`https://mahasiswa.itda.ac.id/assets/uploads/berita/${selectedData.nama_lampiran}`}
+        fileName={selectedData.nama_lampiran}
+      />
     </ImageBackground>
   );
 }
