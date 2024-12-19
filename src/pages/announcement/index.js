@@ -7,6 +7,7 @@ import DetailAnnouncement from "../../components/DetailAnnouncement";
 import adapter from "../../services/adapter";
 import { FlatList } from "react-native-gesture-handler";
 import { COLORS, SIZES } from "../../styles";
+import { formatDateAnnouncement } from "../../services/utils/formatter";
 
 export default function AnnouncementScreen({ navigation }) {
   const [showModal, setShowModal] = useState(false);
@@ -36,34 +37,6 @@ export default function AnnouncementScreen({ navigation }) {
     fetchData();
   }, []);
 
-  const formatDate = (tglMasuk, tglSelesai) => {
-    const months = [
-      "Jan",
-      "Feb",
-      "Mar",
-      "Apr",
-      "Mei",
-      "Jun",
-      "Jul",
-      "Agu",
-      "Sep",
-      "Okt",
-      "Nov",
-      "Des",
-    ];
-    const tglMasukArr = tglMasuk.split("-");
-    const tglSelesaiArr = tglSelesai.split("-");
-    if (tglMasukArr[1] === tglSelesaiArr[1]) {
-      return `${tglMasukArr[2]} - ${tglSelesaiArr[2]} ${
-        months[parseInt(tglMasukArr[1]) - 1]
-      } ${tglMasukArr[0]}`;
-    } else {
-      return `${tglMasukArr[2]} ${months[parseInt(tglMasukArr[1]) - 1]} - ${
-        tglSelesaiArr[2]
-      } ${months[parseInt(tglSelesaiArr[1]) - 1]} ${tglMasukArr[0]}`;
-    }
-  };
-
   const onClosed = () => {
     setShowModal(false);
   };
@@ -90,7 +63,10 @@ export default function AnnouncementScreen({ navigation }) {
           renderItem={({ item }) => (
             <ItemAnnouncement
               announcementTitle={item.judul}
-              announcementDate={formatDate(item.tgl_masuk, item.tgl_selesai)}
+              announcementDate={formatDateAnnouncement(
+                item.tgl_masuk,
+                item.tgl_selesai
+              )}
               announcementContent={item.isi}
               announcementFileName={item.nama_lampiran}
               announcementFileType={item.nama_lampiran.split(".").pop()}
@@ -106,15 +82,20 @@ export default function AnnouncementScreen({ navigation }) {
           showsVerticalScrollIndicator={false}
         />
       </ScrollView>
-      <DetailAnnouncement
-        showModal={showModal}
-        onClosed={onClosed}
-        title={selectedData.judul}
-        date={selectedData.tgl_masuk}
-        content={selectedData.isi}
-        imageFile={`https://mahasiswa.itda.ac.id/assets/uploads/berita/${selectedData.nama_lampiran}`}
-        fileName={selectedData.nama_lampiran}
-      />
+      {selectedData.tgl_masuk && selectedData.tgl_selesai && (
+        <DetailAnnouncement
+          showModal={showModal}
+          onClosed={onClosed}
+          title={selectedData.judul}
+          date={formatDateAnnouncement(
+            selectedData.tgl_masuk,
+            selectedData.tgl_selesai
+          )}
+          content={selectedData.isi}
+          imageFile={`https://mahasiswa.itda.ac.id/assets/uploads/berita/${selectedData.nama_lampiran}`}
+          fileName={selectedData.nama_lampiran}
+        />
+      )}
     </ImageBackground>
   );
 }

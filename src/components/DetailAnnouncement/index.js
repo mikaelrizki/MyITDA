@@ -171,7 +171,7 @@ export default function DetailAnnouncement({
                   fileExtension == "pdf" ? ICONS.iconPDF : { uri: imageFile }
                 }
                 style={{
-                  width:  SIZES.full,
+                  width: SIZES.full,
                   height: fileExtension == "pdf" ? 40 : 81 - 21,
                   borderTopLeftRadius: 3,
                   borderTopRightRadius: 3,

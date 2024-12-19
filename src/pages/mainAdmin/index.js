@@ -11,6 +11,7 @@ import DatePicker from "react-native-neat-date-picker";
 import DetailAnnouncement from "../../components/DetailAnnouncement";
 import adapter from "../../services/adapter";
 import * as FileSystem from "expo-file-system";
+import { formatDateAnnouncement } from "../../services/utils/formatter";
 
 export default function MainAdminScreen({ navigation }) {
   const [index, setIndex] = useState(0);
@@ -251,15 +252,20 @@ export default function MainAdminScreen({ navigation }) {
           height: Dimensions.get("screen").height,
         }}
       /> */}
-      <DetailAnnouncement
-        showModal={showDetailAnnouncement}
-        onClosed={onClosedDetailAnnouncement}
-        title={selectedData.judul}
-        date={selectedData.tgl_masuk}
-        content={selectedData.isi}
-        imageFile={`https://mahasiswa.itda.ac.id/assets/uploads/berita/${selectedData.nama_lampiran}`}
-        fileName={selectedData.nama_lampiran}
-      />
+      {selectedData.tgl_masuk && selectedData.tgl_selesai && (
+        <DetailAnnouncement
+          showModal={showDetailAnnouncement}
+          onClosed={onClosedDetailAnnouncement}
+          title={selectedData.judul}
+          date={formatDateAnnouncement(
+            selectedData.tgl_masuk,
+            selectedData.tgl_selesai
+          )}
+          content={selectedData.isi}
+          imageFile={`https://mahasiswa.itda.ac.id/assets/uploads/berita/${selectedData.nama_lampiran}`}
+          fileName={selectedData.nama_lampiran}
+        />
+      )}
     </ImageBackground>
   );
 }

@@ -4,6 +4,7 @@ import { COLORS, SIZES } from "../../../styles";
 import { FlatList } from "react-native-gesture-handler";
 import adapter from "../../../services/adapter";
 import { Alert } from "react-native";
+import { formatDateAnnouncement } from "../../../services/utils/formatter";
 
 export default function ListAnnouncementScreen({
   openDetailAnnouncement,
@@ -13,34 +14,6 @@ export default function ListAnnouncementScreen({
   isRefreshing,
 }) {
   const data = dataPengumuman;
-
-  const formatDate = (tglMasuk, tglSelesai) => {
-    const months = [
-      "Jan",
-      "Feb",
-      "Mar",
-      "Apr",
-      "Mei",
-      "Jun",
-      "Jul",
-      "Agu",
-      "Sep",
-      "Okt",
-      "Nov",
-      "Des",
-    ];
-    const tglMasukArr = tglMasuk.split("-");
-    const tglSelesaiArr = tglSelesai.split("-");
-    if (tglMasukArr[1] === tglSelesaiArr[1]) {
-      return `${tglMasukArr[2]} - ${tglSelesaiArr[2]} ${
-        months[parseInt(tglMasukArr[1]) - 1]
-      } ${tglMasukArr[0]}`;
-    } else {
-      return `${tglMasukArr[2]} ${months[parseInt(tglMasukArr[1]) - 1]} - ${
-        tglSelesaiArr[2]
-      } ${months[parseInt(tglSelesaiArr[1]) - 1]} ${tglMasukArr[0]}`;
-    }
-  };
 
   return (
     <ScrollView
@@ -63,7 +36,7 @@ export default function ListAnnouncementScreen({
         renderItem={({ item }) => (
           <ItemAnnouncement
             announcementTitle={item.judul}
-            announcementDate={formatDate(item.tgl_masuk, item.tgl_selesai)}
+            announcementDate={formatDateAnnouncement(item.tgl_masuk, item.tgl_selesai)}
             announcementContent={item.isi}
             announcementFileName={item.nama_lampiran}
             onPress={() => {
