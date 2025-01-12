@@ -19,12 +19,13 @@ export default function AnnouncementScreen({ navigation }) {
     try {
       setIsRefreshing(true);
       const dataPengumuman = await adapter.getDataPengumuman();
-      const dateNow = new Date();
-      const filteredData = dataPengumuman.filter((item) => {
-        const dateSelesai = new Date(item.tgl_selesai);
-        return dateNow <= dateSelesai;
-      });
-      const reverseData = filteredData.reverse();
+      // const dateNow = new Date();
+      // const filteredData = dataPengumuman.filter((item) => {
+      //   const dateSelesai = new Date(item.tgl_selesai);
+      //   return dateNow <= dateSelesai;
+      // });
+      // const reverseData = filteredData.reverse();
+      const reverseData = dataPengumuman.reverse();
       setData(reverseData);
     } catch (error) {
       console.error("Error fetching data:", error);
